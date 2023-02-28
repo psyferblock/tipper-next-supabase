@@ -9,7 +9,7 @@ import MobileDropdownManagement from "../Components/MobileDropdownManagement";
 import EditMenuCategoryNameModal from "../Components/modals/EditMenuCategoryNameModal";
 import AddNewMenuCategoryModal from "../Components/modals/AddNewMenuCategoryModal";
 import supabase from "@/utils/supabase";
-import { useAuthContext } from "@/app/Store";
+import { useAuthContext } from "@/app/store/Store";
 
 export default function Home() {
   //Owner chooses between pdf and manually inputting items

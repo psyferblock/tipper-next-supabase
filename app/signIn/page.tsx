@@ -1,7 +1,8 @@
 "use client";
+
 import supabase from "@/utils/supabase";
 import { useState } from "react";
-import { useAuthContext } from "../Store";
+import { useAuthContext } from "../store/Store";
 import { useRouter } from "next/navigation";
 
 // import dynamic from "next/dynamic";
@@ -26,16 +27,21 @@ export default function Home() {
         });
         if (response.error) throw response.error;
         const responseId = await response.data.user?.id;
+       
+
         localStorage.setItem("user", JSON.stringify(responseId));
         console.log("userId on sign in", responseId);
         setUserId(responseId);
       }
+      
+      router.push("/[userId]")
     } catch (error) {
       if (error) {
         throw error;
       }
     }
   }
+  
 
   return (
     <div className="sm:h-fit sm:min-h-screen sm:px-0 px-3 py-5 sm:py-0">
@@ -114,6 +120,7 @@ export default function Home() {
           <button
             className="w-full h-10 mt-8 hover:bg-blue-600 hover:text-lg rounded-3xl bg-blue-500 text-white text-sm"
             onClick={signInWithEmail}
+            
           >
             Sign In
           </button>

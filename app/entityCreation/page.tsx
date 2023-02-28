@@ -28,9 +28,6 @@ export default function Home() {
     router.push("/");
   };
 
-  const handleGenderButtonChange = (event) => {
-    setOwnerGender(event.target.value);
-  };
   async function createEntity() {
     try {
       const { data, error } = await supabase

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthContext } from "../Store";
+import { useAuthContext } from "../../Store";
 import supabase from "@/utils/supabase";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -45,6 +45,9 @@ export default function Home() {
         .select();
 
       if (error) throw error;
+      const entityId = data[0].id;
+      localStorage.setItem("entityId", JSON.stringify(entityId));
+
       console.log("response after entity creation", data);
     } catch (error) {
       if (error) {
@@ -52,9 +55,6 @@ export default function Home() {
       }
     }
   }
-
-  console.log("userId in entity creation:", userId);
-  console.log("ownergender", ownerGender);
 
   return (
     <div className=" sm:h-fit sm:min-h-screen px-3 sm:px-0 py-5 sm:py-0">

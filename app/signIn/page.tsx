@@ -17,8 +17,6 @@ export default function Home() {
     router.push("/");
   };
 
-  console.log("userId on sign in page:", userId);
-
   async function signInWithEmail() {
     try {
       if (email && password) {

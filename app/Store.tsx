@@ -17,27 +17,27 @@ function createAuthTools(): {
   //function to set userId state variable, exported to child components so that they can call it when the userId is fetched back from GraphQL
   setUserId: (userId: string) => void;
   //function to set entityId state variable, exported to child components so that they can call it when the entityId is fetched back from GraphQL
-  //   setOwnedEntityId: (entityId: string) => void;
+  setOwnedEntityId: (entityId: string) => void;
   //function to set userId state variable, exported to child components so that they can call it when the userId is fetched back from GraphQL
   //   contextSignOut: () => void;
   //userId state variable, exported to child components so that they can call it when the userId is fetched back from GraphQL
   userId: string;
   //   token: string;
-  //   ownedEntityId: string;
+  ownedEntityId: string;
 } {
   /**
    * On every render of context, we check first if we have values for token and userId in local storage
    */
   useEffect(() => {
     //In case we have user infos in local storage we store them in context
-    const user = JSON.parse(localStorage.getItem("user"));
+    const userIdInLocalStorage = JSON.parse(localStorage.getItem("user"));
+    const entityIdInLocalStorage = JSON.parse(localStorage.getItem("entityId"));
 
-    if (user) {
-      //   setToken(user.token);
-      setUserId(user);
-      //   if (user.ownedEntityId) {
-      //     setOwnedEntityId(user.ownedEntityId);
-      //   }
+    if (userIdInLocalStorage) {
+      setUserId(userIdInLocalStorage);
+    }
+    if (entityIdInLocalStorage) {
+      setOwnedEntityId(entityIdInLocalStorage);
     }
   }, []);
 
@@ -47,23 +47,23 @@ function createAuthTools(): {
   type logInState = {
     // token: string;
     userId: string;
-    // ownedEntityId: string;
+    ownedEntityId: string;
   };
 
   /**
    * Format for which actions are allowed to modify our state variables ( token and userId ) should be
    */
   type logInActions =
-    // | {
-    //     type: "setToken";
-    //     payload: string;
-    //   }
-    {
-      type: "setUserId";
-      payload: string;
-    };
+    | {
+        type: "setUserId";
+        payload: string;
+      }
+    | {
+        type: "setOwnedEntityId";
+        payload: string;
+      };
   // | {
-  //     type: "setOwnedEntityId";
+  //     type: "setToken";
   //     payload: string;
   //   }
   // | {
@@ -75,15 +75,15 @@ function createAuthTools(): {
    * so if you want to change the info contained in email or password states,
    * you call dispatch (in setEmail or setPassword for example)
    */
-  const [{ userId }, dispatch] = useReducer(
+  const [{ userId, ownedEntityId }, dispatch] = useReducer(
     (state: logInState, action: logInActions) => {
       switch (action.type) {
         // case "setToken":
         //   return { ...state, token: action.payload };
         case "setUserId":
           return { ...state, userId: action.payload };
-        // case "setOwnedEntityId":
-        //   return { ...state, ownedEntityId: action.payload };
+        case "setOwnedEntityId":
+          return { ...state, ownedEntityId: action.payload };
         // case "signOut":
         //   return { ...state, userId: "", token: "", ownedEntityId: "" };
       }
@@ -91,7 +91,7 @@ function createAuthTools(): {
     {
       //   token: "",
       userId: "",
-      //   ownedEntityId: "",
+      ownedEntityId: "",
     }
   );
 
@@ -118,12 +118,12 @@ function createAuthTools(): {
   /**
    * Setter function for entityId state variable
    */
-  //   const setOwnedEntityId = useCallback((ownedEntityId: string) => {
-  //     dispatch({
-  //       type: "setOwnedEntityId",
-  //       payload: ownedEntityId,
-  //     });
-  //   }, []);
+  const setOwnedEntityId = useCallback((ownedEntityId: string) => {
+    dispatch({
+      type: "setOwnedEntityId",
+      payload: ownedEntityId,
+    });
+  }, []);
 
   /**
    * Setter function for signing out, named it context sign out to not make mistakes in children components
@@ -134,16 +134,16 @@ function createAuthTools(): {
   //     });
   //   }, []);
 
-  console.log("AuthContext state:", { userId });
+  console.log("AuthContext state:", { userId, ownedEntityId });
 
   return {
     // setToken,
     setUserId,
-    // setOwnedEntityId,
+    setOwnedEntityId,
     // contextSignOut,
     userId,
     // token,
-    // ownedEntityId,
+    ownedEntityId,
   };
 }
 

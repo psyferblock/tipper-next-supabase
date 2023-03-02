@@ -1,10 +1,12 @@
 "use client"
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import RoutedButtonComponent from './buttonComponent';
 
 export default function userProfile() {
 
-  const userProfileId=
+  const router=useRouter()
+  const {userProfileId}= await router.query
+
   return (
     <>
       <p className="h-14 pl-3 sm:pl-16 sm:h-fit pt-3 sm:pt-6 sm:mt-0 sm:pb-5 bg-gray-300 w-full z-50 sm:z-0 fixed sm:relative sm:mb-0 text-2xl sm:text-2xl font-bold sm:font-bold">

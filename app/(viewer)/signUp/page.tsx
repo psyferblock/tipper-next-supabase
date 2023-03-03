@@ -1,10 +1,10 @@
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
-export default function Home() {
-  const router = useRouter();
+export default function SignUp() {
+  // const router = useRouter();
 
   const handleBackButton = () => {
-    router.push("/signIn");
+    // router.push("/signIn");
   };
   return (
     <div className=" sm:h-fit sm:min-h-screen px-3 sm:px-0 py-5 sm:py-0">

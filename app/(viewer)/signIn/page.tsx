@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 // import dynamic from "next/dynamic";
 
-export default function Home() {
+export default function SignIn() {
   const [password, setPassword] = useState<string | undefined>();
   const [email, setEmail] = useState<string | undefined>();
   const { userId, setUserId } = useAuthContext();

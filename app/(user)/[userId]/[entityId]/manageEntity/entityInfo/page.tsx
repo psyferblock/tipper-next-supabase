@@ -1,13 +1,13 @@
 // "use client";
 
-import ManageAboutUs from "../manageEntity-Components/ManageAboutUs";
-import ManageContactUs from "../manageEntity-Components/ManageContactUs";
-import ManageCoverPhotos from "../manageEntity-Components/ManageCoverPhotos";
-import ManageEntityMenu from "../manageEntity-Components/ManageEntityLeftMenu";
-import ManageSocialMedia from "../manageEntity-Components/ManageSocialMedia";
-import ManageTags from "../manageEntity-Components/ManageTags";
-import ManageWorkingHours from "../manageEntity-Components/ManageWorkingHours";
-import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import ManageAboutUs from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageAboutUs";
+import ManageContactUs from "../manageEntity-components/modals/ManageContactUs";
+import ManageCoverPhotos from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageCoverPhotos";
+import ManageEntityMenu from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageEntityLeftMenu";
+import ManageSocialMedia from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageSocialMedia";
+import ManageTags from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageTags";
+import ManageWorkingHours from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageWorkingHours";
+import MobileDropdownManagement from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/MobileDropdownManagement";
 
 export default function Home() {
   return (

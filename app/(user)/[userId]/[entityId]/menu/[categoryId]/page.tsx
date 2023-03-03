@@ -6,7 +6,7 @@ import supabase from "@/utils/supabase";
 import { useState } from "react";
 import AddNewItemModal from "../../manageEntity-Components/modals/AddNewItemModal";
 import EditItemModal from "../../manageEntity-Components/modals/EditItemModal";
-import ManageMenuItemsMobile from "./menuItems-Components/ManageMenuItemsMobile";
+import ManageMenuItemsMobile from "../../manageEntity/manageMenu/ManageMenuItemsMobile";
 
 export default function Home({ params }) {
   const menuItems = [

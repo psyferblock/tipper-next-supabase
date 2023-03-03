@@ -1,6 +1,6 @@
-import ManageEntityLeftMenu from "../manageEntity-Components/ManageEntityLeftMenu";
-import ManageHighlightReels from "../manageEntity-Components/ManageHighlightReels";
-import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import ManageEntityLeftMenu from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageEntityLeftMenu";
+import ManageHighlightReels from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageHighlightReels";
+import MobileDropdownManagement from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/MobileDropdownManagement";
 
 export default function Home() {
   return (

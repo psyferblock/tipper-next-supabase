@@ -1,5 +1,5 @@
-import ManageEntityLeftMenu from "../manageEntity-Components/ManageEntityLeftMenu";
-import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import ManageEntityLeftMenu from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageEntityLeftMenu";
+import MobileDropdownManagement from "../../../../../(viewer)/[userId]/[entityId]/manageEntity/manageEntity-Components/MobileDropdownManagement";
 
 export default function Home() {
   return (

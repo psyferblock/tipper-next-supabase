@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
   // BOOLEAN TO DETERMINE WHETHER IT IS ADD HIGHLIGHT OR SHARE BUTTON NEXT TO HIGHLIGHTS
-  const userIsOwner = false;
+  const userIsOwner = true;
   const listOfHighlightReels = [
     "Events",
     "Discounts",
@@ -16,7 +16,7 @@ export default function Home() {
 
   const handleAddHighlightButton = (e) => {
     e.preventDefault();
-    router.push("/management/highlightReels");
+    router.push("1/1/manageEntity/highlightReels");
   };
   return (
     <div className="flex sm:space-x-3">

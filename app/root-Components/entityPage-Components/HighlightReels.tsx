@@ -1,6 +1,7 @@
+"use client";
 import { useRouter } from "next/navigation";
 
-export default function Home() {
+export default function EntityPageHighlightReelsSection() {
   // BOOLEAN TO DETERMINE WHETHER IT IS ADD HIGHLIGHT OR SHARE BUTTON NEXT TO HIGHLIGHTS
   const userIsOwner = true;
   const listOfHighlightReels = [

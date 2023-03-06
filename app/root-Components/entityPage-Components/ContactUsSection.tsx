@@ -1,4 +1,4 @@
-export default function Home() {
+export default function EntityPageAboutUsSection() {
   return (
     <div className="bg-white sm:flex items-center px-4 sm:px-0 space-y-4 sm:space-y-0 sm:space-x-16 py-4 sm:py-12">
       {/* PARAGRAPH */}

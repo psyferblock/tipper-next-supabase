@@ -1,4 +1,4 @@
-export default function Home() {
+export default function EntityPageCoverPhotosSection() {
   return (
     <div
       className="h-40 sm:h-[360px] sm:w-full bg-gray-300 rounded-lg drop-shadow-lg sm:px-6"

@@ -1,8 +1,10 @@
-import Link from "next/link";
 import CategoriesNavLink from "./manageEntity-Components/CategoriesNavLink";
-import ManageEntityLeftMenu from "./manageEntity-Components/ManageEntityLeftMenu";
 
-export default function Home({ children }: { children: React.ReactNode }) {
+export default function ManageEntityLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const userId = 1;
 
   const managementCategories = [

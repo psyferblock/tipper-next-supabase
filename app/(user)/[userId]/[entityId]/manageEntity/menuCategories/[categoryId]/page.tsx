@@ -3,13 +3,23 @@
 import SearchBar from "@/app/root-Components/tools-Components/BasicSearchBar";
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import supabase from "@/utils/supabase";
-import { useState } from "react";
-import AddNewItemModal from "../../manageEntity-Components/modals/AddNewItemModal";
-import EditItemModal from "../../manageEntity-Components/modals/EditItemModal";
+import { lazy, Suspense, useState } from "react";
 import ManageMenuItemsMobile from "./menuItems-Components/ManageMenuItemsMobile";
 import Link from "next/link";
+import Loading from "./menuItems-Components/Loading";
+import Image from "next/image";
 
-export default function Home({ params }) {
+//Importing this modal this way reduces Javascript code sent to user as
+//modal code is only run when modal is requested to be opened
+const AddNewItemModal = lazy(
+  () => import("../../manageEntity-Components/modals/AddNewItemModal")
+);
+
+const EditItemModal = lazy(
+  () => import("../../manageEntity-Components/modals/EditItemModal")
+);
+
+export default function MenuItems({ params }) {
   const menuItems = [
     {
       name: "Chicken Escalope",
@@ -128,8 +138,8 @@ export default function Home({ params }) {
 
               {/* SEARCH CATEGORY SEARCH BAR */}
               <SearchBar placeHolder="Seach for an item" />
-              <div className="flex pb-6">
-                <table className="table-fixed w-full">
+              <div id="one" className="flex pb-6">
+                <table id="two" className="table-fixed w-full">
                   <thead>
                     <tr>
                       <th className="pr-96 pb-4">Item</th>
@@ -150,13 +160,13 @@ export default function Home({ params }) {
                           </td>
                           <td>{item.name}</td>
                         </div>
-                        <td className="italic">
+                        <td id="three" className="italic">
                           {item.published ? "Public" : "Private"}
                         </td>
                         <td className="flex items-center justify-between">
                           <div className="flex items-center space-x-2 py-3">
                             <ToggleButton switchedOn={item.published} />
-                            <p className="pb-1">
+                            <p id="four" className="pb-1">
                               {item.published ? "Yes" : "No"}
                             </p>
                           </div>
@@ -224,17 +234,30 @@ export default function Home({ params }) {
       </div>
 
       {/* //THOSE 2 MODALS ARE AVAILABLE ON DESKTOP, FOR MOBILE VERSION THE EDIT ITEM MODAL IS IN THE "MANAGE MENU ITEMS MOBILE COMPONENT" */}
-      <AddNewItemModal
-        open={isAddItemModalOpen}
-        closeModal={closeAddCategoryModal}
-        saveAsDraftButtonInModalIsClicked={saveAsDraftButtonInModalIsClicked}
-        publishButtonInModalIsClicked={publishButtonInModalIsClicked}
-      />
-      <EditItemModal
-        open={isEditItemModalOpen}
-        closeModal={closeEditItemModal}
-        saveButtonInEditItemModalIsClicked={saveButtonInEditItemModalIsClicked}
-      />
+      {isAddItemModalOpen && (
+        <Suspense fallback={<Loading />}>
+          <AddNewItemModal
+            open={isAddItemModalOpen}
+            closeModal={closeAddCategoryModal}
+            saveAsDraftButtonInModalIsClicked={
+              saveAsDraftButtonInModalIsClicked
+            }
+            publishButtonInModalIsClicked={publishButtonInModalIsClicked}
+          />
+        </Suspense>
+      )}
+
+      {isEditItemModalOpen && (
+        <Suspense fallback={<Loading />}>
+          <EditItemModal
+            open={isEditItemModalOpen}
+            closeModal={closeEditItemModal}
+            saveButtonInEditItemModalIsClicked={
+              saveButtonInEditItemModalIsClicked
+            }
+          />
+        </Suspense>
+      )}
     </>
   );
 }

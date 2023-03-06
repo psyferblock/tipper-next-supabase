@@ -35,7 +35,6 @@ export default function Home({ children }: { children: React.ReactNode }) {
       </div>
       <div className="flex">
         {/* LEFT MENU */}
-        {/* <ManageEntityLeftMenu /> */}
         <div className="hidden sm:block sm:w-[340px]">
           <div className="rounded-lg bg-white mr-4 py-6 flex flex-col drop-shadow-lg">
             {managementCategories.map((category) => (

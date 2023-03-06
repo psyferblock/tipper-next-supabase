@@ -1,4 +1,6 @@
-export default function Home(props) {
+"use client";
+
+export default function BasicSearchBar(props) {
   return (
     <div className="w-full flex rounded-lg border-gray-400">
       <div className="pt-3">

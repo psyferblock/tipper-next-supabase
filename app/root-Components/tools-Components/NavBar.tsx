@@ -1,17 +1,18 @@
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Navbar() {
-  const isSignedIn = true;
+  const isSignedIn = false;
 
   return (
     <>
       <div className="bg-gray-500 fixed w-full z-10 flex justify-between sm:justify-between sm:items-center h-16 sm:h-[78px] px-3 sm:px-12">
-        <a
-          href="/"
+        <Link
+          href="/1"
           className="py-4 sm:py-[18px] font-light sm:font-normal text-white hover:text-purple-400 text-2xl sm:text-4xl"
         >
           Tipper
-        </a>
+        </Link>
 
         {isSignedIn ? (
           <div className="flex items-center space-x-4 sm:space-x-2 ">
@@ -33,8 +34,8 @@ export default function Navbar() {
             </button>
 
             {/* DESKTOP VERSION */}
-            <a
-              href="userProfile"
+            <Link
+              href="1/manageUserProfile"
               className="hidden sm:flex items-center sm:space-x-2 text-xs text-white pr-9"
             >
               <img
@@ -43,28 +44,28 @@ export default function Navbar() {
                 alt=""
               />
               <p>Coco Makmak</p>
-            </a>
+            </Link>
 
             {/* MOBILE VERSION */}
-            <a href="userProfile" className="sm:hidden">
+            <Link href="userProfile" className="sm:hidden">
               <img
                 className="w-6 h-6 inline-block rounded-full sm:ring-2 "
                 src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                 alt=""
               />
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="text-white text-sm sm:text-sm pt-1 sm:pt-0 font-light sm:font-normal flex items-center space-x-3 sm:space-x-5 ">
-            <a href="" className="hover:text-purple-400">
+            <Link href="" className="hover:text-purple-400">
               About Us
-            </a>
-            <a href="" className="hover:text-green-400">
+            </Link>
+            <Link href="" className="hover:text-green-400">
               Contact Us
-            </a>
-            <a href="/signIn" className="hover:text-sky-400">
+            </Link>
+            <Link href="/signIn" className="hover:text-sky-400">
               Sign In
-            </a>
+            </Link>
           </div>
         )}
       </div>

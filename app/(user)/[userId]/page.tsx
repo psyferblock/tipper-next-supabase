@@ -2,7 +2,6 @@
 
 import HomePageListingOfEntitiesCards from "@/app/root-Components/entityCards-Components/HomePageListingOfEntitiesCards";
 import HomePageSearchBar from "@/app/root-Components/tools-Components/HomePageSearchBar";
-import supabase from "@/utils/supabase";
 
 export default async function TipperHomePage({ params }) {
   return (

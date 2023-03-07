@@ -1,5 +1,3 @@
-//Layout of Entity Page
-
 import AboutUsSection from "@/app/root-Components/entityPage-Components/AboutUsSection";
 import ContactUsSection from "@/app/root-Components/entityPage-Components/ContactUsSection";
 import CoverPhotos from "@/app/root-Components/entityPage-Components/CoverPhotosSection";
@@ -10,8 +8,10 @@ import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Componen
 
 export default function EntityPageLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { entityId: number };
 }) {
   return (
     <>
@@ -35,7 +35,8 @@ export default function EntityPageLayout({
           <ManageEntityButtonDesktop />
         </div>
         <div className="sm:flex sm:flex-row flex flex-col-reverse sm:space-x-5 sm:h-[496px] sm:mb-8">
-          <EntityInfosLeftContainer />
+          {/* @ts-expect-error Server Component */}
+          <EntityInfosLeftContainer entityId={params.entityId} />
 
           {/* EVERYTHING ON THE RIGHT OF THE LEFT COLUMN */}
           <div className="sm:h-[496px] sm:flex sm:flex-col justify-between sm:w-1/4 sm:grow">
@@ -46,17 +47,11 @@ export default function EntityPageLayout({
           </div>
         </div>
 
-        {/* ////////////////////////////////////////////////////////////////////////////////////////////// */}
-
         {/* OUR MENU SECTION */}
         {children}
 
-        {/* ////////////////////////////////////////////////////////////////////////////////////////////// */}
-
         {/* GET IN TOUCH WITH US SECTION */}
         <ContactUsSection />
-
-        {/* ////////////////////////////////////////////////////////////////////////////////////////////// */}
 
         {/* ABOUT US SECTION */}
         <AboutUsSection />

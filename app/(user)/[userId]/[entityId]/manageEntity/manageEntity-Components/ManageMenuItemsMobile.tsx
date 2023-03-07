@@ -6,7 +6,7 @@ import EditItemModal from "./modals/EditItemModal";
 
 // ALL THIS COMPONENT IS FOR MOBILE VERSION
 
-export default function Home() {
+export default function ManageMenuItemsMobile() {
   //Edit Item Modal
   const [isEditItemModalOpen, setIsEditItemModalOpen] = useState(false);
 

@@ -2,7 +2,7 @@
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 
-export default function Home() {
+export default function ManageContactUsPage() {
   return (
     <div className="h-fit  bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg space-y-4">
       <div className="sm:flex items-center sm:space-x-6">

@@ -2,9 +2,9 @@
 
 import AboutUsSection from "@/app/root-Components/entityPage-Components/AboutUsSection";
 import ContactUsSection from "@/app/root-Components/entityPage-Components/ContactUsSection";
-import CoverPhotos from "@/app/root-Components/entityPage-Components/CoverPhotos";
+import CoverPhotos from "@/app/root-Components/entityPage-Components/CoverPhotosSection";
 import EntityInfosLeftContainer from "@/app/root-Components/entityPage-Components/EntityInfosLeftContainer";
-import HighlightReels from "@/app/root-Components/entityPage-Components/HighlightReels";
+import HighlightReels from "@/app/root-Components/entityPage-Components/HighlightReelsSection";
 import OurMenuSection from "@/app/root-Components/entityPage-Components/OurMenuSection";
 import { useRouter } from "next/navigation";
 

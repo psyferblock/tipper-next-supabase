@@ -1,4 +1,12 @@
-export default function EntityPageContainerWithEntityInfos() {
+import getEntityInfos from "@/lib/getEntityInfos";
+
+export default async function EntityPageContainerWithEntityInfos({
+  entityId,
+}: {
+  entityId: number;
+}) {
+  const entityInfos = await getEntityInfos(entityId);
+
   return (
     <div className=" bg-white rounded-lg mb-5 sm:mb-0 py-4 drop-shadow-xl px-3 sm:px-6 flex-none sm:w-[307px]">
       <div className="font-semibold flex justify-between flex-col space-y-3 sm:space-y-4">

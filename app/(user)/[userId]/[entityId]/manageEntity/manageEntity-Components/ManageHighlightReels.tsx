@@ -4,7 +4,7 @@ import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import { useState } from "react";
 import AddNewHighlightModal from "./modals/AddNewHighlightModal";
 
-export default function Home() {
+export default function ManageHighlightReels() {
   const highlightReels = [
     {
       name: "Events",

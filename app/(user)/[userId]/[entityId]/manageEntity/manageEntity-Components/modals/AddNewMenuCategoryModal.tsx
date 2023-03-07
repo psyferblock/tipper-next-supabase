@@ -3,7 +3,7 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-export default function Home(props) {
+export default function AddNewMenuCategoryModal(props) {
   //State
   const [categoryName, setCategoryName] = useState<string | undefined>();
 

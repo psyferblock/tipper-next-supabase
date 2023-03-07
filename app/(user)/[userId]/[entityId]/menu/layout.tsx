@@ -1,9 +1,11 @@
 import MenuNavigation from "@/app/root-Components/menu-Components/MenuNavigation";
 
-export default function EntityPageMenuSection({
+export default function EntityPageMenuSectionLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: { entityId: number };
 }) {
   return (
     <div className="bg-gray-100 py-6 sm:py-8">
@@ -15,7 +17,7 @@ export default function EntityPageMenuSection({
       </div>
       <div className=" sm:flex sm:space-x-1">
         <div className="sm:w-1/6 ">
-          <MenuNavigation />
+          <MenuNavigation entityId={params.entityId} />
         </div>
         {/* MENU ITEM CARDS */}
         {children}

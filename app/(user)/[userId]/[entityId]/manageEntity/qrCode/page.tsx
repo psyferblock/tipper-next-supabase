@@ -1,7 +1,7 @@
 import ManageQrCode from "../manageEntity-Components/ManageQrCode";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 
-export default function Home() {
+export default function ManageQrCodePage() {
   return (
     <>
       <div className="sm:hidden flex items-center fixed z-50 bg-gray-300 h-16 justify-between w-full">

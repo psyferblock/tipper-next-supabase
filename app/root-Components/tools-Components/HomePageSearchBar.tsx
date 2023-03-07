@@ -1,4 +1,4 @@
-export default function Home() {
+export default function HomePageSearchBar() {
   return (
     <div className="bg-white border border-black  sm:w-7/12 sm:mx-auto flex sm:py-0 sm:px-3 rounded-full overflow-hidden">
       <div className="sm:col-span-3 border-r">

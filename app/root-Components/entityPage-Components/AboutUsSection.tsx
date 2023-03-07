@@ -1,4 +1,4 @@
-export default function EntityPageContactUsSection() {
+export default function EntityPageAboutUsSection() {
   return (
     <div className="bg-gray-200 sm:flex sm:flex-row flex flex-col-reverse items-center px-2 sm:px-0 sm:space-y-0 sm:space-x-16 py-6 sm:py-12">
       {/* IMAGE */}

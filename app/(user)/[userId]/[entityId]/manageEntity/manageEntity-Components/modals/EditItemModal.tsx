@@ -3,7 +3,7 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-export default function Example(props) {
+export default function EditItemModal(props) {
   const cancelButtonRef = useRef(null);
 
   return (

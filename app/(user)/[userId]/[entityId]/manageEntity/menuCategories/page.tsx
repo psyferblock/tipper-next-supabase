@@ -11,7 +11,7 @@ import supabase from "@/utils/supabase";
 import { useAuthContext } from "@/app/Store";
 import ManageEntityLeftMenu from "../manageEntity-Components/ManageEntityLeftMenu";
 
-export default function Home() {
+export default function ManageMenuCategoriesPage() {
   //Owner chooses between pdf and manually inputting items
   const [isPdf, setIsPdf] = useState(false);
 

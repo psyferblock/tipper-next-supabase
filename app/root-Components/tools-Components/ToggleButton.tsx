@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Switch } from "@headlessui/react";
 
-export default function Example(props) {
+export default function ToggleButton(props) {
   const [enabled, setEnabled] = useState(props.switchedOn);
 
   return (

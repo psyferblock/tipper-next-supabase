@@ -6,7 +6,7 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function Home({ params }) {
+export default function ManageUserProfilePage({ params }) {
   const router = useRouter();
 
   const userOwnsEntity = false;

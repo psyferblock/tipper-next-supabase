@@ -19,7 +19,7 @@ const EditItemModal = lazy(
   () => import("../../manageEntity-Components/modals/EditItemModal")
 );
 
-export default function MenuItems({ params }) {
+export default function ManageMenuItems({ params }) {
   const menuItems = [
     {
       name: "Chicken Escalope",

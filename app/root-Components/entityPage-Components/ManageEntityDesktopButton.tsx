@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export default function ManageEntityButtonDesktop() {
+export default function ManageEntityDesktopButton() {
   const router = useRouter();
 
   const handleManageEntityButton = (e) => {

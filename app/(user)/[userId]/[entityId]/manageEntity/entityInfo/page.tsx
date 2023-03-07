@@ -3,13 +3,12 @@
 import ManageAboutUs from "../manageEntity-Components/ManageAboutUs";
 import ManageContactUs from "../manageEntity-Components/ManageContactUs";
 import ManageCoverPhotos from "../manageEntity-Components/ManageCoverPhotos";
-import ManageEntityMenu from "../manageEntity-Components/ManageEntityLeftMenu";
 import ManageSocialMedia from "../manageEntity-Components/ManageSocialMedia";
 import ManageTags from "../manageEntity-Components/ManageTags";
 import ManageWorkingHours from "../manageEntity-Components/ManageWorkingHours";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 
-export default function Home() {
+export default function ManageEntityInfosPage() {
   return (
     <>
       <div className="flex flex-col w-full pb-10">

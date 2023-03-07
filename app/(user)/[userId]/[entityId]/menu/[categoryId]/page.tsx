@@ -1,20 +1,16 @@
 import MenuItemCard from "@/app/root-Components/menu-Components/MenuItemCard";
+import getExchangeRate from "@/lib/getExchangeRate";
+import getMenuItems from "@/lib/getMenuItems";
 
-export default function EntityPageMenuSection() {
+export default async function EntityPageMenuItems({ params }) {
+  const menuItems = await getMenuItems(params.categoryId);
+  const exchangeRate = await getExchangeRate(params.entityId);
   return (
     <>
       <div className="grid h-96 sm:h-fit gap-3 overflow-y-auto sm:grid sm:grid-rows-2 sm:grid-flow-col sm:gap-5 sm:pb-5 sm:overflow-x-auto">
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
+        {menuItems.map((item) => (
+          <MenuItemCard menuItem={item} exchangeRate={exchangeRate} />
+        ))}
       </div>
       {/* LEFT / RIGHT NAVIGATION BUTTONS */}
       {/* <div className="hidden sm:flex justify-end space-x-1 pr-1">

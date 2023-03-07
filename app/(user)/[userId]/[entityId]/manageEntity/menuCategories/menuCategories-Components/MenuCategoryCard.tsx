@@ -1,7 +1,7 @@
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import Link from "next/link";
 
-export default function Home(props) {
+export default function MenuCategoryCard(props) {
   return (
     <Link
       href="1/1/manageEntity/menuCategories/1"

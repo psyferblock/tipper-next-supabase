@@ -1,4 +1,4 @@
-export default function MenuItemCard() {
+export default function MenuItemCard({ menuItem }) {
   const itemPicture = true;
 
   return (
@@ -13,13 +13,10 @@ export default function MenuItemCard() {
       <div className="overflow-y-auto">
         <div className="sm:pt-4 sm:pb-1 py-1 text-xs">
           <div className=" justify-between px-2 font-bold">
-            <p>Chicken Pasta</p>
-            <p>350,000 LBP</p>
+            <p>{menuItem.item_name}</p>
+            <p>{menuItem.item_price} LBP</p>
           </div>
-          <div className="px-2 sm:px-3">
-            Fresh natural home made pasta dough, cashew nuts, indian spices,
-            goat cheese, rocca leaves, chicken parmesan of other stuff
-          </div>
+          <div className="px-2 sm:px-3">{menuItem.item_description}</div>
           <div className="flex justify-start sm:justify-center space-x-3 pr-2 text-xs">
             <button className="flex items-center text-green-500">
               <svg

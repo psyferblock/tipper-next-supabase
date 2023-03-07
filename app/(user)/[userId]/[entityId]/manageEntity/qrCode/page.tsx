@@ -1,5 +1,5 @@
 import ManageQrCode from "../manageEntity-Components/ManageQrCode";
-import MobileDropdownManagement from "../manageEntity-Components/ManagementNavigationDropdownMobile";
+import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 
 export default function ManageQrCodePage() {
   return (

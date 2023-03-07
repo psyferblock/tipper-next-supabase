@@ -1,5 +1,5 @@
 import ManageHighlightReels from "../manageEntity-Components/ManageHighlightReels";
-import MobileDropdownManagement from "../manageEntity-Components/ManagementNavigationDropdownMobile";
+import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 
 export default function ManageHighlightReelsPage() {
   return (

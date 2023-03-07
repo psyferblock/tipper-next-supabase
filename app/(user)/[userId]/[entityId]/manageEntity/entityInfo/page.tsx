@@ -6,7 +6,7 @@ import ManageCoverPhotos from "../manageEntity-Components/ManageCoverPhotos";
 import ManageSocialMedia from "../manageEntity-Components/ManageSocialMedia";
 import ManageTags from "../manageEntity-Components/ManageTags";
 import ManageWorkingHours from "../manageEntity-Components/ManageWorkingHours";
-import MobileDropdownManagement from "../manageEntity-Components/ManagementNavigationDropdownMobile";
+import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 
 export default function ManageEntityInfosPage() {
   return (

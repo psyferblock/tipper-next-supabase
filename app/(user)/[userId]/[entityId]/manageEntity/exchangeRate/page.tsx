@@ -1,4 +1,4 @@
-import MobileDropdownManagement from "../manageEntity-Components/ManagementNavigationDropdownMobile";
+import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 
 export default function ManageExchangeRatePage() {
   return (

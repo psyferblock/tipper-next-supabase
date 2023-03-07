@@ -1,20 +1,19 @@
 import MenuItemCard from "@/app/root-Components/menu-Components/MenuItemCard";
+import supabase from "@/utils/supabase";
 
-export default function EntityPageMenuItems() {
+export default async function EntityPageMenuItems({ params }) {
+  const { data, error } = await supabase
+    .from("menu_item")
+    .select("*")
+    .eq("menu_category_id", `${params.categoryId}`);
+  if (error) throw error;
+  const menuItems = data;
   return (
     <>
       <div className="grid h-96 sm:h-fit gap-3 overflow-y-auto sm:grid sm:grid-rows-2 sm:grid-flow-col sm:gap-5 sm:pb-5 sm:overflow-x-auto">
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
-        <MenuItemCard />
+        {menuItems.map((item) => (
+          <MenuItemCard menuItem={item} />
+        ))}
       </div>
       {/* LEFT / RIGHT NAVIGATION BUTTONS */}
       {/* <div className="hidden sm:flex justify-end space-x-1 pr-1">

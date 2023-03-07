@@ -4,7 +4,7 @@ import { useState } from "react";
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import SearchBar from "@/app/root-Components/tools-Components/BasicSearchBar";
 import MenuCategoryCard from "./menuCategories-Components/MenuCategoryCard";
-import MobileDropdownManagement from "../manageEntity-Components/ManagementNavigationDropdownMobile";
+import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import EditMenuCategoryNameModal from "../manageEntity-Components/modals/EditMenuCategoryNameModal";
 import AddNewMenuCategoryModal from "../manageEntity-Components/modals/AddNewMenuCategoryModal";
 import supabase from "@/utils/supabase";

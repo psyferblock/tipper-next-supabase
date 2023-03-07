@@ -1,6 +1,7 @@
-export default function MenuItemCard({ menuItem }) {
+export default function MenuItemCard({ menuItem, exchangeRate }) {
   const itemPicture = true;
 
+  const itemPrice = (exchangeRate * menuItem.item_price).toLocaleString();
   return (
     <div className=" h-24 flex sm:h-fit sm:flex-col bg-white rounded-md sm:w-56 overflow-hidden sm:overflow-hidden drop-shadow-lg sm:first-letter:pb-2">
       {itemPicture && (
@@ -14,7 +15,7 @@ export default function MenuItemCard({ menuItem }) {
         <div className="sm:pt-4 sm:pb-1 py-1 text-xs">
           <div className=" justify-between px-2 font-bold">
             <p>{menuItem.item_name}</p>
-            <p>{menuItem.item_price} LBP</p>
+            <p>{itemPrice} LBP</p>
           </div>
           <div className="px-2 sm:px-3">{menuItem.item_description}</div>
           <div className="flex justify-start sm:justify-center space-x-3 pr-2 text-xs">

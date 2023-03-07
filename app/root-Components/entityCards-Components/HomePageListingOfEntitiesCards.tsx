@@ -1,12 +1,10 @@
 import EntitiesCardsInScrollRowDirection from "./EntitiesCardsInScrollRowDirection";
 import Link from "next/link";
 import supabase from "@/utils/supabase";
+import getAllEntities from "@/lib/getAllEntities";
 
 export default async function HomePageListingOfEntitiesCards(props) {
-  //API Call
-  let { data, error } = await supabase.from("entity").select("*");
-  if (error) throw error;
-  const listOfEntities = data;
+  const listOfEntities = await getAllEntities();
 
   const industries = [
     {

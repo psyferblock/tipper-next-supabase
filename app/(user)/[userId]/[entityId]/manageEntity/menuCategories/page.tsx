@@ -4,14 +4,14 @@ import { useState } from "react";
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import SearchBar from "@/app/root-Components/tools-Components/BasicSearchBar";
 import MenuCategoryCard from "./menuCategories-Components/MenuCategoryCard";
-import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import MobileDropdownManagement from "../manageEntity-Components/ManagementNavigationDropdownMobile";
 import EditMenuCategoryNameModal from "../manageEntity-Components/modals/EditMenuCategoryNameModal";
 import AddNewMenuCategoryModal from "../manageEntity-Components/modals/AddNewMenuCategoryModal";
 import supabase from "@/utils/supabase";
 import { useAuthContext } from "@/app/Store";
 import ManageEntityLeftMenu from "../manageEntity-Components/ManageEntityLeftMenu";
 
-export default function Home() {
+export default function ManageMenuCategoriesPage() {
   //Owner chooses between pdf and manually inputting items
   const [isPdf, setIsPdf] = useState(false);
 

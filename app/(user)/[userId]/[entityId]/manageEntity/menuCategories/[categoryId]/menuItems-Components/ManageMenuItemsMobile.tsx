@@ -4,7 +4,7 @@ import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import { useState } from "react";
 import EditItemModal from "../../../manageEntity-Components/modals/EditItemModal";
 
-export default function Home() {
+export default function ManageMenuItemsMobile() {
   //Edit Item Modal
   const [isEditItemModalOpen, setIsEditItemModalOpen] = useState(false);
 

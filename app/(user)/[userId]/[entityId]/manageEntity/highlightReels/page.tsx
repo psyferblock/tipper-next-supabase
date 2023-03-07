@@ -1,8 +1,7 @@
-import ManageEntityLeftMenu from "../manageEntity-Components/ManageEntityLeftMenu";
 import ManageHighlightReels from "../manageEntity-Components/ManageHighlightReels";
-import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import MobileDropdownManagement from "../manageEntity-Components/ManagementNavigationDropdownMobile";
 
-export default function Home() {
+export default function ManageHighlightReelsPage() {
   return (
     <>
       <div className="sm:hidden px-3 flex items-center justify-between py-2 bg-gray-300 w-full z-50  fixed  text-2xl font-bold">

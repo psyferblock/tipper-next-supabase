@@ -2,13 +2,13 @@
 
 import AboutUsSection from "@/app/root-Components/entityPage-Components/AboutUsSection";
 import ContactUsSection from "@/app/root-Components/entityPage-Components/ContactUsSection";
-import CoverPhotos from "@/app/root-Components/entityPage-Components/CoverPhotos";
+import CoverPhotos from "@/app/root-Components/entityPage-Components/CoverPhotosSection";
 import EntityInfosLeftContainer from "@/app/root-Components/entityPage-Components/EntityInfosLeftContainer";
-import HighlightReels from "@/app/root-Components/entityPage-Components/HighlightReels";
+import HighlightReels from "@/app/root-Components/entityPage-Components/HighlightReelsSection";
 import Link from "next/link";
-import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityButtonDesktop";
+import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
 
-export default function EntityPage({
+export default function EntityPageLayout({
   children,
 }: {
   children: React.ReactNode;

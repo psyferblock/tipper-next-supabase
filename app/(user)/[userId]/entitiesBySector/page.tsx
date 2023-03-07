@@ -1,7 +1,7 @@
 import EntitiesCardsInGridDirection from "@/app/root-Components/entityCards-Components/EntitiesCardsInGridDirection";
 import HomePageSearchBar from "@/app/root-Components/tools-Components/HomePageSearchBar";
 
-export default function Home() {
+export default function EntitiesBySectorPage() {
   return (
     <>
       <div className="sm:h-fit sm:min-h-screen px-3 sm:px-12 py-5 sm:py-8">

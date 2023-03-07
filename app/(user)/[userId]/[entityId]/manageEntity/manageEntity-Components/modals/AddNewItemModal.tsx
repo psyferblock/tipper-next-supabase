@@ -3,7 +3,7 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-export default function Example(props) {
+export default function AddNewItemModal(props) {
   //State
   const [itemName, setItemName] = useState<string | undefined>();
   const [itemDescription, setItemDescription] = useState<string | undefined>();

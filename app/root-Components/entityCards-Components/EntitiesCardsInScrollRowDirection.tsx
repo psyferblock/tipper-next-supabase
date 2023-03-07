@@ -1,6 +1,6 @@
 import EntityCard from "./EntityCard";
 
-export default function Home() {
+export default function EntityCardsInScrollRowDirection() {
   return (
     <div className="grid grid-rows-1 grid-flow-col gap-4 sm:gap-5 pb-2 sm:pb-5 overflow-x-auto">
       <EntityCard />

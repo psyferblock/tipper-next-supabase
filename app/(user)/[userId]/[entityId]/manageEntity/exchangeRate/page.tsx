@@ -1,7 +1,6 @@
-import ManageEntityLeftMenu from "../manageEntity-Components/ManageEntityLeftMenu";
-import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import MobileDropdownManagement from "../manageEntity-Components/ManagementNavigationDropdownMobile";
 
-export default function Home() {
+export default function ManageExchangeRatePage() {
   return (
     <>
       <div className="flex flex-col space-y-5 sm:space-y-0 w-full">

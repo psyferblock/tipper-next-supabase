@@ -2,7 +2,7 @@
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 
-export default function Home() {
+export default function ManageSocialMedia() {
   return (
     <div className=" bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">
       <p className="text-lg font-bold mb-1">Phone Number & Social Media</p>

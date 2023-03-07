@@ -1,6 +1,6 @@
 import MenuNavigation from "@/app/root-Components/menu-Components/MenuNavigation";
 
-export default function EntityPageMenuSection({
+export default function EntityPageMenuSectionLayout({
   children,
 }: {
   children: React.ReactNode;

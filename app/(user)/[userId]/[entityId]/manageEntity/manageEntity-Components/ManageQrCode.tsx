@@ -1,6 +1,6 @@
 "use client";
 
-export default function Home() {
+export default function ManageQrCode() {
   return (
     <>
       <div className="mt-1 bg-white rounded-lg p-4 drop-shadow-lg">

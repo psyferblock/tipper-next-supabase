@@ -1,6 +1,6 @@
 import MenuCategoriesNavLink from "./MenuCategoriesNavLink";
 
-export default function Home() {
+export default function MenuNavigation() {
   const menuCategories = [
     {
       name: "Breakfast",

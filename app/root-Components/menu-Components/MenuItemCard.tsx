@@ -1,6 +1,4 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-export default function Home() {
+export default function MenuItemCard() {
   const itemPicture = true;
 
   return (

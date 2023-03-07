@@ -1,6 +1,6 @@
 import MenuItemCard from "@/app/root-Components/menu-Components/MenuItemCard";
 
-export default function EntityPageMenuSection() {
+export default function EntityPageMenuItems() {
   return (
     <>
       <div className="grid h-96 sm:h-fit gap-3 overflow-y-auto sm:grid sm:grid-rows-2 sm:grid-flow-col sm:gap-5 sm:pb-5 sm:overflow-x-auto">

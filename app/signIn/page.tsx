@@ -7,7 +7,7 @@ import Link from "next/link";
 
 // import dynamic from "next/dynamic";
 
-export default function Home() {
+export default function SignInPage() {
   const [password, setPassword] = useState<string | undefined>();
   const [email, setEmail] = useState<string | undefined>();
   const { userId, setUserId } = useAuthContext();

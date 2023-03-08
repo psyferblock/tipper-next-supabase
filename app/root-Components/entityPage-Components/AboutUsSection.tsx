@@ -1,4 +1,4 @@
-export default function EntityPageAboutUsSection() {
+export default function EntityPageAboutUsSection({ description }) {
   return (
     <div className="bg-gray-200 sm:flex sm:flex-row flex flex-col-reverse items-center px-2 sm:px-0 sm:space-y-0 sm:space-x-16 py-6 sm:py-12">
       {/* IMAGE */}
@@ -12,13 +12,7 @@ export default function EntityPageAboutUsSection() {
         <p className="font-bold text-xl mx-auto sm:ml-60 border-t-8 border-blue-500 w-fit pt-3">
           About Us
         </p>
-        <p className="mr-8">
-          We are a great entity that sells soup to any person on earth willing
-          to taste our delicious mix of herbs, coconut and cacao. Originally
-          crafted on the shores of Brazil, our beer is made with the greatest
-          passion you'll find on the shores of Madagascar. We also sell all
-          kinds of sugary sugars such as nobel prizes and arctic monkeys.
-        </p>
+        <p className="mr-8">{description}</p>
       </div>
     </div>
   );

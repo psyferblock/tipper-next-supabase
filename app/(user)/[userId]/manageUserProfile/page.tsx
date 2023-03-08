@@ -1,10 +1,7 @@
 "use client";
 
-//we want to this component to be client side because a user can edit his personal information,
-//so we will need to use state management to send his changes to the DB
-
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import getMyUserInfos from "@/lib/getMyUserInfos";
 
 export default function ManageUserProfilePage({ params }) {
   const router = useRouter();
@@ -14,6 +11,9 @@ export default function ManageUserProfilePage({ params }) {
   const handleCreateNowButton = () => {
     router.push(`${params.userId}/entityCreation`);
   };
+
+  const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
+  // const userInfos = await getMyUserInfos(userId);
   return (
     <>
       <p className="h-14 pl-3 sm:pl-16 sm:h-fit pt-3 sm:pt-6 sm:mt-0 sm:pb-5 bg-gray-300 w-full z-50 sm:z-0 fixed sm:relative sm:mb-0 text-2xl sm:text-2xl font-bold sm:font-bold">

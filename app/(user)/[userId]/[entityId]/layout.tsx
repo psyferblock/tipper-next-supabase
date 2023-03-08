@@ -6,6 +6,7 @@ import HighlightReels from "@/app/root-Components/entityPage-Components/Highligh
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
 import getEntityInfos from "@/lib/getEntityInfos";
+import getReels from "@/lib/getReels";
 
 export default async function EntityPageLayout({
   children,
@@ -16,6 +17,9 @@ export default async function EntityPageLayout({
 }) {
   //Fetching entity infos and passing them as props
   const entityInfos = await getEntityInfos(params.entityId);
+
+  //Fetching reels and passing them as props
+  const entityReels = await getReels(params.entityId);
 
   return (
     <>
@@ -46,7 +50,7 @@ export default async function EntityPageLayout({
             {/*  COVER PHOTOS CONTAINER */}
             <CoverPhotos />
             {/* HIGHLIGHTS CONTAINER */}
-            <HighlightReels />
+            <HighlightReels entityReels={entityReels} />
           </div>
         </div>
 
@@ -54,10 +58,13 @@ export default async function EntityPageLayout({
         {children}
 
         {/* GET IN TOUCH WITH US SECTION */}
-        <ContactUsSection />
+        <ContactUsSection
+          description={entityInfos.contact_us_description}
+          phoneNumber={entityInfos.entity_phone_number}
+        />
 
         {/* ABOUT US SECTION */}
-        <AboutUsSection />
+        <AboutUsSection description={entityInfos.about_us_description} />
       </div>
     </>
   );

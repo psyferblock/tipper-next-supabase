@@ -5,7 +5,7 @@ export default async function getExchangeRate(entityId: number) {
   const { data, error } = await supabase
     .from("exchange_rate")
     .select("*")
-    .eq("entity_id", `${entityId}`);
+    .eq("entity_id", entityId);
   if (error) throw error;
   console.log("ex rate:", data);
   const rate = data[0].usd_lbp_rate;

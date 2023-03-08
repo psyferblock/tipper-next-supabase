@@ -1,5 +1,3 @@
-"use client";
-
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 
 export default function ManageSocialMedia() {

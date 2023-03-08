@@ -1,4 +1,9 @@
-export default function EntityPageContactUsSection() {
+import Link from "next/link";
+
+export default function EntityPageContactUsSection({
+  description,
+  phoneNumber,
+}) {
   return (
     <div className="bg-white sm:flex items-center px-4 sm:px-0 space-y-4 sm:space-y-0 sm:space-x-16 py-4 sm:py-12">
       {/* PARAGRAPH */}
@@ -6,12 +11,9 @@ export default function EntityPageContactUsSection() {
         <p className="font-bold text-xl mx-auto border-t-8 border-blue-500 w-fit pt-3">
           Get in touch with us!
         </p>
-        <p className="pr-8 ">
-          We deliver in all areas of Beirut! Text us by whatsapp or call us to
-          place your orders.
-        </p>
+        <p className="pr-8 ">{description}</p>
         <button className="w-40 h-10 rounded-3xl bg-blue-500 text-white text-sm">
-          Contact Us
+          <Link href={`tel:+961${phoneNumber}`}>Contact Us</Link>
         </button>
       </div>
       {/* IMAGE */}

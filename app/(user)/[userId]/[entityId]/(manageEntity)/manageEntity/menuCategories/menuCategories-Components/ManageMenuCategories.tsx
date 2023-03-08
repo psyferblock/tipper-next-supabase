@@ -3,26 +3,26 @@
 import { useState } from "react";
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import SearchBar from "@/app/root-Components/tools-Components/BasicSearchBar";
-import MenuCategoryCard from "./menuCategories-Components/MenuCategoryCard";
-import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
-import EditMenuCategoryNameModal from "../manageEntity-Components/modals/EditMenuCategoryNameModal";
-import AddNewMenuCategoryModal from "../manageEntity-Components/modals/AddNewMenuCategoryModal";
+import MenuCategoryCard from "./MenuCategoryCard";
+import MobileDropdownManagement from "../../manageEntity-Components/MobileDropdownManagement";
+import EditMenuCategoryNameModal from "../../manageEntity-Components/modals/EditMenuCategoryNameModal";
+import AddNewMenuCategoryModal from "../../manageEntity-Components/modals/AddNewMenuCategoryModal";
 import supabase from "@/utils/supabase";
 import { useAuthContext } from "@/app/Store";
-import ManageEntityLeftMenu from "../manageEntity-Components/ManageEntityLeftMenu";
 
-export default function ManageMenuCategoriesPage() {
+export default function ManageMenuCategories(props) {
   //Owner chooses between pdf and manually inputting items
   const [isPdf, setIsPdf] = useState(false);
-
-  const menuCategories = [
-    "Breakfast",
-    "Lunch",
-    "Dinner",
-    "Desert",
-    "Drinks",
-    "Our Specialties",
-  ];
+  const menuCategories = props.menuCategories;
+  console.log("state categg", menuCategories);
+  // const menuCategories = [
+  //   "Breakfast",
+  //   "Lunch",
+  //   "Dinner",
+  //   "Desert",
+  //   "Drinks",
+  //   "Our Specialties",
+  // ];
 
   //Edit Category Name Modal
   const [isEditCategoryNameModalOpen, setIsEditCategoryNameModalOpen] =
@@ -59,20 +59,20 @@ export default function ManageMenuCategoriesPage() {
     setIsAddCategoryModalOpen(false);
   };
 
-  const { ownedEntityId } = useAuthContext();
+  // const { ownedEntityId } = useAuthContext();
 
-  async function publishButtonInModalIsClicked(categoryName: string) {
+  function publishButtonInModalIsClicked(categoryName: string) {
     //After published button in modal is clicked:
-    const { data, error } = await supabase
-      .from("menu_category")
-      .insert({
-        menu_category: categoryName,
-        entity_id: ownedEntityId,
-      })
-      .select();
+    // const { data, error } = await supabase
+    //   .from("menu_category")
+    //   .insert({
+    //     menu_category: categoryName,
+    //     entity_id: ownedEntityId,
+    //   })
+    //   .select();
 
-    if (error) throw error;
-    console.log("data returned after category creation", data);
+    // if (error) throw error;
+    // console.log("data returned after category creation", data);
 
     //Close the modal
     setIsAddCategoryModalOpen(false);

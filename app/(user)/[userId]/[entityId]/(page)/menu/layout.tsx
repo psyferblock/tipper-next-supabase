@@ -17,6 +17,7 @@ export default function EntityPageMenuSectionLayout({
       </div>
       <div className=" sm:flex sm:space-x-1">
         <div className="sm:w-1/6 ">
+          {/* @ts-expect-error Server Component */}
           <MenuNavigation entityId={params.entityId} />
         </div>
         {/* MENU ITEM CARDS */}

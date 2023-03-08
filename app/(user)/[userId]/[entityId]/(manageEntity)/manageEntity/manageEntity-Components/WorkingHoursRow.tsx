@@ -1,5 +1,3 @@
-"use client";
-
 export default function WorkingHoursRow(props) {
   const row = props.caption ? (
     <div className="sm:flex items-center space-y-2 sm:space-y-0 sm:space-x-8">

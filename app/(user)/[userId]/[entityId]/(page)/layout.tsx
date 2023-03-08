@@ -5,14 +5,22 @@ import EntityInfosLeftContainer from "@/app/root-Components/entityPage-Component
 import HighlightReels from "@/app/root-Components/entityPage-Components/HighlightReelsSection";
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
+import getEntityInfos from "@/lib/getEntityInfos";
+import getReels from "@/lib/getReels";
 
-export default function EntityPageLayout({
+export default async function EntityPageLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { entityId: number };
 }) {
+  //Fetching entity infos and passing them as props
+  const entityInfos = await getEntityInfos(params.entityId);
+
+  //Fetching reels and passing them as props
+  const entityReels = await getReels(params.entityId);
+
   return (
     <>
       {/* MOBILE "MANAGE ENTITY" */}
@@ -20,7 +28,7 @@ export default function EntityPageLayout({
         <p>Entity Name</p>
         <Link
           href="1/1/manageEntity/entityInfo"
-          className=" h-fit rounded-3xl mt-1 text-blue-500  text-xs"
+          className="h-fit rounded-3xl mt-1 text-blue-500 text-xs"
         >
           Manage Entity
         </Link>
@@ -35,15 +43,14 @@ export default function EntityPageLayout({
           <ManageEntityButtonDesktop />
         </div>
         <div className="sm:flex sm:flex-row flex flex-col-reverse sm:space-x-5 sm:h-[496px] sm:mb-8">
-          {/* @ts-expect-error Server Component */}
-          <EntityInfosLeftContainer entityId={params.entityId} />
+          <EntityInfosLeftContainer entityInfos={entityInfos} />
 
           {/* EVERYTHING ON THE RIGHT OF THE LEFT COLUMN */}
           <div className="sm:h-[496px] sm:flex sm:flex-col justify-between sm:w-1/4 sm:grow">
             {/*  COVER PHOTOS CONTAINER */}
             <CoverPhotos />
             {/* HIGHLIGHTS CONTAINER */}
-            <HighlightReels />
+            <HighlightReels entityReels={entityReels} />
           </div>
         </div>
 
@@ -51,10 +58,13 @@ export default function EntityPageLayout({
         {children}
 
         {/* GET IN TOUCH WITH US SECTION */}
-        <ContactUsSection />
+        <ContactUsSection
+          description={entityInfos.contact_us_description}
+          phoneNumber={entityInfos.entity_phone_number}
+        />
 
         {/* ABOUT US SECTION */}
-        <AboutUsSection />
+        <AboutUsSection description={entityInfos.about_us_description} />
       </div>
     </>
   );

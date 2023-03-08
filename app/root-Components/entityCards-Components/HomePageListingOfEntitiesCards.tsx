@@ -81,6 +81,7 @@ export default async function HomePageListingOfEntitiesCards(props) {
           <EntitiesCardsInScrollRowDirection
             listOfEntities={listOfEntities}
             industryId={industry.id}
+            userId={props.userId}
           />
         </div>
       ))}

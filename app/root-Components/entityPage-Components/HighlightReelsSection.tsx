@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export default function EntityPageHighlightReelsSection() {
+export default function EntityPageHighlightReelsSection({ entityReels }) {
   // BOOLEAN TO DETERMINE WHETHER IT IS ADD HIGHLIGHT OR SHARE BUTTON NEXT TO HIGHLIGHTS
   const userIsOwner = true;
   const listOfHighlightReels = [
@@ -22,9 +22,9 @@ export default function EntityPageHighlightReelsSection() {
   return (
     <div className="flex sm:space-x-3">
       <div className="h-fit rounded-lg py-2 sm:drop-shadow-lg text-xs grid grid-rows-1 grid-flow-col gap-2 sm:gap-6 overflow-x-auto">
-        {listOfHighlightReels.map((reel) => (
+        {entityReels.map((reel) => (
           <button className="drop-shadow-lg sm:drop-shadow-none h-[68px] sm:h-[116px] w-[68px] sm:w-[116px] rounded-full bg-white font-semibold ">
-            {reel}
+            {reel.reel_name}
           </button>
         ))}
       </div>

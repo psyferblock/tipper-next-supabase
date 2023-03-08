@@ -1,5 +1,3 @@
-"use client";
-
 import WorkingHoursRow from "./WorkingHoursRow";
 
 export default function ManageWorkingHours() {

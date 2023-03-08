@@ -1,0 +1,95 @@
+"use client";
+
+import updateExchangeRate from "@/lib/updateExchangeRate";
+import { useState } from "react";
+
+export default function ExchangeRateInputField({ exchangeRate, entityId }) {
+  const [newExchangeRate, setNewExchangeRate] = useState(exchangeRate);
+
+  const [editing, setEditing] = useState(false);
+
+  async function handleApplyButton() {
+    await updateExchangeRate(newExchangeRate, entityId);
+    setEditing(false);
+  }
+  return (
+    <>
+      <div className="flex py-4 items-center border border-gray-300 hover:border-indigo-500 rounded-lg h-12 pl-4 mb-4">
+        <p className="h-12 pt-3 text-gray-500 pr-4 border-r border-gray-300">
+          LBP
+        </p>
+        <input
+          type="number"
+          id="price"
+          value={newExchangeRate}
+          onChange={(e) => setNewExchangeRate(e.target.value)}
+          className="h-6 block w-full border-0 pl-4 pr-12 my-0.5 py-0 focus:border-0 focus:ring-0 sm:text-sm"
+          placeholder="1506.00"
+          disabled={!editing}
+        />
+      </div>
+
+      {/* "EQUIVALENT" ICON FOR MOBILE SCREENS */}
+      <div className="sm:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-7 h-7 my-3 mx-auto"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5"
+          />
+        </svg>
+      </div>
+      <div className="hidden sm:block">
+        {/* "EQUIVALENT" ICON FOR DESKTOP SCREENS */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-10 h-10 pb-4"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+          />
+        </svg>
+      </div>
+      {/* PRICE INPUT FIELD */}
+      <div className="flex py-4 items-center border border-gray-300 rounded-lg h-12 pl-4 mb-4">
+        <p className="h-12 pt-3 text-gray-500 pr-4 border-r border-gray-300">
+          USD
+        </p>
+        <p
+          id="price"
+          className="h-6 block w-60 text-gray-500 border-0 pl-4 pr-12 pt-0.5 focus:border-0 focus:ring-0 sm:text-sm"
+        >
+          1.00
+        </p>
+      </div>
+      {editing ? (
+        <button
+          onClick={() => handleApplyButton()}
+          className="hidden sm:block text-blue-500 hover:text-indigo-700 pb-4"
+        >
+          Apply
+        </button>
+      ) : (
+        <button
+          onClick={() => setEditing(true)}
+          className="hidden sm:block text-blue-500 hover:text-indigo-700 pb-4"
+        >
+          Edit
+        </button>
+      )}
+    </>
+  );
+}

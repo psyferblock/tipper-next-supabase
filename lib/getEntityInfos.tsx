@@ -5,8 +5,9 @@ export default async function getEntityInfos(entityId: number) {
   const { data, error } = await supabase
     .from("entity")
     .select("*")
-    .eq("id", `${entityId}`);
+    .eq("id", entityId);
   if (error) throw error;
-  console.log("entity infos:", data);
-  return data;
+  console.log("entity infos:", data[0]);
+  const entityInfos = data[0];
+  return entityInfos;
 }

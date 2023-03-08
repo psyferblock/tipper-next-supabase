@@ -1,39 +1,8 @@
-import supabase from "@/utils/supabase";
+import getMenuCategories from "@/lib/getMenuCategories";
 import MenuCategoriesNavLink from "./MenuCategoriesNavLink";
 
 export default async function MenuNavigation({ entityId }) {
-  const { data, error } = await supabase
-    .from("menu_category")
-    .select("*")
-    .eq("entity_id", `${entityId}`);
-  if (error) throw error;
-  const menuCategories = data;
-  // const menuCategories = [
-  //   {
-  //     name: "Breakfast",
-  //     route: "breakfast",
-  //   },
-  //   {
-  //     name: "Lunch",
-  //     route: "lunch",
-  //   },
-  //   {
-  //     name: "Dinner",
-  //     route: "dinner",
-  //   },
-  //   {
-  //     name: "Desert",
-  //     route: "desert",
-  //   },
-  //   {
-  //     name: "Drinks",
-  //     route: "drinks",
-  //   },
-  //   {
-  //     name: "Our Specialties",
-  //     route: "ourSpecialties",
-  //   },
-  // ];
+  const menuCategories = await getMenuCategories(entityId);
 
   return (
     <>

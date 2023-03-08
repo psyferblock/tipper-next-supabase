@@ -1,4 +1,4 @@
-"use client";
+"use state";
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import { useState } from "react";

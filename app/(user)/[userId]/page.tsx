@@ -2,6 +2,7 @@ import HomePageListingOfEntitiesCards from "@/app/root-Components/entityCards-Co
 import HomePageSearchBar from "@/app/root-Components/tools-Components/HomePageSearchBar";
 
 export default async function TipperHomePage({ params }) {
+  const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
   return (
     <>
       <div className="sm:h-fit sm:min-h-screen px-3 sm:px-12 py-5 sm:py-8">
@@ -17,7 +18,7 @@ export default async function TipperHomePage({ params }) {
         {/* LISTING OF ENTITIES */}
         <div className=" py-5 sm:py-10 space-y-5 sm:space-y-5">
           {/* @ts-expect-error Server Component */}
-          <HomePageListingOfEntitiesCards userId={params.userId} />
+          <HomePageListingOfEntitiesCards userId={userId} />
         </div>
       </div>
     </>

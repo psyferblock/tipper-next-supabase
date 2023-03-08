@@ -1,8 +1,8 @@
-import getMenuNavigationLinks from "@/lib/getMenuNavigationLinks";
+import getMenuCategories from "@/lib/getMenuCategories";
 import MenuCategoriesNavLink from "./MenuCategoriesNavLink";
 
 export default async function MenuNavigation({ entityId }) {
-  const menuCategories = await getMenuNavigationLinks(entityId);
+  const menuCategories = await getMenuCategories(entityId);
 
   return (
     <>

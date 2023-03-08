@@ -10,13 +10,14 @@ export default function CategoriesNavLink({
   categoryRoute: string;
   children: React.ReactNode;
 }) {
-  const userId = 1;
+  const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
+  const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
 
   const segment = useSelectedLayoutSegment();
   const isActive = categoryRoute == segment;
   return (
     <Link
-      href={`${userId}/1/manageEntity/${categoryRoute}`}
+      href={`${userId}/${entityId}/manageEntity/${categoryRoute}`}
       className={
         isActive
           ? "text-blue-600 px-6 py-2 flex justify-start sm:bg-gray-100 "

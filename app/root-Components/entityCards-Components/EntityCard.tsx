@@ -5,11 +5,11 @@ export default async function EntityCard(props) {
   const entityId = entity?.id;
 
   const firstMenuCategoryId = await getFirstMenuCategoryId(entityId);
-
+  const userId = props.userId;
   return (
     <>
       <Link
-        href={`/1/${entityId}/menu/${firstMenuCategoryId}`}
+        href={`/${userId}/${entityId}/menu/${firstMenuCategoryId}`}
         className="bg-gray-400 w-60 sm:w-[342px] h-40 sm:h-[162px] drop-shadow-lg rounded-md sm:pb-6"
       >
         {/* <!-- Pin to bottom left corner --> */}

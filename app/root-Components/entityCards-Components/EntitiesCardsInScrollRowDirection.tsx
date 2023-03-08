@@ -8,7 +8,7 @@ export default function EntityCardsInScrollRowDirection(props) {
     <>
       <div className="grid grid-rows-1 grid-flow-col gap-4 sm:gap-5 pb-2 sm:pb-5 overflow-x-auto">
         {entitiesPerIndustry.map((entity) => (
-          <EntityCard entity={entity} />
+          <EntityCard entity={entity} userId={props.userId} />
         ))}
       </div>
     </>

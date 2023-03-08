@@ -3,7 +3,6 @@ import Link from "next/link";
 import ActivitiesHistory from "./manageUserProfile-Components/ActivitiesHistory";
 import SecuritySection from "./manageUserProfile-Components/SecuritySection";
 import BasicInfosSection from "./manageUserProfile-Components/BasicInfosSection";
-import supabase from "@/utils/supabase";
 import getFirstMenuCategoryId from "@/lib/getFirstMenuCategoryId";
 
 export default async function ManageUserProfilePage({ params }) {

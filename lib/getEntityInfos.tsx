@@ -7,6 +7,7 @@ export default async function getEntityInfos(entityId: number) {
     .select("*")
     .eq("id", `${entityId}`);
   if (error) throw error;
-  console.log("entity infos:", data);
-  return data;
+  console.log("entity infos:", data[0]);
+  const entityInfos = data[0];
+  return entityInfos;
 }

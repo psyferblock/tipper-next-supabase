@@ -5,14 +5,18 @@ import EntityInfosLeftContainer from "@/app/root-Components/entityPage-Component
 import HighlightReels from "@/app/root-Components/entityPage-Components/HighlightReelsSection";
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
+import getEntityInfos from "@/lib/getEntityInfos";
 
-export default function EntityPageLayout({
+export default async function EntityPageLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { entityId: number };
 }) {
+  //Fetching entity infos and passing them as props
+  const entityInfos = await getEntityInfos(params.entityId);
+
   return (
     <>
       {/* MOBILE "MANAGE ENTITY" */}
@@ -35,8 +39,7 @@ export default function EntityPageLayout({
           <ManageEntityButtonDesktop />
         </div>
         <div className="sm:flex sm:flex-row flex flex-col-reverse sm:space-x-5 sm:h-[496px] sm:mb-8">
-          {/* @ts-expect-error Server Component */}
-          <EntityInfosLeftContainer entityId={params.entityId} />
+          <EntityInfosLeftContainer entityInfos={entityInfos} />
 
           {/* EVERYTHING ON THE RIGHT OF THE LEFT COLUMN */}
           <div className="sm:h-[496px] sm:flex sm:flex-col justify-between sm:w-1/4 sm:grow">

@@ -1,20 +1,15 @@
-import supabase from "@/utils/supabase";
+import getFirstMenuCategoryId from "@/lib/getFirstMenuCategoryId";
 import Link from "next/link";
 export default async function EntityCard(props) {
   const entity = props.entity;
   const entityId = entity.id;
 
-  const { data, error } = await supabase
-    .from("menu_category")
-    .select("*")
-    .eq("entity_id", `${entityId}`);
-  if (error) throw error;
-  const firstCategoryId = data[0]?.id;
+  const firstMenuCategoryId = await getFirstMenuCategoryId(entityId);
 
   return (
     <>
       <Link
-        href={`/1/${entityId}/menu/${firstCategoryId}`}
+        href={`/1/${entityId}/menu/${firstMenuCategoryId}`}
         className="bg-gray-400 w-60 sm:w-[342px] h-40 sm:h-[162px] drop-shadow-lg rounded-md sm:pb-6"
       >
         {/* <!-- Pin to bottom left corner --> */}

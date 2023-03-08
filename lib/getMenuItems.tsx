@@ -5,7 +5,7 @@ export default async function getMenuItems(categoryId: number) {
   const { data, error } = await supabase
     .from("menu_item")
     .select("*")
-    .eq("menu_category_id", `${categoryId}`);
+    .eq("menu_category_id", categoryId);
   if (error) throw error;
   return data;
 }

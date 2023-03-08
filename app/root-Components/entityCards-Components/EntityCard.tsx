@@ -1,8 +1,8 @@
 import getFirstMenuCategoryId from "@/lib/getFirstMenuCategoryId";
 import Link from "next/link";
 export default async function EntityCard(props) {
-  const entity = props.entity;
-  const entityId = entity.id;
+  const entity = props?.entity;
+  const entityId = entity?.id;
 
   const firstMenuCategoryId = await getFirstMenuCategoryId(entityId);
 

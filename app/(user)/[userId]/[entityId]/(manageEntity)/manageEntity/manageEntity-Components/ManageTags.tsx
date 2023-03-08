@@ -1,5 +1,3 @@
-"use client";
-
 export default function ManageTags() {
   return (
     <div className="h-fit  bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">

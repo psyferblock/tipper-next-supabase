@@ -9,7 +9,7 @@ import EditMenuCategoryNameModal from "../manageEntity-Components/modals/EditMen
 import AddNewMenuCategoryModal from "../manageEntity-Components/modals/AddNewMenuCategoryModal";
 import supabase from "@/utils/supabase";
 import { useAuthContext } from "@/app/Store";
-import ManageEntityLeftMenu from "../manageEntity-Components/ManageEntityLeftMenu";
+import ManageEntityLeftMenu from "../../../app/(user)/[userId]/[entityId]/manageEntity/manageEntity-Components/ManageEntityLeftMenu";
 
 export default function ManageMenuCategoriesPage() {
   //Owner chooses between pdf and manually inputting items

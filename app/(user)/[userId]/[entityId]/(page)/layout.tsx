@@ -28,7 +28,7 @@ export default async function EntityPageLayout({
         <p>Entity Name</p>
         <Link
           href="1/1/manageEntity/entityInfo"
-          className=" h-fit rounded-3xl mt-1 text-blue-500  text-xs"
+          className="h-fit rounded-3xl mt-1 text-blue-500 text-xs"
         >
           Manage Entity
         </Link>

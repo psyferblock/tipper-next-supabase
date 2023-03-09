@@ -6,11 +6,11 @@ import ManageSocialMedia from "./entityInfos-Components/ManageSocialMedia";
 import ManageTags from "./entityInfos-Components/ManageTags";
 import ManageWorkingHours from "./entityInfos-Components/ManageWorkingHours";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import { useManageEntityInfosContext } from "./EntityInfoContext";
 
 export default async function ManageEntityInfosPage({ params }) {
   //Fetching entity infos
   const entityInfos = await getEntityInfos(params.entityId);
-
   //Destructuring the entity tags to send them as props to ManageTags Component
   const entityTags = entityInfos.entity_tags;
 

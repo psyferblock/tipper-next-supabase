@@ -1,14 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useManageEntityInfosContext } from "../EntityInfoContext";
 
 export default function ManageTags({ entityTags }) {
-  const [tags, setTags] = useState(entityTags);
-  const [tag, setTag] = useState();
+  const [tagsProps, setTagsProps] = useState(entityTags);
 
   function handleAddButton() {
     tags.push(tag);
   }
+
+  const { tags, setTags } = useManageEntityInfosContext();
+  setTags(tagsProps);
+  console.log("tags!:", tags);
+
   return (
     <div className="h-fit bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">
       <div className="text-lg font-bold mb-2">Tags</div>

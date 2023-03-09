@@ -1,7 +1,10 @@
-import ManageHighlightReels from "../manageEntity-Components/ManageHighlightReels";
+import getReels from "@/lib/get/getReels";
+import ManageHighlightReels from "./highlightReels-Components/ManageHighlightReels";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 
-export default function ManageHighlightReelsPage() {
+export default async function ManageHighlightReelsPage({ params }) {
+  const entityReels = await getReels(params.entityId);
+
   return (
     <>
       <div className="sm:hidden px-3 flex items-center justify-between py-2 bg-gray-300 w-full z-50  fixed  text-2xl font-bold">
@@ -23,7 +26,10 @@ export default function ManageHighlightReelsPage() {
             <MobileDropdownManagement />
           </div>
         </div>
-        <ManageHighlightReels />
+        <ManageHighlightReels
+          entityId={params.entityId}
+          listOfReels={entityReels}
+        />
       </div>
     </>
   );

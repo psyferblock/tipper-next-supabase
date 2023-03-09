@@ -9,7 +9,7 @@ export default function EditMenuCategoryNameModal(props) {
 
   const categoryId = props.categoryId;
 
-  const cancelButtonRef = useRef(null);
+  const buttonRef = useRef(null);
 
   const currentName = props.currentName;
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function EditMenuCategoryNameModal(props) {
       <Dialog
         as="div"
         className="relative z-50"
-        initialFocus={cancelButtonRef}
+        initialFocus={buttonRef}
         onClose={props.closeModal}
       >
         <Transition.Child
@@ -73,7 +73,7 @@ export default function EditMenuCategoryNameModal(props) {
                         id="price"
                         className="h-12 block w-full rounded-md border-gray-300 pl-3 sm:pl-7 sm:pr-12 mt-1 mb-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Type new name for category"
-                        ref={cancelButtonRef}
+                        ref={buttonRef}
                         value={categoryName}
                         onChange={(e) => {
                           setCategoryName(e.target.value);

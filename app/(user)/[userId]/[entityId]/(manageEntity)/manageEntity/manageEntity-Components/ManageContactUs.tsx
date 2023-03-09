@@ -1,6 +1,12 @@
-import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
+"use client";
 
-export default function ManageContactUsPage() {
+import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
+import { useState } from "react";
+
+export default function ManageContactUsPage({ contactUs_description }) {
+  const [contactUsDescription, setContactUsDescription] = useState(
+    contactUs_description
+  );
   return (
     <div className="h-fit  bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg space-y-4">
       <div className="sm:flex items-center sm:space-x-6">
@@ -25,6 +31,8 @@ export default function ManageContactUsPage() {
           id="about us"
           className="h-32 block w-full rounded-md border-gray-300 pb-24 pl-4 pr-12 mt-1 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
           placeholder="Enter a description of products people can order by contacting you."
+          value={contactUsDescription}
+          onChange={(e) => setContactUsDescription(e.target.value)}
         />
       </div>
       <div>

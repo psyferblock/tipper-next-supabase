@@ -92,7 +92,7 @@ export default function EntityPageContainerWithEntityInfos({ entityInfos }) {
               <FacebookButton url={entityInfos.facebook_link} />
               {/* WHATSAPP BUTTON */}
               <TextUsWhatsappButton
-                phoneNumber={entityInfos.entity_phone_number}
+                phoneNumber={entityInfos.whatsapp_phone_number}
               />
             </div>
           </div>

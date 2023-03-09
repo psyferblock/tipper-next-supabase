@@ -11,7 +11,7 @@ export default function AddNewItemModal(props) {
   // const [itemPicture, setItemPicture] = useState<string | undefined>();
   const [itemPrice, setItemPrice] = useState<number | undefined>();
 
-  const cancelButtonRef = useRef(null);
+  const buttonRef = useRef(null);
 
   async function handlePublishButton(
     itemName: string,
@@ -39,7 +39,7 @@ export default function AddNewItemModal(props) {
       <Dialog
         as="div"
         className="relative z-50"
-        initialFocus={cancelButtonRef}
+        initialFocus={buttonRef}
         onClose={props.closeModal}
       >
         <Transition.Child
@@ -107,7 +107,7 @@ export default function AddNewItemModal(props) {
                         id="item name"
                         className="h-12 block w-full rounded-md border-gray-300 pl-4 sm:pr-[235px] mt-1 mb-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Item name"
-                        ref={cancelButtonRef}
+                        ref={buttonRef}
                         onChange={(e) => {
                           setItemName(e.target.value);
                         }}

@@ -9,7 +9,7 @@ export default function EditItemModal(props) {
   const [itemDescription, setItemDescription] = useState();
   const [itemPrice, setItemPrice] = useState();
 
-  const cancelButtonRef = useRef(null);
+  const buttonRef = useRef(null);
 
   const item = props.item;
 
@@ -32,7 +32,7 @@ export default function EditItemModal(props) {
       <Dialog
         as="div"
         className="relative z-50"
-        initialFocus={cancelButtonRef}
+        initialFocus={buttonRef}
         onClose={props.closeModal}
       >
         <Transition.Child
@@ -100,7 +100,7 @@ export default function EditItemModal(props) {
                         id="item name"
                         className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-[235px] mt-1 mb-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Item name"
-                        ref={cancelButtonRef}
+                        ref={buttonRef}
                         value={itemName}
                         onChange={(e) => {
                           setItemName(e.target.value);

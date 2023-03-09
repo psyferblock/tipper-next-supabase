@@ -11,7 +11,12 @@ import AddNewItemModal from "./menuItems-Components/AddNewItemModal";
 import EditItemModal from "./menuItems-Components/EditItemModal";
 import deleteMenuItem from "@/lib/delete/deleteMenuItem";
 
-export default function ManageMenuItems({ menuItems, menuCategoryId }) {
+export default function ManageMenuItems({
+  menuItems,
+  menuCategoryId,
+  userId,
+  entityId,
+}) {
   //Add New Item Modal
   const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
 
@@ -80,7 +85,12 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
                       d="M15.75 19.5L8.25 12l7.5-7.5"
                     />
                   </svg>
-                  <p className="font-bold text-3xl">Breakfast</p>
+                  <Link
+                    href={`${userId}/${entityId}/manageEntity/menuCategories`}
+                    className="font-bold text-3xl"
+                  >
+                    Breakfast
+                  </Link>
                 </Link>
                 {/* ADD CATEGORY BUTTON */}
                 <button

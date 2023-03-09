@@ -12,16 +12,7 @@ import React, {
 /**
  * Function returning all the tools that children component will inherit when using the context.
  */
-async function createManageEntityInfosTools(): {
-  //function to set userId state variable, exported to child components so that they can call it when the userId is fetched back from GraphQL
-  setUserId: (userId: string) => void;
-  //function to set entityId state variable, exported to child components so that they can call it when the entityId is fetched back from GraphQL
-  setOwnedEntityId: (entityId: string) => void;
-  //userId state variable, exported to child components so that they can call it when the userId is fetched back from GraphQL
-  userId: string;
-  //   token: string;
-  ownedEntityId: string;
-} {
+async function createManageEntityInfosTools() {
   /**
    * On every render of context, we check first if we have values for token and userId in local storage
    */
@@ -38,7 +29,12 @@ async function createManageEntityInfosTools(): {
     }
 //   }, []);
 
-const entityInfos = await getEntityInfos(params.entityId);
+
+ 
+
+const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb"
+
+const entityInfos = await getEntityInfos(entityId);
 
 //Destructuring the entity tags to send them as props to ManageTags Component
 const entityTags = entityInfos.entity_tags;
@@ -51,94 +47,199 @@ const socialMedia = {
   email: entityInfos.entity_email,
   instagram: entityInfos.instagram_link,
   facebook: entityInfos.facebook_link,
-  whatsapp: entityInfos.whatsapp_link,
+  whatsapp: entityInfos.whatsapp_phone_number,
 };
-  /**
+ /**
    * Format for how the state (which contains token and userId variables) should be
    */
-  type logInState = {
-    // token: string;
-    userId: string;
-    ownedEntityId: string;
+ type entityInfosState = {
+    tags: string[];
+    tag: string;
+    phoneNumber:number;
+    emailAddress:string;
+    instagramUrl:string;
+    facebookUrl:string;
+    whatsappNumber:number;
+    aboutUs_description:string;
+    contactUs_description:string;
   };
 
   /**
    * Format for which actions are allowed to modify our state variables ( token and userId ) should be
    */
-  type logInActions =
+  type entityInfosActions =
     | {
-        type: "setUserId";
+        type: "setTags";
         payload: string;
       }
     | {
-        type: "setOwnedEntityId";
+        type: "setTag";
         payload: string;
-      };
-  // | {
-  //     type: "setToken";
-  //     payload: string;
-  //   }
-  // | {
-  //     type: "signOut";
-  //   };
-
+      }
+      | {
+        type: "setPhoneNumber";
+        payload: number;
+      }
+      | {
+        type: "setEmailAddress";
+        payload: string;
+      }
+      | {
+        type: "setInstagramUrl";
+        payload: string;
+      }
+      | {
+        type: "setFacebookUrl";
+        payload: string;
+      }
+      | {
+        type: "setWhatsappNumber";
+        payload: number;
+      }
+      | {
+        type: "setAboutUs_description";
+        payload: string;
+      }
+      | {
+        type: "setContactUs_description";
+        payload: string;
+      }
   /**
    * use to store email when user inputs his email. useReducer uses dispatch instead of setState,
    * so if you want to change the info contained in email or password states,
    * you call dispatch (in setEmail or setPassword for example)
    */
-  const [{ userId, ownedEntityId }, dispatch] = useReducer(
-    (state: logInState, action: logInActions) => {
+  
+  const [{ tags, tag , phoneNumber,emailAddress,instagramUrl,facebookUrl, whatsappNumber,aboutUs_description ,contactUs_description}, dispatch] = useReducer(
+    (state: entityInfosState, action: entityInfosActions) => {
       switch (action.type) {
-        // case "setToken":
-        //   return { ...state, token: action.payload };
-        case "setUserId":
-          return { ...state, userId: action.payload };
-        case "setOwnedEntityId":
-          return { ...state, ownedEntityId: action.payload };
-        // case "signOut":
-        //   return { ...state, userId: "", token: "", ownedEntityId: "" };
+        case "setTags":
+          return { ...state, tags: action.payload };
+        case "setTag":
+          return { ...state, tag: action.payload };
+          case "setPhoneNumber":
+          return { ...state, phoneNumber: action.payload };
+          case "setEmailAddress":
+          return { ...state, emailAddress: action.payload };
+          case "setInstagramUrl":
+          return { ...state, instagramUrl: action.payload };
+          case "setFacebookUrl":
+          return { ...state, facebookUrl: action.payload };
+          case "setWhatsappNumber":
+          return { ...state, whatsappNumber: action.payload };
+          case "setAboutUs_description":
+          return { ...state, aboutUs_description: action.payload };
+          case "setContactUs_description":
+          return { ...state, contactUs_description: action.payload };
       }
     },
     {
-      //   token: "",
-      userId: "",
-      ownedEntityId: "",
+        tags:entityTags,
+        tag:"",
+        phoneNumber: socialMedia.phone,
+        emailAddress: socialMedia.email,
+        instagramUrl:socialMedia.instagram,
+        facebookUrl:socialMedia.facebook,
+        whatsappNumber:socialMedia.whatsapp,
+        aboutUs_description:aboutUsDescription,
+        contactUs_description:contactUsDescription,
     }
   );
 
-  /**
-   * Setter function for userId state variable
+   /**
+   * Setter function for tag state variable
    */
-  const setUserId = useCallback((userId: string) => {
+   const setTags = useCallback((newTag: string) => {
     dispatch({
-      type: "setUserId",
-      payload: userId,
+      type: "setTags",
+      payload: [...tags, newTag]
     });
   }, []);
 
   /**
-   * Setter function for entityId state variable
+   * Setter function for tag state variable
    */
-  const setOwnedEntityId = useCallback((ownedEntityId: string) => {
+  const setTag = useCallback((tag: string) => {
     dispatch({
-      type: "setOwnedEntityId",
-      payload: ownedEntityId,
+      type: "setTag",
+      payload: tag,
     });
   }, []);
 
+  /**
+   * Setter function for tag state variable
+   */
+  const setPhoneNumber = useCallback((number: string) => {
+    dispatch({
+      type: "setPhoneNumber",
+      payload: number,
+    });
+  }, []);
+   /**
+   * Setter function for tag state variable
+   */
+   const setEmailAddress = useCallback((email: string) => {
+    dispatch({
+      type: "setEmailAddress",
+      payload: email,
+    });
+  }, []);
 
+   /**
+   * Setter function for tag state variable
+   */
+   const setInstagramUrl = useCallback((url: string) => {
+    dispatch({
+      type: "setInstagramUrl",
+      payload: url,
+    });
+  }, []);
+    /**
+   * Setter function for tag state variable
+   */
+    const setFacebookUrl = useCallback((url: string) => {
+        dispatch({
+          type: "setFacebookUrl",
+          payload: url,
+        });
+      }, []);
 
-  console.log("Manage entity infos Context state:", { userId, ownedEntityId });
+        /**
+   * Setter function for tag state variable
+   */
+    const setWhatsappNumber = useCallback((number: string) => {
+        dispatch({
+          type: "setWhatsappNumber",
+          payload: number,
+        });
+      }, []);
+
+       /**
+   * Setter function for tag state variable
+   */
+    const setAboutUs_description = useCallback((description: string) => {
+        dispatch({
+          type: "setAboutUs_description",
+          payload: description,
+        });
+      }, []);
+
+      /**
+   * Setter function for tag state variable
+   */
+    const setContactUs_description = useCallback((description: string) => {
+        dispatch({
+          type: "setContactUs_description",
+          payload: description,
+        });
+      }, []);
+
+ 
+
+  console.log("Manage entity infos Context state:", { tags, tag ,phoneNumber,emailAddress });
 
   return {
-    // setToken,
-    setUserId,
-    setOwnedEntityId,
-    // contextSignOut,
-    userId,
-    // token,
-    ownedEntityId,
+    tags,tag,
   };
 }
 

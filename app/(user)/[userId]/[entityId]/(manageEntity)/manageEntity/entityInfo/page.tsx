@@ -1,10 +1,10 @@
 import getEntityInfos from "@/lib/get/getEntityInfos";
-import ManageAboutUs from "../manageEntity-Components/ManageAboutUs";
-import ManageContactUs from "../manageEntity-Components/ManageContactUs";
-import ManageCoverPhotos from "../manageEntity-Components/ManageCoverPhotos";
-import ManageSocialMedia from "../manageEntity-Components/ManageSocialMedia";
-import ManageTags from "../manageEntity-Components/ManageTags";
-import ManageWorkingHours from "../manageEntity-Components/ManageWorkingHours";
+import ManageAboutUs from "./entityInfos-Components/ManageAboutUs";
+import ManageContactUs from "./entityInfos-Components/ManageContactUs";
+import ManageCoverPhotos from "./entityInfos-Components/ManageCoverPhotos";
+import ManageSocialMedia from "./entityInfos-Components/ManageSocialMedia";
+import ManageTags from "./entityInfos-Components/ManageTags";
+import ManageWorkingHours from "./entityInfos-Components/ManageWorkingHours";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 
 export default async function ManageEntityInfosPage({ params }) {

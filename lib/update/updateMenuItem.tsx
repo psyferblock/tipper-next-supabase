@@ -4,7 +4,7 @@ export default async function updateMenuItem(
   itemName: string,
   itemDescription: string,
   itemPrice: string,
-  menuCategoryId
+  menuItemId
 ) {
   const { data, error } = await supabase
     .from("menu_item")
@@ -13,7 +13,7 @@ export default async function updateMenuItem(
       item_price: itemPrice,
       item_description: itemDescription,
     })
-    .eq("menu_category_id", menuCategoryId)
+    .eq("id", menuItemId)
     .select();
   if (error) throw error;
   console.log(data);

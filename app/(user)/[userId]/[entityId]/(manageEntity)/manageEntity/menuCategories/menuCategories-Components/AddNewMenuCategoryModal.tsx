@@ -16,8 +16,13 @@ export default function AddNewMenuCategoryModal(props) {
     //After published button in modal is clicked:
     await createMenuCategory(categoryName, entityId);
 
-    props.publishButtonInModalIsClicked();
+    props.closeModal();
   }
+
+  // const saveAsDraftButtonInModalIsClicked = () => {
+  //   //write code to when "Save" is clicked
+  //   setIsAddCategoryModalOpen(false);
+  // };
 
   return (
     <Transition.Root show={props.open} as={Fragment}>

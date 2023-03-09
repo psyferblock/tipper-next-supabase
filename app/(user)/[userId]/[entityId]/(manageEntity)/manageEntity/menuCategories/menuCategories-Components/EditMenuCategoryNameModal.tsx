@@ -4,20 +4,24 @@ import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import updateMenuCategoryName from "@/lib/update/updateMenuCategoryName";
 
-export default function EditMenuCategoryNameModal(props, { currentName }) {
+export default function EditMenuCategoryNameModal(props) {
   const [categoryName, setCategoryName] = useState();
 
-  console.log("currentNameobj:", currentName);
   const categoryId = props.categoryId;
 
   const cancelButtonRef = useRef(null);
+
+  const currentName = props.currentName;
+  useEffect(() => {
+    setCategoryName(currentName);
+  }, [currentName]);
 
   async function handleSaveButton() {
     //After save button in modal is clicked:
     await updateMenuCategoryName(categoryName, categoryId);
 
     //Close the modal
-    props.saveButtonInModalIsClicked();
+    props.closeModal();
   }
 
   return (

@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import AddNewItemModal from "./menuItems-Components/AddNewItemModal";
 import EditItemModal from "./menuItems-Components/EditItemModal";
+import deleteMenuItem from "@/lib/delete/deleteMenuItem";
 
 export default function ManageMenuItems({ menuItems, menuCategoryId }) {
   //Add New Item Modal
@@ -26,14 +27,31 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
   //Edit Item Modal
   const [isEditItemModalOpen, setIsEditItemModalOpen] = useState(false);
 
-  const handleEditItemButton = (e) => {
-    e.preventDefault();
-    setIsEditItemModalOpen(true);
-  };
+  //Storing the Id of the menu item being edited
+  const [menuItemBeingEditedId, setMenuItemBeingEditedId] = useState();
+  //Storing the item being edited to send it to the modal
+  const [itemBeingEdited, setItemBeingEdited] = useState();
 
+  //Function used to find the item being edited and its Id
+  function handleEditItemButton(menuItemId) {
+    setMenuItemBeingEditedId(menuItemId);
+    menuItems.map((item) => {
+      if (item.id == menuItemId) {
+        setItemBeingEdited(item);
+      }
+    });
+    setIsEditItemModalOpen(true);
+  }
+
+  //Function to close the Edit Modal
   const closeEditItemModal = () => {
     setIsEditItemModalOpen(false);
   };
+
+  //Function to delete a menu item
+  async function handleRemoveItemButton(menuItemId) {
+    await deleteMenuItem(menuItemId);
+  }
 
   return (
     <>
@@ -108,8 +126,20 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
                             </p>
                           </div>
                           <div className="flex items-center space-x-10 text-blue-600">
-                            <button onClick={handleEditItemButton}>Edit</button>
-                            <button>Remove</button>
+                            <button
+                              onClick={() => {
+                                handleEditItemButton(item.id);
+                              }}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => {
+                                handleRemoveItemButton(item.id);
+                              }}
+                            >
+                              Remove
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -181,6 +211,8 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
       <EditItemModal
         open={isEditItemModalOpen}
         closeModal={closeEditItemModal}
+        item={itemBeingEdited}
+        menuItemBeingEditedId={menuItemBeingEditedId}
       />
     </>
   );

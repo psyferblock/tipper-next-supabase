@@ -1,11 +1,32 @@
 "use client";
 
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import updateMenuItem from "@/lib/update/updateMenuItem";
 
 export default function EditItemModal(props) {
+  const [itemName, setItemName] = useState();
+  const [itemDescription, setItemDescription] = useState();
+  const [itemPrice, setItemPrice] = useState();
+
   const cancelButtonRef = useRef(null);
 
+  const item = props.item;
+
+  useEffect(() => {
+    setItemName(item?.item_name);
+    setItemDescription(item?.item_description);
+    setItemPrice(item?.item_price);
+  }, [item]);
+
+  const menuItemId = props.menuItemBeingEditedId;
+  async function handleSaveButton() {
+    //After save button in modal is clicked:
+    await updateMenuItem(itemName, itemDescription, itemPrice, menuItemId);
+
+    //Close the modal
+    props.closeModal();
+  }
   return (
     <Transition.Root show={props.open} as={Fragment}>
       <Dialog
@@ -80,6 +101,10 @@ export default function EditItemModal(props) {
                         className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-[235px] mt-1 mb-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Item name"
                         ref={cancelButtonRef}
+                        value={itemName}
+                        onChange={(e) => {
+                          setItemName(e.target.value);
+                        }}
                       />
                       {/* ITEM DESCRIPTION */}
                       <div className="flex justify-between text-xs">
@@ -92,6 +117,10 @@ export default function EditItemModal(props) {
                         id="item description"
                         className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mt-1 mb-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Description"
+                        value={itemDescription}
+                        onChange={(e) => {
+                          setItemDescription(e.target.value);
+                        }}
                       />
                       {/* PRICE */}
                       <div className="flex justify-between text-xs pb-1">
@@ -108,6 +137,10 @@ export default function EditItemModal(props) {
                           id="price"
                           className="h-6 block w-full border-0 pl-4 pr-12 my-0.5 py-0 focus:border-0 focus:ring-0 sm:text-sm"
                           placeholder="0.00"
+                          value={itemPrice}
+                          onChange={(e) => {
+                            setItemPrice(e.target.value);
+                          }}
                         />
                       </div>
                       {/* IMAGE */}
@@ -167,7 +200,9 @@ export default function EditItemModal(props) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-3xl border border-transparent bg-blue-500 px-9 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={props.saveButtonInEditItemModalIsClicked}
+                    onClick={() => {
+                      handleSaveButton(itemName, itemDescription, itemPrice);
+                    }}
                   >
                     Save
                   </button>

@@ -18,34 +18,25 @@ export default function ManageMenuCategories(props) {
   const [isEditCategoryNameModalOpen, setIsEditCategoryNameModalOpen] =
     useState(false);
 
-  //NOT WORKING YET: PASSING THE NAME OF THE CURRENT CATEGORY TO THE MODAL
-  // const [
-  //   categoryNameInEditCategoryNameModal,
-  //   setCategoryNameInEditCategoryNameModal,
-  // ] = useState();
-  let categoryNameInEditCategoryNameModal;
+  //State variable to store the menu category name being edited to send to modal
+  const [
+    categoryNameInEditCategoryNameModal,
+    setCategoryNameInEditCategoryNameModal,
+  ] = useState();
   //State to know what is the Id of the menu category name having its name edited
   const [editNameCategoryId, setEditNameCategoryId] = useState();
-  async function handleEditCategoryNameButton(categoryId) {
-    console.log("CATEGORY ID:", categoryId);
+
+  function handleEditCategoryNameButton(categoryId) {
     setEditNameCategoryId(categoryId);
     menuCategories.map((category) => {
       if (category.id == categoryId) {
-        console.log("the one is:", category);
-        console.log("the name is:", category.menu_category_name);
-
-        categoryNameInEditCategoryNameModal = category;
+        setCategoryNameInEditCategoryNameModal(category.menu_category_name);
       }
     });
     setIsEditCategoryNameModalOpen(true);
   }
 
   const closeEditCategoryNameModal = () => {
-    setIsEditCategoryNameModalOpen(false);
-  };
-
-  const saveButtonInModalIsClicked = () => {
-    //Close the modal
     setIsEditCategoryNameModalOpen(false);
   };
 
@@ -61,18 +52,8 @@ export default function ManageMenuCategories(props) {
     setIsAddCategoryModalOpen(false);
   };
 
-  const saveAsDraftButtonInModalIsClicked = () => {
-    //write code to when "Save" is clicked
-    setIsAddCategoryModalOpen(false);
-  };
-
   // const { ownedEntityId } = useAuthContext();
   const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
-
-  const publishButtonInModalIsClicked = () => {
-    //Close the modal
-    setIsAddCategoryModalOpen(false);
-  };
 
   return (
     <>
@@ -197,15 +178,12 @@ export default function ManageMenuCategories(props) {
       <EditMenuCategoryNameModal
         open={isEditCategoryNameModalOpen}
         closeModal={closeEditCategoryNameModal}
-        saveButtonInModalIsClicked={saveButtonInModalIsClicked}
         currentName={categoryNameInEditCategoryNameModal}
         categoryId={editNameCategoryId}
       />
       <AddNewMenuCategoryModal
         open={isAddCategoryModalOpen}
         closeModal={closeAddCategoryModal}
-        saveAsDraftButtonInModalIsClicked={saveAsDraftButtonInModalIsClicked}
-        publishButtonInModalIsClicked={publishButtonInModalIsClicked}
         entityId={entityId}
       />
     </>

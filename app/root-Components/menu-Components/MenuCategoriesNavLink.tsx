@@ -12,7 +12,7 @@ export default function MenuCategoriesNavLink({
   children: React.ReactNode;
   entityId: number;
 }) {
-  const userId = 1;
+  const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
 
   const segment = useSelectedLayoutSegment();
   const isActive = `${categoryId}` == segment;

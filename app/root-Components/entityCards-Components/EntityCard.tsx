@@ -1,4 +1,4 @@
-import getFirstMenuCategoryId from "@/lib/getFirstMenuCategoryId";
+import getFirstMenuCategoryId from "@/lib/get/getFirstMenuCategoryId";
 import Link from "next/link";
 export default async function EntityCard(props) {
   const entity = props?.entity;

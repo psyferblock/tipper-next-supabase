@@ -1,10 +1,24 @@
 "use client";
 
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import updateMenuCategoryName from "@/lib/update/updateMenuCategoryName";
 
-export default function EditMenuCategoryNameModal(props) {
+export default function EditMenuCategoryNameModal(props, { currentName }) {
+  const [categoryName, setCategoryName] = useState();
+
+  console.log("currentNameobj:", currentName);
+  const categoryId = props.categoryId;
+
   const cancelButtonRef = useRef(null);
+
+  async function handleSaveButton() {
+    //After save button in modal is clicked:
+    await updateMenuCategoryName(categoryName, categoryId);
+
+    //Close the modal
+    props.saveButtonInModalIsClicked();
+  }
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
@@ -49,14 +63,17 @@ export default function EditMenuCategoryNameModal(props) {
                       </Dialog.Title>
 
                       <div className="text-start text-xs">Category Name</div>
-                      {/* TAG INPUT FIELD */}
+                      {/* CATEGORY NAME INPUT FIELD */}
                       <input
                         type="text"
-                        name="tags"
                         id="price"
                         className="h-12 block w-full rounded-md border-gray-300 pl-3 sm:pl-7 sm:pr-12 mt-1 mb-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Type new name for category"
                         ref={cancelButtonRef}
+                        value={categoryName}
+                        onChange={(e) => {
+                          setCategoryName(e.target.value);
+                        }}
                       />
                     </div>
                   </div>
@@ -72,7 +89,7 @@ export default function EditMenuCategoryNameModal(props) {
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-3xl border border-transparent bg-blue-500 px-9 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={props.saveButtonInModalIsClicked}
+                    onClick={() => handleSaveButton()}
                   >
                     Save
                   </button>

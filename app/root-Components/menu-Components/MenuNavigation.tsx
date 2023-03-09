@@ -1,4 +1,4 @@
-import getMenuCategories from "@/lib/getMenuCategories";
+import getMenuCategories from "@/lib/get/getMenuCategories";
 import MenuCategoriesNavLink from "./MenuCategoriesNavLink";
 
 export default async function MenuNavigation({ entityId }) {

@@ -3,42 +3,49 @@
 import { useState } from "react";
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import SearchBar from "@/app/root-Components/tools-Components/BasicSearchBar";
-import MenuCategoryCard from "./MenuCategoryCard";
-import MobileDropdownManagement from "../../manageEntity-Components/MobileDropdownManagement";
-import EditMenuCategoryNameModal from "../../manageEntity-Components/modals/EditMenuCategoryNameModal";
-import AddNewMenuCategoryModal from "../../manageEntity-Components/modals/AddNewMenuCategoryModal";
-import supabase from "@/utils/supabase";
+import MenuCategoryCard from "./menuCategories-Components/MenuCategoryCard";
+import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import EditMenuCategoryNameModal from "./menuCategories-Components/EditMenuCategoryNameModal";
+import AddNewMenuCategoryModal from "./menuCategories-Components/AddNewMenuCategoryModal";
 import { useAuthContext } from "@/app/Store";
 
 export default function ManageMenuCategories(props) {
   //Owner chooses between pdf and manually inputting items
   const [isPdf, setIsPdf] = useState(false);
   const menuCategories = props.menuCategories;
-  console.log("state categg", menuCategories);
-  // const menuCategories = [
-  //   "Breakfast",
-  //   "Lunch",
-  //   "Dinner",
-  //   "Desert",
-  //   "Drinks",
-  //   "Our Specialties",
-  // ];
 
   //Edit Category Name Modal
   const [isEditCategoryNameModalOpen, setIsEditCategoryNameModalOpen] =
     useState(false);
 
-  const handleEditCategoryNameButton = (e) => {
-    e.preventDefault();
+  //NOT WORKING YET: PASSING THE NAME OF THE CURRENT CATEGORY TO THE MODAL
+  // const [
+  //   categoryNameInEditCategoryNameModal,
+  //   setCategoryNameInEditCategoryNameModal,
+  // ] = useState();
+  let categoryNameInEditCategoryNameModal;
+  //State to know what is the Id of the menu category name having its name edited
+  const [editNameCategoryId, setEditNameCategoryId] = useState();
+  async function handleEditCategoryNameButton(categoryId) {
+    console.log("CATEGORY ID:", categoryId);
+    setEditNameCategoryId(categoryId);
+    menuCategories.map((category) => {
+      if (category.id == categoryId) {
+        console.log("the one is:", category);
+        console.log("the name is:", category.menu_category_name);
+
+        categoryNameInEditCategoryNameModal = category;
+      }
+    });
     setIsEditCategoryNameModalOpen(true);
-  };
+  }
 
   const closeEditCategoryNameModal = () => {
     setIsEditCategoryNameModalOpen(false);
   };
 
   const saveButtonInModalIsClicked = () => {
-    //write code to when "Save" is clicked
+    //Close the modal
     setIsEditCategoryNameModalOpen(false);
   };
 
@@ -60,23 +67,12 @@ export default function ManageMenuCategories(props) {
   };
 
   // const { ownedEntityId } = useAuthContext();
+  const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
 
-  function publishButtonInModalIsClicked(categoryName: string) {
-    //After published button in modal is clicked:
-    // const { data, error } = await supabase
-    //   .from("menu_category")
-    //   .insert({
-    //     menu_category: categoryName,
-    //     entity_id: ownedEntityId,
-    //   })
-    //   .select();
-
-    // if (error) throw error;
-    // console.log("data returned after category creation", data);
-
+  const publishButtonInModalIsClicked = () => {
     //Close the modal
     setIsAddCategoryModalOpen(false);
-  }
+  };
 
   return (
     <>
@@ -184,7 +180,8 @@ export default function ManageMenuCategories(props) {
               <div className="grid sm:grid-cols-4 gap-4">
                 {menuCategories.map((category) => (
                   <MenuCategoryCard
-                    type={category}
+                    categoryName={category.menu_category_name}
+                    categoryId={category.id}
                     openEditNameModal={handleEditCategoryNameButton}
                   />
                 ))}
@@ -201,12 +198,15 @@ export default function ManageMenuCategories(props) {
         open={isEditCategoryNameModalOpen}
         closeModal={closeEditCategoryNameModal}
         saveButtonInModalIsClicked={saveButtonInModalIsClicked}
+        currentName={categoryNameInEditCategoryNameModal}
+        categoryId={editNameCategoryId}
       />
       <AddNewMenuCategoryModal
         open={isAddCategoryModalOpen}
         closeModal={closeAddCategoryModal}
         saveAsDraftButtonInModalIsClicked={saveAsDraftButtonInModalIsClicked}
         publishButtonInModalIsClicked={publishButtonInModalIsClicked}
+        entityId={entityId}
       />
     </>
   );

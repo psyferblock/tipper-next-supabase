@@ -1,6 +1,6 @@
 import MenuItemCard from "@/app/root-Components/menu-Components/MenuItemCard";
-import getExchangeRate from "@/lib/getExchangeRate";
-import getMenuItems from "@/lib/getMenuItems";
+import getExchangeRate from "@/lib/get/getExchangeRate";
+import getMenuItems from "@/lib/get/getMenuItems";
 
 export default async function EntityPageMenuItems({ params }) {
   const menuItems = await getMenuItems(params.categoryId);

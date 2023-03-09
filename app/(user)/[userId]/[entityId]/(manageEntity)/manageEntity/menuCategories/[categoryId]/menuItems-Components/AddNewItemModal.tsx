@@ -2,6 +2,7 @@
 
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import createMenuItem from "@/lib/create/createMenuItem";
 
 export default function AddNewItemModal(props) {
   //State
@@ -11,6 +12,27 @@ export default function AddNewItemModal(props) {
   const [itemPrice, setItemPrice] = useState<number | undefined>();
 
   const cancelButtonRef = useRef(null);
+
+  async function handlePublishButton(
+    itemName: string,
+    itemDescription: string,
+    itemPrice: string
+  ) {
+    //when "Save" in modal is clicked:
+    await createMenuItem(
+      itemName,
+      itemDescription,
+      itemPrice,
+      props.menuCategoryId
+    );
+
+    props.closeModal();
+  }
+
+  // const saveAsDraftButtonInModalIsClicked = () => {
+  //   //write code to when "Save" is clicked
+  // props.closeModal();
+  // };
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
@@ -186,13 +208,13 @@ export default function AddNewItemModal(props) {
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-3xl border border-transparent bg-blue-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() =>
-                        props.publishButtonInModalIsClicked(
+                      onClick={() => {
+                        handlePublishButton(
                           itemName,
                           itemDescription,
                           itemPrice
-                        )
-                      }
+                        );
+                      }}
                     >
                       Publish
                     </button>

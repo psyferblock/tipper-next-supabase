@@ -2,7 +2,7 @@
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import { useState } from "react";
-import EditItemModal from "./modals/EditItemModal";
+import EditItemModal from "../menuCategories/[categoryId]/menuItems-Components/EditItemModal";
 
 // ALL THIS COMPONENT IS FOR MOBILE VERSION
 

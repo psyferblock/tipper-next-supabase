@@ -2,6 +2,7 @@
 
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import createMenuCategory from "@/lib/create/createMenuCategory";
 
 export default function AddNewMenuCategoryModal(props) {
   //State
@@ -9,6 +10,14 @@ export default function AddNewMenuCategoryModal(props) {
 
   //Apply "cancelButtonRef" to field to decide which section is focused on when modal is opened
   const cancelButtonRef = useRef(null);
+
+  const entityId = props.entityId;
+  async function handlePublishButton() {
+    //After published button in modal is clicked:
+    await createMenuCategory(categoryName, entityId);
+
+    props.publishButtonInModalIsClicked();
+  }
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
@@ -106,9 +115,7 @@ export default function AddNewMenuCategoryModal(props) {
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-3xl border border-transparent bg-blue-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() =>
-                        props.publishButtonInModalIsClicked(categoryName)
-                      }
+                      onClick={() => handlePublishButton(categoryName)}
                     >
                       Publish
                     </button>

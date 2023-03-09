@@ -1,4 +1,4 @@
-"use state";
+"use client";
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import { useState } from "react";
 import AddNewHighlightModal from "./modals/AddNewHighlightModal";

@@ -1,4 +1,4 @@
-import ManageQrCode from "../manageEntity-Components/ManageQrCode";
+import ManageQrCode from "./qrCode-Components/ManageQrCode";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 
 export default function ManageQrCodePage() {

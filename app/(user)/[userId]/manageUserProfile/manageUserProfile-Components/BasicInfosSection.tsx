@@ -1,6 +1,6 @@
 "use client";
 
-import updateBasicUserInfos from "@/lib/updateBasicUserInfos";
+import updateBasicUserInfos from "@/lib/update/updateBasicUserInfos";
 import { useState } from "react";
 
 export default function BasicInfosSection({ userInfos }) {

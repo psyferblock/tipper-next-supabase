@@ -18,7 +18,6 @@ export default function ManageTags() {
 
   const [tag, setTag] = useState<string>("");
 
-  console.log("tags once:", tags);
   return (
     <div className="h-fit bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">
       <div className="text-lg font-bold mb-2">Tags</div>

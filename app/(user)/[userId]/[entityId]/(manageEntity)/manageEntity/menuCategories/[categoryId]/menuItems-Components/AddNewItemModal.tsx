@@ -14,6 +14,9 @@ export default function AddNewItemModal(props) {
 
   const buttonRef = useRef(null);
 
+  const storageUrl =
+    "https://zluncbhyhpxonqhigbhn.supabase.co/storage/v1/object/public/images-restaurant/";
+
   async function handlePublishButton(
     itemName: string,
     itemDescription: string,
@@ -44,7 +47,7 @@ export default function AddNewItemModal(props) {
       .upload("public" + file?.name, file as File);
     if (error) throw error;
     console.log(data);
-    pictureUrl = `https://zluncbhyhpxonqhigbhn.supabase.co/storage/v1/object/public/images-restaurant/${data.path}`;
+    pictureUrl = `${storageUrl}${data.path}`;
   }
 
   // const saveAsDraftButtonInModalIsClicked = () => {

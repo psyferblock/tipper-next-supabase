@@ -1,12 +1,28 @@
 "use client";
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
 
 export default function ManageAboutUsPage() {
   const { aboutUs_description, setAboutUs_description } =
     useManageEntityInfosContext();
+
+  let pictureUrl;
+  async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {
+    let file;
+
+    if (e.target.files) {
+      file = e.target.files[0];
+    }
+
+    const { data, error } = await supabase.storage
+      .from("images-restaurant")
+      .upload("public" + file?.name, file as File);
+    if (error) throw error;
+    console.log(data);
+    pictureUrl = `${storageUrl}${data.path}`;
+  }
 
   return (
     <div className="h-fit  bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg space-y-4">
@@ -65,6 +81,9 @@ export default function ManageAboutUsPage() {
                     name="file-upload"
                     type="file"
                     className="sr-only"
+                    onChange={(e) => {
+                      handleUploadImageButton(e);
+                    }}
                   />
                 </label>
                 <p className="pl-1">or drag and drop</p>

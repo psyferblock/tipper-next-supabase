@@ -1,7 +1,5 @@
 "use client";
 
-import { useAuthContext } from "@/app/Store";
-import getEntityInfos from "@/lib/get/getEntityInfos";
 import React, {
   useEffect,
   createContext,
@@ -13,25 +11,10 @@ import React, {
 /**
  * Function returning all the tools that children component will inherit when using the context.
  */
-function createManageEntityInfosTools() {
-  //Destructuring the entity tags to send them as props to ManageTags Component
-  // const entityTags = entityInfos.entity_tags;
-
-  // const aboutUsDescription = entityInfos.about_us_description;
-  // const contactUsDescription = entityInfos.contact_us_description;
-
-  // const socialMedia = {
-  //   phone: entityInfos.entity_phone_number,
-  //   email: entityInfos.entity_email,
-  //   instagram: entityInfos.instagram_link,
-  //   facebook: entityInfos.facebook_link,
-  //   whatsapp: entityInfos.whatsapp_phone_number,
-  // };
-
+function createManageEntityInfosTools(entityInfos) {
   const [
     {
       tags,
-      tag,
       phoneNumber,
       emailAddress,
       instagramUrl,
@@ -46,8 +29,6 @@ function createManageEntityInfosTools() {
       switch (action.type) {
         case "setTags":
           return { ...state, tags: action.payload };
-        case "setTag":
-          return { ...state, tag: action.payload };
         case "setPhoneNumber":
           return { ...state, phoneNumber: action.payload };
         case "setEmailAddress":
@@ -65,35 +46,37 @@ function createManageEntityInfosTools() {
       }
     },
     {
-      tags: "",
-      tag: "",
-      phoneNumber: 0,
+      tags: [],
+      phoneNumber: "",
       emailAddress: "",
       instagramUrl: "",
       facebookUrl: "",
-      whatsappNumber: 0,
+      whatsappNumber: "",
       aboutUs_description: "",
       contactUs_description: "",
     }
   );
 
-  /**
-   * Setter function for tag state variable
-   */
-  const setTags = useCallback((newTag: string) => {
-    dispatch({
-      type: "setTags",
-      payload: [...tags, newTag],
-    });
+  useEffect(() => {
+    setTags(entityInfos.entity_tags);
+
+    setPhoneNumber(entityInfos.entity_phone_number);
+    setEmailAddress(entityInfos.entity_email);
+    setInstagramUrl(entityInfos.instagram_link);
+    setFacebookUrl(entityInfos.facebook_link);
+    setWhatsappNumber(entityInfos.whatsapp_phone_number);
+
+    setAboutUs_description(entityInfos.about_us_description);
+    setContactUs_description(entityInfos.contact_us_description);
   }, []);
 
   /**
    * Setter function for tag state variable
    */
-  const setTag = useCallback((tag: string) => {
+  const setTags = useCallback((currentTags: string[]) => {
     dispatch({
-      type: "setTag",
-      payload: tag,
+      type: "setTags",
+      payload: currentTags,
     });
   }, []);
 
@@ -167,7 +150,6 @@ function createManageEntityInfosTools() {
 
   return {
     tags,
-    tag,
     phoneNumber,
     emailAddress,
     instagramUrl,
@@ -176,7 +158,6 @@ function createManageEntityInfosTools() {
     aboutUs_description,
     contactUs_description,
     setTags,
-    setTag,
     setPhoneNumber,
     setEmailAddress,
     setInstagramUrl,
@@ -209,11 +190,16 @@ export function useManageEntityInfosContext() {
  */
 export function ManageEntityInfosContextProvider({
   children,
+  entityInfos,
 }: {
   children: React.ReactNode;
+  entityInfos: any;
 }) {
+  createManageEntityInfosTools(entityInfos);
   return (
-    <ManageEntityInfosContext.Provider value={createManageEntityInfosTools()}>
+    <ManageEntityInfosContext.Provider
+      value={createManageEntityInfosTools(entityInfos)}
+    >
       {children}
     </ManageEntityInfosContext.Provider>
   );

@@ -1,3 +1,4 @@
+import { useAuthContext } from "@/app/Store";
 import getFirstMenuCategoryId from "@/lib/get/getFirstMenuCategoryId";
 import Link from "next/link";
 export default async function EntityCard(props) {
@@ -5,7 +6,8 @@ export default async function EntityCard(props) {
   const entityId = entity?.id;
 
   const firstMenuCategoryId = await getFirstMenuCategoryId(entityId);
-  const userId = props.userId;
+  // const userId = props.userId;
+  const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
   return (
     <>
       <Link

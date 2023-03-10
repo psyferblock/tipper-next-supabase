@@ -2,16 +2,25 @@
 
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import createReel from "@/lib/create/createReel";
 
 export default function AddNewHighlightModal(props) {
-  const cancelButtonRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const [reelName, setReelName] = useState();
+
+  async function handleAddButton() {
+    await createReel(reelName, props.entityId);
+
+    props.closeModal();
+  }
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-50"
-        initialFocus={cancelButtonRef}
+        initialFocus={buttonRef}
         onClose={props.closeModal}
       >
         <Transition.Child
@@ -77,6 +86,9 @@ export default function AddNewHighlightModal(props) {
                         id="price"
                         className="h-14 w-full sm:h-12 block rounded-md border-gray-300 sm:pl-4 sm:pr-[235px] mt-2 mb-6 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Type highlight name"
+                        ref={buttonRef}
+                        value={reelName}
+                        onChange={(e) => setReelName(e.target.value)}
                       />
                       <div className="flex space-x-4 sm:space-x-4">
                         {/* ADD HIGHLIGHT CONTAINER */}
@@ -148,7 +160,7 @@ export default function AddNewHighlightModal(props) {
                   <button
                     type="button"
                     className="inline-flex w-full ml-3 justify-center rounded-3xl border border-transparent bg-blue-500 px-7 sm:px-11 py-2 sm:py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={props.addButtonInModalIsClicked}
+                    onClick={() => handleAddButton()}
                   >
                     Add
                   </button>
@@ -156,7 +168,6 @@ export default function AddNewHighlightModal(props) {
                     type="button"
                     className=" inline-flex w-full justify-center rounded-3xl border border-gray-300 bg-white px-8 py-2 sm:py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={props.closeModal}
-                    ref={cancelButtonRef}
                   >
                     Cancel
                   </button>

@@ -1,9 +1,9 @@
-import getMyUserInfos from "@/lib/getMyUserInfos";
+import getMyUserInfos from "@/lib/get/getMyUserInfos";
 import Link from "next/link";
 import ActivitiesHistory from "./manageUserProfile-Components/ActivitiesHistory";
 import SecuritySection from "./manageUserProfile-Components/SecuritySection";
 import BasicInfosSection from "./manageUserProfile-Components/BasicInfosSection";
-import getFirstMenuCategoryId from "@/lib/getFirstMenuCategoryId";
+import getFirstMenuCategoryId from "@/lib/get/getFirstMenuCategoryId";
 
 export default async function ManageUserProfilePage({ params }) {
   const userOwnsEntity = true;

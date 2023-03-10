@@ -5,8 +5,8 @@ import EntityInfosLeftContainer from "@/app/root-Components/entityPage-Component
 import HighlightReels from "@/app/root-Components/entityPage-Components/HighlightReelsSection";
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
-import getEntityInfos from "@/lib/getEntityInfos";
-import getReels from "@/lib/getReels";
+import getEntityInfos from "@/lib/get/getEntityInfos";
+import getReels from "@/lib/get/getReels";
 
 export default async function EntityPageLayout({
   children,

@@ -1,6 +1,6 @@
 "use client";
 
-import updateExchangeRate from "@/lib/updateExchangeRate";
+import updateExchangeRate from "@/lib/update/updateExchangeRate";
 import { useState } from "react";
 
 export default function ExchangeRateInputField({ exchangeRate, entityId }) {

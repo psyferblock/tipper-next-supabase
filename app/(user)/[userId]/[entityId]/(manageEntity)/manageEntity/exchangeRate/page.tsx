@@ -1,4 +1,4 @@
-import getExchangeRate from "@/lib/getExchangeRate";
+import getExchangeRate from "@/lib/get/getExchangeRate";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import ExchangeRateInputField from "./exchangeRate-Components/ExchangeRateInputField";
 

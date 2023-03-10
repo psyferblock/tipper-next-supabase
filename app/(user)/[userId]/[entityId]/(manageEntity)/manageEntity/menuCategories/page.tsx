@@ -1,5 +1,5 @@
-import getMenuCategories from "@/lib/getMenuCategories";
-import ManageMenuCategories from "./menuCategories-Components/ManageMenuCategories";
+import getMenuCategories from "@/lib/get/getMenuCategories";
+import ManageMenuCategories from "./ManageMenuCategories";
 
 export default async function ManageMenuCategoriesPage({ params }) {
   const menuCategories = await getMenuCategories(params.entityId);

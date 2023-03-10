@@ -1,6 +1,15 @@
-import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
+"use client";
 
-export default function ManageSocialMedia() {
+import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
+import { useState } from "react";
+
+export default function ManageSocialMedia({ socialMedia }) {
+  const [phoneNumber, setPhoneNumber] = useState(socialMedia.phone);
+  const [emailAddress, setEmailAddress] = useState(socialMedia.email);
+  const [instagramUrl, setInstagramUrl] = useState(socialMedia.instagram);
+  const [facebookUrl, setFacebookUrl] = useState(socialMedia.facebook);
+  const [whatsappNumber, setWhatsappNumber] = useState(socialMedia.whatsapp);
+
   return (
     <div className=" bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">
       <p className="text-lg font-bold mb-1">Phone Number & Social Media</p>
@@ -32,6 +41,8 @@ export default function ManageSocialMedia() {
               id="price"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="03 456 789"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
@@ -69,6 +80,8 @@ export default function ManageSocialMedia() {
               id="price"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Email Address"
+              value={emailAddress}
+              onChange={(e) => setEmailAddress(e.target.value)}
             />
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
@@ -102,6 +115,8 @@ export default function ManageSocialMedia() {
               id="price"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Link"
+              value={instagramUrl}
+              onChange={(e) => setInstagramUrl(e.target.value)}
             />
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
@@ -135,6 +150,8 @@ export default function ManageSocialMedia() {
               id="price"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Link"
+              value={facebookUrl}
+              onChange={(e) => setFacebookUrl(e.target.value)}
             />
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
@@ -168,6 +185,8 @@ export default function ManageSocialMedia() {
               id="price"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Whatsapp Number"
+              value={whatsappNumber}
+              onChange={(e) => setWhatsappNumber(e.target.value)}
             />
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">

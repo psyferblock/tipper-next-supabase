@@ -1,7 +1,6 @@
 import EntitiesCardsInScrollRowDirection from "./EntitiesCardsInScrollRowDirection";
 import Link from "next/link";
-import supabase from "@/utils/supabase";
-import getAllEntities from "@/lib/getAllEntities";
+import getAllEntities from "@/lib/get/getAllEntities";
 
 export default async function HomePageListingOfEntitiesCards(props) {
   const listOfEntities = await getAllEntities();

@@ -1,24 +1,10 @@
-"use state";
+"use client";
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
+import deleteReel from "@/lib/delete/deleteReel";
 import { useState } from "react";
-import AddNewHighlightModal from "./modals/AddNewHighlightModal";
+import AddNewHighlightModal from "./AddNewHighlightModal";
 
-export default function ManageHighlightReels() {
-  const highlightReels = [
-    {
-      name: "Events",
-      published: true,
-    },
-    {
-      name: "Happy Customers",
-      published: true,
-    },
-    {
-      name: "Our Offers",
-      published: false,
-    },
-  ];
-
+export default function ManageHighlightReels({ listOfReels, entityId }) {
   const [isAddHighlightModalOpen, setIsAddHighlightModalOpen] = useState(false);
 
   const handleAddHighlightButton = (e) => {
@@ -30,10 +16,9 @@ export default function ManageHighlightReels() {
     setIsAddHighlightModalOpen(false);
   };
 
-  const addButtonInModalIsClicked = () => {
-    //write code to when "Add" is clicked
-    setIsAddHighlightModalOpen(false);
-  };
+  async function handleRemoveReelButton(reelId) {
+    await deleteReel(reelId);
+  }
 
   return (
     <div className="bg-gray-300 sm:h-fit min-h-screen sm:min-h-screen sm:px-0 pb-3 sm:py-0">
@@ -64,7 +49,7 @@ export default function ManageHighlightReels() {
           <AddNewHighlightModal
             open={isAddHighlightModalOpen}
             closeModal={closeHighlightModal}
-            addButtonInModalIsClicked={addButtonInModalIsClicked}
+            entityId={entityId}
           />
         </div>
 
@@ -79,9 +64,9 @@ export default function ManageHighlightReels() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-300 text-gray-500">
-              {highlightReels.map((reel) => (
+              {listOfReels.map((reel) => (
                 <tr>
-                  <td>{reel.name}</td>
+                  <td>{reel.reel_name}</td>
                   <td className="italic">
                     {reel.published ? "Public" : "Private"}
                   </td>
@@ -92,7 +77,9 @@ export default function ManageHighlightReels() {
                     </div>
                     <div className="flex items-center space-x-10 text-blue-600">
                       <button>Edit</button>
-                      <button>Remove</button>
+                      <button onClick={() => handleRemoveReelButton(reel.id)}>
+                        Remove
+                      </button>
                     </div>
                   </td>
                 </tr>

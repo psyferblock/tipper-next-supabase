@@ -2,20 +2,34 @@
 
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import createMenuCategory from "@/lib/create/createMenuCategory";
 
 export default function AddNewMenuCategoryModal(props) {
   //State
   const [categoryName, setCategoryName] = useState<string | undefined>();
 
-  //Apply "cancelButtonRef" to field to decide which section is focused on when modal is opened
-  const cancelButtonRef = useRef(null);
+  //Apply "buttonRef" to field to decide which section is focused on when modal is opened
+  const buttonRef = useRef(null);
+
+  const entityId = props.entityId;
+  async function handlePublishButton() {
+    //After published button in modal is clicked:
+    await createMenuCategory(categoryName, entityId);
+
+    props.closeModal();
+  }
+
+  // const saveAsDraftButtonInModalIsClicked = () => {
+  //   //write code to when "Save" is clicked
+  //   setIsAddCategoryModalOpen(false);
+  // };
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-50"
-        initialFocus={cancelButtonRef}
+        initialFocus={buttonRef}
         onClose={props.closeModal}
       >
         <Transition.Child
@@ -83,7 +97,7 @@ export default function AddNewMenuCategoryModal(props) {
                         id="price"
                         className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mt-1 mb-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Type new category name"
-                        ref={cancelButtonRef}
+                        ref={buttonRef}
                         onChange={(e) => {
                           setCategoryName(e.target.value);
                         }}
@@ -106,9 +120,7 @@ export default function AddNewMenuCategoryModal(props) {
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-3xl border border-transparent bg-blue-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={() =>
-                        props.publishButtonInModalIsClicked(categoryName)
-                      }
+                      onClick={() => handlePublishButton(categoryName)}
                     >
                       Publish
                     </button>

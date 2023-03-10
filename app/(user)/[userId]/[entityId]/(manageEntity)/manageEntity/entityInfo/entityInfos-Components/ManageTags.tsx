@@ -3,21 +3,27 @@
 import { useState } from "react";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
 
-export default function ManageTags({ entityTags }) {
-  const [tagsProps, setTagsProps] = useState(entityTags);
+export default function ManageTags() {
+  const { tags, setTags } = useManageEntityInfosContext();
 
   function handleAddButton() {
-    tags.push(tag);
+    const newArray = tags.concat(tag);
+    setTags(newArray);
   }
 
-  const { tags, setTags } = useManageEntityInfosContext();
-  setTags(tagsProps);
-  console.log("tags!:", tags);
+  function handleDeleteTagButton(deletedTag) {
+    const newArray = tags.filter((tag) => tag != deletedTag);
+    setTags(newArray);
+  }
 
+  const [tag, setTag] = useState<string>("");
+
+  console.log("tags once:", tags);
   return (
     <div className="h-fit bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">
       <div className="text-lg font-bold mb-2">Tags</div>
       <div className="text-xs">Add tags</div>
+
       {/* TAG INPUT FIELD */}
       <div className="flex items-center space-x-3">
         <input
@@ -26,6 +32,7 @@ export default function ManageTags({ entityTags }) {
           id="price"
           className="h-12 block w-full rounded-md border-gray-400 pl-7 pr-12 mt-2 mb-6 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           placeholder="Type tag here"
+          value={tag}
           onChange={(e) => setTag(e.target.value)}
         />
         <button
@@ -40,7 +47,7 @@ export default function ManageTags({ entityTags }) {
         {tags.map((tag) => (
           <div className="px-2 py-1 flex w-fit items-center space-x-3 justify-between bg-gray-100 rounded-lg text-black text-xs  drop-shadow-md">
             <p>{tag}</p>
-            <button>
+            <button onClick={() => handleDeleteTagButton(tag)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

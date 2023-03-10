@@ -2,10 +2,11 @@
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import { useState } from "react";
+import { useManageEntityInfosContext } from "../EntityInfoContext";
 
-export default function ManageAboutUsPage({ aboutUs_description }) {
-  const [aboutUsDescription, setAboutUsDescription] =
-    useState(aboutUs_description);
+export default function ManageAboutUsPage() {
+  const { aboutUs_description, setAboutUs_description } =
+    useManageEntityInfosContext();
 
   return (
     <div className="h-fit  bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg space-y-4">
@@ -29,8 +30,8 @@ export default function ManageAboutUsPage({ aboutUs_description }) {
           id="about us"
           className="h-32 block w-full rounded-md border-gray-300 pb-24 pl-4 pr-12 mt-1 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
           placeholder="Enter a description of your wonderful business and people operating it!"
-          value={aboutUsDescription}
-          onChange={(e) => setAboutUsDescription(e.target.value)}
+          value={aboutUs_description}
+          onChange={(e) => setAboutUs_description(e.target.value)}
         />
       </div>
       <div>

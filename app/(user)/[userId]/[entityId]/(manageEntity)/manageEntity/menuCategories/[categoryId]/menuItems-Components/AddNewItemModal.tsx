@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import createMenuItem from "@/lib/create/createMenuItem";
+import supabase from "@/utils/supabase";
 
 export default function AddNewItemModal(props) {
   //State
@@ -23,10 +24,27 @@ export default function AddNewItemModal(props) {
       itemName,
       itemDescription,
       itemPrice,
+      pictureUrl,
       props.menuCategoryId
     );
 
     props.closeModal();
+  }
+
+  let pictureUrl;
+  async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {
+    let file;
+
+    if (e.target.files) {
+      file = e.target.files[0];
+    }
+
+    const { data, error } = await supabase.storage
+      .from("images-restaurant")
+      .upload("public" + file?.name, file as File);
+    if (error) throw error;
+    console.log(data);
+    pictureUrl = `https://zluncbhyhpxonqhigbhn.supabase.co/storage/v1/object/public/images-restaurant/${data.path}`;
   }
 
   // const saveAsDraftButtonInModalIsClicked = () => {
@@ -180,6 +198,9 @@ export default function AddNewItemModal(props) {
                                   name="file-upload"
                                   type="file"
                                   className="sr-only"
+                                  onChange={(e) => {
+                                    handleUploadImageButton(e);
+                                  }}
                                 />
                               </label>
                               <p className="pl-1">or drag and drop</p>

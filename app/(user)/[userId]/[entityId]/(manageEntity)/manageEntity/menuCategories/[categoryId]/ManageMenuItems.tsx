@@ -119,7 +119,7 @@ export default function ManageMenuItems({
                           <td>
                             <img
                               className="inline-block w-14 h-14 mr-3 rounded-full ring-2 ring-white"
-                              src={item.imageUrl}
+                              src={item.item_picture_url}
                               alt=""
                             />
                           </td>

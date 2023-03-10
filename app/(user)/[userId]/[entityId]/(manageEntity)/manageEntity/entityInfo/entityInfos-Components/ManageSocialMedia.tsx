@@ -2,13 +2,21 @@
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import { useState } from "react";
+import { useManageEntityInfosContext } from "../EntityInfoContext";
 
-export default function ManageSocialMedia({ socialMedia }) {
-  const [phoneNumber, setPhoneNumber] = useState(socialMedia.phone);
-  const [emailAddress, setEmailAddress] = useState(socialMedia.email);
-  const [instagramUrl, setInstagramUrl] = useState(socialMedia.instagram);
-  const [facebookUrl, setFacebookUrl] = useState(socialMedia.facebook);
-  const [whatsappNumber, setWhatsappNumber] = useState(socialMedia.whatsapp);
+export default function ManageSocialMedia() {
+  const {
+    phoneNumber,
+    emailAddress,
+    instagramUrl,
+    facebookUrl,
+    whatsappNumber,
+    setPhoneNumber,
+    setEmailAddress,
+    setInstagramUrl,
+    setFacebookUrl,
+    setWhatsappNumber,
+  } = useManageEntityInfosContext();
 
   return (
     <div className=" bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">

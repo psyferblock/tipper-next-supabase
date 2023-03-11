@@ -1,8 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function EntityPageContactUsSection({
   description,
   phoneNumber,
+  pictureUrl,
 }) {
   return (
     <div className="bg-white sm:flex items-center px-4 sm:px-0 space-y-4 sm:space-y-0 sm:space-x-16 py-4 sm:py-12">
@@ -17,11 +19,9 @@ export default function EntityPageContactUsSection({
         </button>
       </div>
       {/* IMAGE */}
-      <img
-        className=" sm:w-[598px] w-full mx-auto h-32 sm:h-[320px]"
-        src="https://cdn.ldsliving.com/dims4/default/2040800/2147483647/strip/true/crop/640x395+0+0/resize/640x395!/format/webp/quality/90/?url=http%3A%2F%2Flds-living-brightspot.s3.amazonaws.com%2F7c%2F30%2F864e82a22a48241f8a28bc7abb4d%2F42088.jpg"
-        alt=""
-      />
+      <div className=" sm:w-[598px] w-full mx-auto h-32 sm:h-[320px]">
+        <Image src={pictureUrl} alt="Contact Us Picture" fill />
+      </div>
     </div>
   );
 }

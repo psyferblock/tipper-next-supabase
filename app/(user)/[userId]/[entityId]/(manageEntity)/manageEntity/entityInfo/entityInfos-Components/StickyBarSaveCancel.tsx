@@ -13,8 +13,10 @@ export default function StickyBarSaveCancel() {
     instagramUrl,
     facebookUrl,
     whatsappNumber,
-    aboutUs_description,
-    contactUs_description,
+    aboutUsDescription,
+    aboutUsPictureUrl,
+    contactUsDescription,
+    contactUsPictureUrl,
   } = useManageEntityInfosContext();
 
   async function handleSaveButton() {
@@ -26,8 +28,10 @@ export default function StickyBarSaveCancel() {
       instagramUrl,
       facebookUrl,
       whatsappNumber,
-      aboutUs_description,
-      contactUs_description
+      aboutUsDescription,
+      aboutUsPictureUrl,
+      contactUsDescription,
+      contactUsPictureUrl
     );
   }
   return (

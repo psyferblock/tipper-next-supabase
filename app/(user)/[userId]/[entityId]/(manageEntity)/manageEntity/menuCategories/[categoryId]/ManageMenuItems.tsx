@@ -10,13 +10,15 @@ import Image from "next/image";
 import AddNewItemModal from "./menuItems-Components/AddNewItemModal";
 import EditItemModal from "./menuItems-Components/EditItemModal";
 import deleteMenuItem from "@/lib/delete/deleteMenuItem";
+import { useAuthContext } from "@/app/Store";
+import { useSearchParams } from "next/navigation";
 
-export default function ManageMenuItems({
-  menuItems,
-  menuCategoryId,
-  userId,
-  entityId,
-}) {
+export default function ManageMenuItems({ menuItems, menuCategoryId }) {
+  const { userId, ownedEntityId } = useAuthContext();
+
+  const searchParams = useSearchParams();
+  const categoryName = searchParams.get("categoryName");
+
   //Add New Item Modal
   const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
 
@@ -68,7 +70,7 @@ export default function ManageMenuItems({
               <div className="flex items-center justify-between">
                 {/* CATEGORY NAME HEADER */}
                 <Link
-                  href={"/1/1/manageEntity/menuCategories"}
+                  href={`${userId}/${ownedEntityId}/manageEntity/menuCategories`}
                   className="flex items-center space-x-2"
                 >
                   <svg
@@ -86,10 +88,10 @@ export default function ManageMenuItems({
                     />
                   </svg>
                   <Link
-                    href={`${userId}/${entityId}/manageEntity/menuCategories`}
+                    href={`${userId}/${ownedEntityId}/manageEntity/menuCategories`}
                     className="font-bold text-3xl"
                   >
-                    Breakfast
+                    {categoryName}
                   </Link>
                 </Link>
                 {/* ADD CATEGORY BUTTON */}
@@ -179,7 +181,7 @@ export default function ManageMenuItems({
               d="M15.75 19.5L8.25 12l7.5-7.5"
             />
           </svg>
-          <p className="font-bold text-3xl ">Breakfast</p>
+          <p className="font-bold text-3xl ">{categoryName}</p>
         </button>
         <button
           onClick={handleAddItemButton}

@@ -4,6 +4,7 @@ import { ChangeEvent, Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import createMenuItem from "@/lib/create/createMenuItem";
 import supabase from "@/utils/supabase";
+import uploadPicture from "@/lib/create/uploadPicture";
 
 export default function AddNewItemModal(props) {
   //State
@@ -13,9 +14,6 @@ export default function AddNewItemModal(props) {
   const [itemPrice, setItemPrice] = useState<number | undefined>();
 
   const buttonRef = useRef(null);
-
-  const storageUrl =
-    "https://zluncbhyhpxonqhigbhn.supabase.co/storage/v1/object/public/images-restaurant/";
 
   async function handlePublishButton(
     itemName: string,
@@ -41,13 +39,7 @@ export default function AddNewItemModal(props) {
     if (e.target.files) {
       file = e.target.files[0];
     }
-
-    const { data, error } = await supabase.storage
-      .from("images-restaurant")
-      .upload("public" + file?.name, file as File);
-    if (error) throw error;
-    console.log(data);
-    pictureUrl = `${storageUrl}${data.path}`;
+    pictureUrl = await uploadPicture(file, "images-restaurant", "public");
   }
 
   // const saveAsDraftButtonInModalIsClicked = () => {

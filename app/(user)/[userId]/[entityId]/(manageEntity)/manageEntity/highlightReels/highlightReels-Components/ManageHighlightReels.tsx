@@ -3,8 +3,10 @@ import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import deleteReel from "@/lib/delete/deleteReel";
 import { useState } from "react";
 import AddNewHighlightModal from "./AddNewHighlightModal";
+import EditHighlightModal from "./EditHighlightModal";
 
 export default function ManageHighlightReels({ listOfReels, entityId }) {
+  //Add new highlight reel modal
   const [isAddHighlightModalOpen, setIsAddHighlightModalOpen] = useState(false);
 
   const handleAddHighlightButton = (e) => {
@@ -16,8 +18,33 @@ export default function ManageHighlightReels({ listOfReels, entityId }) {
     setIsAddHighlightModalOpen(false);
   };
 
+  //Edit  highlight reel modal
+  const [isEditHighlightModalOpen, setIsEditHighlightModalOpen] =
+    useState(false);
+
+  const closeEditHighlightModal = () => {
+    setIsEditHighlightModalOpen(false);
+  };
+
+  //Remove Reel function
   async function handleRemoveReelButton(reelId) {
     await deleteReel(reelId);
+  }
+
+  //Storing the Id of the highlight being edited
+  const [highlightBeingEditedId, setHighlightBeingEditedId] = useState();
+  //Storing the item being edited to send it to the modal
+  const [highlightObjectBeingEdited, setHighlightObjectBeingEdited] =
+    useState();
+  //Function used to find the highlight being edited and its Id
+  function handleEditHighlightButton(highlightId) {
+    setHighlightBeingEditedId(highlightId);
+    listOfReels.map((reel) => {
+      if (reel.id == highlightId) {
+        setHighlightObjectBeingEdited(reel);
+      }
+    });
+    setIsEditHighlightModalOpen(true);
   }
 
   return (
@@ -76,7 +103,19 @@ export default function ManageHighlightReels({ listOfReels, entityId }) {
                       <p className="pb-1">{reel.published ? "Yes" : "No"}</p>
                     </div>
                     <div className="flex items-center space-x-10 text-blue-600">
-                      <button>Edit</button>
+                      <button
+                        onClick={() => {
+                          handleEditHighlightButton(reel.id);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <EditHighlightModal
+                        open={isEditHighlightModalOpen}
+                        closeModal={closeEditHighlightModal}
+                        reel={highlightObjectBeingEdited}
+                        highlightBeingEditedId={highlightBeingEditedId}
+                      />
                       <button onClick={() => handleRemoveReelButton(reel.id)}>
                         Remove
                       </button>

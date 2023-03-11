@@ -1,18 +1,36 @@
 "use client";
 
-import { Fragment, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import createReel from "@/lib/create/createReel";
+import Image from "next/image";
+import uploadPicture from "@/lib/create/uploadPicture";
+import insertUrlsToReel from "@/lib/create/insertUrlsToReel";
 
 export default function AddNewHighlightModal(props) {
+  //State
+  const [highlightName, setHighlightName] = useState<string | undefined>();
+  const [arrayOfPictureUrls, setArrayOfPictureUrls] = useState([]);
+
   const buttonRef = useRef(null);
 
-  const [reelName, setReelName] = useState();
-
   async function handleAddButton() {
-    await createReel(reelName, props.entityId);
+    const newHighlightId = await createReel(highlightName, props.entityId);
+    await insertUrlsToReel(arrayOfPictureUrls, newHighlightId);
 
     props.closeModal();
+  }
+
+  async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {
+    let file;
+
+    if (e.target.files) {
+      file = e.target.files[0];
+    }
+    let pictureUrl = await uploadPicture(file, "images-restaurant", "public");
+    let newArray = arrayOfPictureUrls.concat(pictureUrl);
+    console.log("new array after concat:", newArray);
+    setArrayOfPictureUrls(newArray);
   }
 
   return (
@@ -87,8 +105,8 @@ export default function AddNewHighlightModal(props) {
                         className="h-14 w-full sm:h-12 block rounded-md border-gray-300 sm:pl-4 sm:pr-[235px] mt-2 mb-6 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Type highlight name"
                         ref={buttonRef}
-                        value={reelName}
-                        onChange={(e) => setReelName(e.target.value)}
+                        value={highlightName}
+                        onChange={(e) => setHighlightName(e.target.value)}
                       />
                       <div className="flex space-x-4 sm:space-x-4">
                         {/* ADD HIGHLIGHT CONTAINER */}
@@ -121,6 +139,9 @@ export default function AddNewHighlightModal(props) {
                                   name="file-upload"
                                   type="file"
                                   className="sr-only"
+                                  onChange={(e) => {
+                                    handleUploadImageButton(e);
+                                  }}
                                 />
                               </label>
                               <p className="pl-1">or drag and drop</p>
@@ -131,26 +152,41 @@ export default function AddNewHighlightModal(props) {
                           </div>
                         </div>
                         {/* ADD HIGHLIGHT PLUS SIGN CONTAINER */}
-                        <div className="bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
-                          <button className="pb-12">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={3}
-                              stroke="currentColor"
-                              className="w-10 h-10 text-indigo-600 mx-auto"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 4.5v15m7.5-7.5h-15"
-                              />
-                            </svg>
-                            <p className="text-xs text-indigo-600 font-semibold">
-                              Add new highlight
-                            </p>
-                          </button>
+                        <div
+                          className="relative bg-gray-100 w-full grid grid-flow-col overflow-x-auto justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] "
+                          // className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] "
+                        >
+                          {arrayOfPictureUrls ? (
+                            <>
+                              {arrayOfPictureUrls.map((pictureUrl) => (
+                                <Image
+                                  src={pictureUrl}
+                                  alt="highlight picture"
+                                  fill
+                                />
+                              ))}
+                            </>
+                          ) : (
+                            <button className="pb-12">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={3}
+                                stroke="currentColor"
+                                className="w-10 h-10 text-indigo-600 mx-auto"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M12 4.5v15m7.5-7.5h-15"
+                                />
+                              </svg>
+                              <p className="text-xs text-indigo-600 font-semibold">
+                                Add new highlight
+                              </p>
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>

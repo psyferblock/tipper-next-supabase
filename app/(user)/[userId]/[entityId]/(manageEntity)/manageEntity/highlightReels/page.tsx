@@ -1,6 +1,6 @@
 import getReels from "@/lib/get/getReels";
-import ManageHighlightReels from "./highlightReels-Components/ManageHighlightReels";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import ManageHighlightReels from "./highlightReels-Components/ManageHighlightReels";
 
 export default async function ManageHighlightReelsPage({ params }) {
   const entityReels = await getReels(params.entityId);

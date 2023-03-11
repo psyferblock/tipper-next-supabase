@@ -14,12 +14,12 @@ export default function EntityPageContactUsSection({
           Get in touch with us!
         </p>
         <p className="pr-8 ">{description}</p>
-        <button className="w-40 h-10 rounded-3xl bg-blue-500 text-white text-sm">
+        <button className="w-40 h-10 rounded-3xl bg-blue-500 text-white text-sm ">
           <Link href={`tel:+961${phoneNumber}`}>Contact Us</Link>
         </button>
       </div>
       {/* IMAGE */}
-      <div className=" sm:w-[598px] w-full mx-auto h-32 sm:h-[320px]">
+      <div className="relative sm:w-[598px] w-full mx-auto h-32 sm:h-[320px]">
         <Image src={pictureUrl} alt="Contact Us Picture" fill />
       </div>
     </div>

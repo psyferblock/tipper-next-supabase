@@ -15,15 +15,13 @@ export default function ManageAboutUsPage() {
     setAboutUsPictureUrl,
   } = useManageEntityInfosContext();
 
-  let pictureUrl;
-
   async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {
     let file;
 
     if (e.target.files) {
       file = e.target.files[0];
     }
-    pictureUrl = await uploadPicture(file, "images-restaurant", "public");
+    let pictureUrl = await uploadPicture(file, "images-restaurant", "public");
     //Setting the picture URL in context
     setAboutUsPictureUrl(pictureUrl);
   }

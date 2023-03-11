@@ -1,13 +1,16 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import updateMenuItem from "@/lib/update/updateMenuItem";
+import uploadPicture from "@/lib/create/uploadPicture";
+import Image from "next/image";
 
 export default function EditItemModal(props) {
   const [itemName, setItemName] = useState();
   const [itemDescription, setItemDescription] = useState();
   const [itemPrice, setItemPrice] = useState();
+  const [itemPictureUrl, setItemPictureUrl] = useState<string | undefined>();
 
   const buttonRef = useRef(null);
 
@@ -17,15 +20,32 @@ export default function EditItemModal(props) {
     setItemName(item?.item_name);
     setItemDescription(item?.item_description);
     setItemPrice(item?.item_price);
+    setItemPictureUrl(item?.item_picture_url);
   }, [item]);
 
   const menuItemId = props.menuItemBeingEditedId;
   async function handleSaveButton() {
     //After save button in modal is clicked:
-    await updateMenuItem(itemName, itemDescription, itemPrice, menuItemId);
+    await updateMenuItem(
+      itemName,
+      itemDescription,
+      itemPrice,
+      itemPictureUrl,
+      menuItemId
+    );
 
     //Close the modal
     props.closeModal();
+  }
+
+  async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {
+    let file;
+
+    if (e.target.files) {
+      file = e.target.files[0];
+    }
+    let pictureUrl = await uploadPicture(file, "images-restaurant", "public");
+    setItemPictureUrl(pictureUrl);
   }
   return (
     <Transition.Root show={props.open} as={Fragment}>
@@ -147,43 +167,54 @@ export default function EditItemModal(props) {
                       <div className="w-full">
                         <p className="text-xs text-start">Image</p>
                         {/* IMAGE CONTAINER */}
-                        <div className="bg-gray-100 mt-1 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 px-6 pt-[52px] ">
-                          <div className="space-y-1 text-center">
-                            <svg
-                              className="mx-auto h-12 w-12 text-gray-400"
-                              stroke="currentColor"
-                              fill="none"
-                              viewBox="0 0 48 48"
-                              aria-hidden="true"
-                            >
-                              <path
-                                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                                strokeWidth={2}
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                            <div className=" text-xs text-gray-600">
-                              <label
-                                htmlFor="file-upload"
-                                className="relative cursor-pointer rounded-md bg-gray-100 font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-400"
+                        <div className="relative bg-gray-100 mt-1 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 px-6 pt-[52px] ">
+                          {itemPictureUrl ? (
+                            <Image
+                              src={itemPictureUrl}
+                              alt="Picture of item menu"
+                              fill
+                            />
+                          ) : (
+                            <div className="space-y-1 text-center">
+                              <svg
+                                className="mx-auto h-12 w-12 text-gray-400"
+                                stroke="currentColor"
+                                fill="none"
+                                viewBox="0 0 48 48"
+                                aria-hidden="true"
                               >
-                                <span className="underline">
-                                  Upload an image
-                                </span>
-                                <input
-                                  id="file-upload"
-                                  name="file-upload"
-                                  type="file"
-                                  className="sr-only"
+                                <path
+                                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                  strokeWidth={2}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
-                              </label>
-                              <p className="pl-1">or drag and drop</p>
+                              </svg>
+                              <div className=" text-xs text-gray-600">
+                                <label
+                                  htmlFor="editPicture"
+                                  className="relative cursor-pointer rounded-md bg-gray-100 font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-400"
+                                >
+                                  <span className="underline">
+                                    Upload an image
+                                  </span>
+                                  <input
+                                    id="editPicture"
+                                    name="editPicture"
+                                    type="file"
+                                    className="sr-only"
+                                    onChange={(e) => {
+                                      handleUploadImageButton(e);
+                                    }}
+                                  />
+                                </label>
+                                <p className="pl-1">or drag and drop</p>
+                              </div>
+                              <p className="text-xs text-gray-500">
+                                PNG, JPG, GIF up to 10MB
+                              </p>
                             </div>
-                            <p className="text-xs text-gray-500">
-                              PNG, JPG, GIF up to 10MB
-                            </p>
-                          </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -201,7 +232,7 @@ export default function EditItemModal(props) {
                     type="button"
                     className="inline-flex w-full justify-center rounded-3xl border border-transparent bg-blue-500 px-9 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={() => {
-                      handleSaveButton(itemName, itemDescription, itemPrice);
+                      handleSaveButton();
                     }}
                   >
                     Save

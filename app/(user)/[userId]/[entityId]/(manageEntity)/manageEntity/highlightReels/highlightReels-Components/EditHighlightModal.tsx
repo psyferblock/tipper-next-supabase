@@ -6,6 +6,7 @@ import createReel from "@/lib/create/createReel";
 import Image from "next/image";
 import uploadPicture from "@/lib/create/uploadPicture";
 import insertUrlsToReel from "@/lib/create/insertUrlsToReel";
+import getPictureUrlsOfReel from "@/lib/get/getPictureUrlsOfReel";
 
 export default function EditHighlightModal(props) {
   //State
@@ -17,11 +18,16 @@ export default function EditHighlightModal(props) {
   const reel = props.reel;
 
   useEffect(() => {
-    setItemName(item?.item_name);
-    setItemDescription(item?.item_description);
-    setItemPrice(item?.item_price);
-    setItemPictureUrl(item?.item_picture_url);
-  }, [item]);
+    setHighlightName(reel?.reel_name);
+
+    async function getUrls() {
+      const arrayOfUrls = await getPictureUrlsOfReel(reel?.id);
+      console.log("arrayOfUrls::", arrayOfUrls);
+      setArrayOfPictureUrls(arrayOfUrls);
+    }
+
+    getUrls().catch(console.error);
+  }, [reel]);
 
   async function handleSaveButton() {
     const newHighlightId = await createReel(highlightName, props.entityId);
@@ -117,7 +123,7 @@ export default function EditHighlightModal(props) {
                         value={highlightName}
                         onChange={(e) => setHighlightName(e.target.value)}
                       />
-                      <div className="flex space-x-4 sm:space-x-4">
+                      <div className=" space-x-4 sm:space-x-4 grid grid-rows-1 grid-flow-col overflow-x-auto">
                         {/* ADD HIGHLIGHT CONTAINER */}
                         <div className="bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6  sm:pt-[52px] ">
                           <div className="space-y-1 text-center pt-24 sm:pt-0 pb-20 sm:pb-9">
@@ -161,21 +167,20 @@ export default function EditHighlightModal(props) {
                           </div>
                         </div>
                         {/* ADD HIGHLIGHT PLUS SIGN CONTAINER */}
-                        <div
-                          className="relative bg-gray-100 w-full grid grid-flow-col overflow-x-auto justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] "
-                          // className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] "
-                        >
-                          {arrayOfPictureUrls ? (
-                            <>
-                              {arrayOfPictureUrls.map((pictureUrl) => (
+                        {arrayOfPictureUrls ? (
+                          <>
+                            {arrayOfPictureUrls.map((pictureObject) => (
+                              <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
                                 <Image
-                                  src={pictureUrl}
+                                  src={pictureObject.media_url}
                                   alt="highlight picture"
                                   fill
                                 />
-                              ))}
-                            </>
-                          ) : (
+                              </div>
+                            ))}
+                          </>
+                        ) : (
+                          <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
                             <button className="pb-12">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -195,8 +200,8 @@ export default function EditHighlightModal(props) {
                                 Add new highlight
                               </p>
                             </button>
-                          )}
-                        </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

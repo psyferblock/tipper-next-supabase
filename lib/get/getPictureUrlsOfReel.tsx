@@ -7,4 +7,5 @@ export default async function getPictureUrlsOfReel(reelId) {
     .eq("entity_highlight_id", reelId);
   if (error) throw error;
   console.log("arrayOfUrls of reel returned:", data);
+  return data;
 }

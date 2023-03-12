@@ -4,7 +4,7 @@ import { ChangeEvent, Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import createReel from "@/lib/create/createReel";
 import Image from "next/image";
-import uploadPicture from "@/lib/create/uploadPicture";
+import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import insertUrlsToReel from "@/lib/create/insertUrlsToReel";
 
 export default function AddNewHighlightModal(props) {
@@ -27,7 +27,11 @@ export default function AddNewHighlightModal(props) {
     if (e.target.files) {
       file = e.target.files[0];
     }
-    let pictureUrl = await uploadPicture(file, "images-restaurant", "public");
+    let pictureUrl = await uploadPictureToBucket(
+      file,
+      "images-restaurant",
+      "public"
+    );
     let newArray = arrayOfPictureUrls.concat(pictureUrl);
     console.log("new array after concat:", newArray);
     setArrayOfPictureUrls(newArray);

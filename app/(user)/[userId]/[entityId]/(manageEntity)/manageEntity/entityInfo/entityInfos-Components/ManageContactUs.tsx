@@ -1,7 +1,7 @@
 "use client";
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
-import uploadPicture from "@/lib/create/uploadPicture";
+import uploadPicture from "@/lib/create/uploadPictureToBucket";
 import Image from "next/image";
 import { ChangeEvent } from "react";
 import { useManageEntityInfosContext } from "../EntityInfoContext";

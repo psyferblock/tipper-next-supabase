@@ -3,7 +3,7 @@
 import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import updateMenuItem from "@/lib/update/updateMenuItem";
-import uploadPicture from "@/lib/create/uploadPicture";
+import uploadPicture from "@/lib/create/uploadPictureToBucket";
 import Image from "next/image";
 
 export default function EditItemModal(props) {

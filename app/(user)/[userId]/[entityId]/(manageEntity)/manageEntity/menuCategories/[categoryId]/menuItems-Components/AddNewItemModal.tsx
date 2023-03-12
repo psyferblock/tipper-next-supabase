@@ -4,7 +4,7 @@ import { ChangeEvent, Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import createMenuItem from "@/lib/create/createMenuItem";
 import supabase from "@/utils/supabase";
-import uploadPicture from "@/lib/create/uploadPicture";
+import uploadPicture from "@/lib/create/uploadPictureToBucket";
 import Image from "next/image";
 
 export default function AddNewItemModal(props) {

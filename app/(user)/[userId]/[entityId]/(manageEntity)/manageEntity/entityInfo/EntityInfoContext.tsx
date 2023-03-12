@@ -20,8 +20,10 @@ function createManageEntityInfosTools(entityInfos) {
       instagramUrl,
       facebookUrl,
       whatsappNumber,
-      aboutUs_description,
-      contactUs_description,
+      aboutUsDescription,
+      aboutUsPictureUrl,
+      contactUsDescription,
+      contactUsPictureUrl,
     },
     dispatch,
   ] = useReducer(
@@ -39,10 +41,14 @@ function createManageEntityInfosTools(entityInfos) {
           return { ...state, facebookUrl: action.payload };
         case "setWhatsappNumber":
           return { ...state, whatsappNumber: action.payload };
-        case "setAboutUs_description":
-          return { ...state, aboutUs_description: action.payload };
-        case "setContactUs_description":
-          return { ...state, contactUs_description: action.payload };
+        case "setAboutUsDescription":
+          return { ...state, aboutUsDescription: action.payload };
+        case "setAboutUsPictureUrl":
+          return { ...state, aboutUsPictureUrl: action.payload };
+        case "setContactUsDescription":
+          return { ...state, contactUsDescription: action.payload };
+        case "setContactUsPictureUrl":
+          return { ...state, contactUsPictureUrl: action.payload };
       }
     },
     {
@@ -52,8 +58,10 @@ function createManageEntityInfosTools(entityInfos) {
       instagramUrl: "",
       facebookUrl: "",
       whatsappNumber: "",
-      aboutUs_description: "",
-      contactUs_description: "",
+      aboutUsDescription: "",
+      aboutUsPictureUrl: "",
+      contactUsDescription: "",
+      contactUsPictureUrl: "",
     }
   );
 
@@ -66,8 +74,10 @@ function createManageEntityInfosTools(entityInfos) {
     setFacebookUrl(entityInfos.facebook_link);
     setWhatsappNumber(entityInfos.whatsapp_phone_number);
 
-    setAboutUs_description(entityInfos.about_us_description);
-    setContactUs_description(entityInfos.contact_us_description);
+    setAboutUsDescription(entityInfos.about_us_description);
+    setAboutUsPictureUrl(entityInfos.about_us_picture_url);
+    setContactUsDescription(entityInfos.contact_us_description);
+    setContactUsPictureUrl(entityInfos.contact_us_picture_url);
   }, []);
 
   /**
@@ -131,9 +141,9 @@ function createManageEntityInfosTools(entityInfos) {
   /**
    * Setter function for tag state variable
    */
-  const setAboutUs_description = useCallback((description: string) => {
+  const setAboutUsDescription = useCallback((description: string) => {
     dispatch({
-      type: "setAboutUs_description",
+      type: "setAboutUsDescription",
       payload: description,
     });
   }, []);
@@ -141,10 +151,30 @@ function createManageEntityInfosTools(entityInfos) {
   /**
    * Setter function for tag state variable
    */
-  const setContactUs_description = useCallback((description: string) => {
+  const setAboutUsPictureUrl = useCallback((url: string) => {
     dispatch({
-      type: "setContactUs_description",
+      type: "setAboutUsPictureUrl",
+      payload: url,
+    });
+  }, []);
+
+  /**
+   * Setter function for tag state variable
+   */
+  const setContactUsDescription = useCallback((description: string) => {
+    dispatch({
+      type: "setContactUsDescription",
       payload: description,
+    });
+  }, []);
+
+  /**
+   * Setter function for tag state variable
+   */
+  const setContactUsPictureUrl = useCallback((url: string) => {
+    dispatch({
+      type: "setContactUsPictureUrl",
+      payload: url,
     });
   }, []);
 
@@ -155,16 +185,20 @@ function createManageEntityInfosTools(entityInfos) {
     instagramUrl,
     facebookUrl,
     whatsappNumber,
-    aboutUs_description,
-    contactUs_description,
+    aboutUsDescription,
+    aboutUsPictureUrl,
+    contactUsDescription,
+    contactUsPictureUrl,
     setTags,
     setPhoneNumber,
     setEmailAddress,
     setInstagramUrl,
     setFacebookUrl,
     setWhatsappNumber,
-    setAboutUs_description,
-    setContactUs_description,
+    setAboutUsDescription,
+    setAboutUsPictureUrl,
+    setContactUsDescription,
+    setContactUsPictureUrl,
   };
 }
 

@@ -1,22 +1,63 @@
 "use client";
 
-import { ChangeEvent, Fragment, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import createReel from "@/lib/create/createReel";
 import Image from "next/image";
 import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import insertUrlsToReel from "@/lib/create/insertUrlsToReel";
+import getPictureUrlsOfReel from "@/lib/get/getPictureUrlsOfReel";
+import deletePictureFromReel from "@/lib/delete/deletePictureFromReel";
 
-export default function AddNewHighlightModal(props) {
+export default function EditHighlightModal(props) {
   //State
   const [highlightName, setHighlightName] = useState<string | undefined>();
+
+  //"arrayOfPictureUrls" is an array containing a list of the following object:
+  // {
+  //   id:"...",
+  //   created_at: "...",
+  //   media_category:"...",
+  //   media_url:"...",
+  //   entity_highlight_id:"...",
+  // }
   const [arrayOfPictureUrls, setArrayOfPictureUrls] = useState([]);
 
   const buttonRef = useRef(null);
 
-  async function handleAddButton() {
-    const newHighlightId = await createReel(highlightName, props.entityId);
-    await insertUrlsToReel(arrayOfPictureUrls, newHighlightId);
+  const reel = props.reel;
+
+  useEffect(() => {
+    setHighlightName(reel?.reel_name);
+
+    async function getUrls() {
+      const arrayOfObjectPictures = await getPictureUrlsOfReel(reel?.id);
+      console.log("arrayOfUrls::", arrayOfObjectPictures);
+      setArrayOfPictureUrls(arrayOfObjectPictures);
+    }
+
+    getUrls().catch(console.error);
+  }, [reel]);
+
+  async function handleSaveButton() {
+    //Converting the array of objects "arrayOfPictureUrls" to array of urls and keeping only newly
+    //uploaded pictures that are not yet stores in DB
+    const arrayOfUrls = arrayOfPictureUrls.map((pictureObject) => {
+      if (pictureObject.id == null) {
+        return pictureObject.media_url;
+      }
+    });
+    //Inserting the URLs into the database the newly uploaded images not present in DB
+    await insertUrlsToReel(arrayOfUrls, reel.id);
+
+    //Converting the array of objects "arrayOfPictureUrls" to array of urls and keeping only newly
+    //uploaded pictures that are not yet stores in DB
+    const arrayOfDeletedUrls = arrayOfPictureUrls.map((pictureObject) => {
+      if (pictureObject.id == null) {
+        return pictureObject.media_url;
+      }
+    });
+    await deletePictureFromReel(arrayOfDeletedUrls);
 
     props.closeModal();
   }
@@ -32,8 +73,22 @@ export default function AddNewHighlightModal(props) {
       "images-restaurant",
       "public"
     );
-    let newArray = arrayOfPictureUrls.concat(pictureUrl);
-    console.log("new array after concat:", newArray);
+    let newArray = arrayOfPictureUrls.concat({
+      id: null,
+      media_url: pictureUrl,
+    });
+    setArrayOfPictureUrls(newArray);
+  }
+  console.log("array of pics:", arrayOfPictureUrls);
+
+  //Function to delete a picture in the reel
+  async function handleDeletePictureButton(deletedPicutreUrl) {
+    //Locating which picture should be deleted based on the URL of the picture (could be done with
+    // picture Id instead, but would need to upload photo to DB and get its ID which is an extra API
+    // call for each picture uploade)
+    const newArray = arrayOfPictureUrls.filter(
+      (pictureObject) => pictureObject.media_url != deletedPicutreUrl
+    );
     setArrayOfPictureUrls(newArray);
   }
 
@@ -77,7 +132,7 @@ export default function AddNewHighlightModal(props) {
                           as="h3"
                           className="text-lg text-start font-medium leading-6 text-gray-900 mb-4"
                         >
-                          Add New Highlight
+                          Edit Highlight
                         </Dialog.Title>
                         <button className="sm:hidden">
                           <svg
@@ -112,7 +167,7 @@ export default function AddNewHighlightModal(props) {
                         value={highlightName}
                         onChange={(e) => setHighlightName(e.target.value)}
                       />
-                      <div className=" space-x-4 sm:space-x-4 grid grid-rows-1 grid-flow-col overflow-x-auto">
+                      <div className=" space-x-4 sm:space-x-4 grid grid-rows-1 grid-flow-col overflow-auto">
                         {/* ADD HIGHLIGHT CONTAINER */}
                         <div className="bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6  sm:pt-[52px] ">
                           <div className="space-y-1 text-center pt-24 sm:pt-0 pb-20 sm:pb-9">
@@ -156,17 +211,32 @@ export default function AddNewHighlightModal(props) {
                           </div>
                         </div>
                         {/* ADD HIGHLIGHT PLUS SIGN CONTAINER */}
-
                         {arrayOfPictureUrls ? (
-                          <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
-                            {arrayOfPictureUrls.map((pictureUrl) => (
-                              <Image
-                                src={pictureUrl}
-                                alt="highlight picture"
-                                fill
-                              />
+                          <>
+                            {arrayOfPictureUrls.map((pictureObject) => (
+                              <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
+                                <Image
+                                  src={pictureObject.media_url}
+                                  alt="highlight picture"
+                                  fill
+                                />
+                                <button
+                                  // onClick={}
+                                  className="text-blue-500 z-10"
+                                >
+                                  Replace
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    handleDeletePictureButton(pictureObject.id)
+                                  }
+                                  className="text-blue-500 z-10"
+                                >
+                                  Delete
+                                </button>
+                              </div>
                             ))}
-                          </div>
+                          </>
                         ) : (
                           <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
                             <button className="pb-12">
@@ -198,9 +268,9 @@ export default function AddNewHighlightModal(props) {
                   <button
                     type="button"
                     className="inline-flex w-full ml-3 justify-center rounded-3xl border border-transparent bg-blue-500 px-7 sm:px-11 py-2 sm:py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => handleAddButton()}
+                    onClick={() => handleSaveButton()}
                   >
-                    Add
+                    Save
                   </button>
                   <button
                     type="button"

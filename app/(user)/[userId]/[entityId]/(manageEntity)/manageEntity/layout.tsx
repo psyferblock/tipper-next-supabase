@@ -1,12 +1,14 @@
+import getFirstMenuCategoryId from "@/lib/get/getFirstMenuCategoryId";
+import Link from "next/link";
 import CategoriesNavLink from "./manageEntity-Components/CategoriesNavLink";
 
-export default function ManageEntityLayout({
+export default async function ManageEntityLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: any;
 }) {
-  const userId = 1;
-
   const managementCategories = [
     {
       name: "Menu",
@@ -29,12 +31,32 @@ export default function ManageEntityLayout({
       route: "qrCode",
     },
   ];
+  const firstMenuCategoryId = await getFirstMenuCategoryId(params.entityId);
+
   return (
     <div className="bg-gray-300 sm:h-fit sm:min-h-screen px-3 sm:px-12 pt-0 pb-7 sm:py-8">
       {/* PAGE BG COLOR AND PADDING  */}
-      <div className="hidden sm:block font-bold text-2xl pt-6 pb-4">
-        Manage Entity
-      </div>
+      <Link
+        href={`${params.userId}/${params.entityId}/menu/${firstMenuCategoryId}`}
+        className="hidden sm:flex items-center font-bold text-2xl pt-6 pb-4"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 19.5L8.25 12l7.5-7.5"
+          />
+        </svg>
+        <p>Manage Entity</p>
+      </Link>
+
       <div className="flex">
         {/* LEFT MENU */}
         <div className="hidden sm:block sm:w-[340px]">

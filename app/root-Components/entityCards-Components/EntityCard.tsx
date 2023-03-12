@@ -1,4 +1,3 @@
-import { useAuthContext } from "@/app/Store";
 import getFirstMenuCategoryId from "@/lib/get/getFirstMenuCategoryId";
 import Link from "next/link";
 export default async function EntityCard(props) {

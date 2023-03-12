@@ -8,8 +8,10 @@ export default async function updateEntityInfos(
   instagramUrl,
   facebookUrl,
   whatsappNumber,
-  aboutUs_description,
-  contactUs_description
+  aboutUsDescription,
+  aboutUsPictureUrl,
+  contactUsDescription,
+  contactUsPictureUrl
 ) {
   //Entity Infos Updating from Database
   const { data, error } = await supabase
@@ -21,8 +23,10 @@ export default async function updateEntityInfos(
       instagram_link: instagramUrl,
       facebook_link: facebookUrl,
       whatsapp_phone_number: whatsappNumber,
-      about_us_description: aboutUs_description,
-      contact_us_description: contactUs_description,
+      about_us_description: aboutUsDescription,
+      about_us_picture_url: aboutUsPictureUrl,
+      contact_us_description: contactUsDescription,
+      contact_us_picture_url: contactUsPictureUrl,
     })
     .eq("id", entityId)
     .select();

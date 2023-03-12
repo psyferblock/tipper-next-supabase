@@ -61,10 +61,14 @@ export default async function EntityPageLayout({
         <ContactUsSection
           description={entityInfos.contact_us_description}
           phoneNumber={entityInfos.entity_phone_number}
+          pictureUrl={entityInfos.contact_us_picture_url}
         />
 
         {/* ABOUT US SECTION */}
-        <AboutUsSection description={entityInfos.about_us_description} />
+        <AboutUsSection
+          description={entityInfos.about_us_description}
+          pictureUrl={entityInfos.about_us_picture_url}
+        />
       </div>
     </>
   );

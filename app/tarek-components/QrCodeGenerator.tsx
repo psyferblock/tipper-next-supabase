@@ -20,7 +20,7 @@ export default function qrCodeGenerator() {
     e.preventDefault();
     //  @ts-ignore
     let canvas = qrRef.current.querySelector("canvas");
-    let imageUrl = canvas[0].toDataUrl("image/png"); // programatically generating an image
+    let imageUrl = canvas.current?.toDataURL("image/png",0.8); // programatically generating an image
     let anchor = document.createElement("a");
 
     anchor.href = imageUrl; // programatically creaing a link .( by adding the image to the href value in the "a" tag created )

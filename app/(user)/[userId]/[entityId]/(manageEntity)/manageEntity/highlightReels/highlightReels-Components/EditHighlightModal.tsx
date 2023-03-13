@@ -22,7 +22,6 @@ export default function EditHighlightModal(props) {
   //   entity_highlight_id:"...",
   // }
   const [arrayOfPictureUrls, setArrayOfPictureUrls] = useState([]);
-  const [arrayOfUrls, setArrayOfUrls] = useState([]);
 
   const buttonRef = useRef(null);
 
@@ -35,16 +34,6 @@ export default function EditHighlightModal(props) {
       const arrayOfObjectPictures = await getPictureUrlsOfReel(reel?.id);
       console.log("arrayOfUrls::", arrayOfObjectPictures);
       setArrayOfPictureUrls(arrayOfObjectPictures);
-
-      console.log("STARTED SETTING");
-      let arrOfUrls = arrayOfObjectPictures.map((object) => object.media_url);
-      // for (let i = 0; i < arrayOfObjectPictures.length; i++) {
-      //   arrOfUrls.concat("hi");
-      //   console.log("DEDE:", arrOfUrls);
-      // }
-      setArrayOfUrls(arrOfUrls);
-
-      console.log("FINISHED SETTING");
     }
     getUrls().catch(console.error);
   }, [reel]);
@@ -83,8 +72,6 @@ export default function EditHighlightModal(props) {
       "images-restaurant",
       "public"
     );
-    let newArrUrls = arrayOfUrls.concat(pictureUrl);
-    setArrayOfUrls(newArrUrls);
     let newArray = arrayOfPictureUrls.concat({
       id: null,
       media_url: pictureUrl,
@@ -92,7 +79,6 @@ export default function EditHighlightModal(props) {
     setArrayOfPictureUrls(newArray);
   }
   console.log("array of pics:", arrayOfPictureUrls);
-  console.log("array of urls:", arrayOfUrls);
 
   //Function to delete a picture in the reel
   async function handleDeletePictureButton(deletedPicutreUrl) {
@@ -119,7 +105,7 @@ export default function EditHighlightModal(props) {
         as="div"
         className="relative z-50"
         initialFocus={buttonRef}
-        onClose={props.closeModal}
+        onClose={() => handleCancelButton()}
       >
         <Transition.Child
           as={Fragment}
@@ -236,13 +222,20 @@ export default function EditHighlightModal(props) {
 
                         {arrayOfPictureUrls ? (
                           <>
-                            {arrayOfUrls.map((pictureUrl) => (
+                            {arrayOfPictureUrls.map((pictureObject) => (
                               <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
                                 <Image
-                                  src={pictureUrl}
+                                  src={pictureObject.media_url}
                                   alt="highlight picture"
                                   fill
                                 />
+
+                                <button className="text-blue-500 z-10">
+                                  Replace
+                                </button>
+                                <button className="text-blue-500 z-10">
+                                  Remove
+                                </button>
                               </div>
                             ))}
                           </>

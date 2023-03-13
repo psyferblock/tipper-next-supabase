@@ -50,7 +50,7 @@ export default function AddNewHighlightModal(props) {
         as="div"
         className="relative z-50"
         initialFocus={buttonRef}
-        onClose={props.closeModal}
+        onClose={() => handleCancelButton()}
       >
         <Transition.Child
           as={Fragment}

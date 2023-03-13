@@ -1,5 +1,7 @@
+// "use client "
 import ManageQrCode from "./qrCode-Components/ManageQrCode";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import QrCodeGenerator from "@/app/tarek-components/QrCodeGenerator";
 
 export default function ManageQrCodePage() {
   return (
@@ -12,7 +14,9 @@ export default function ManageQrCodePage() {
       </div>
       <div className="h-16 sm:h-0"></div>
       <div className=" sm:h-fit min-h-screen sm:min-h-screen sm:w-full px-3 ">
-        <ManageQrCode />
+        {/* <ManageQrCode /> */}
+      <QrCodeGenerator/>
+
       </div>
     </>
   );

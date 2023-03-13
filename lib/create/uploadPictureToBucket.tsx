@@ -8,7 +8,7 @@ export default async function uploadPictureToBucked(file, bucket, folder) {
     .from(bucket)
     .upload(folder + file?.name, file as File);
   if (error) throw error;
-  console.log("after url is uploaded to reel:", data);
+  console.log("after picture is uploaded to bucket:", data);
 
   const pictureUrl = `${storageUrl}${data.path}`;
   return pictureUrl;

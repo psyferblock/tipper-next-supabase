@@ -46,7 +46,7 @@ export default function qrCodeGenerator({ pageUrl, logo }) {
       //background color
       bgColor="white"
       // font color
-      fgColor="#141926"
+      fgColor="black"
       // this one is the level of detail of the code. some levels are used when there is more data on the code. for us level "H" should be good enough.
       level="H"
       imageSettings={{

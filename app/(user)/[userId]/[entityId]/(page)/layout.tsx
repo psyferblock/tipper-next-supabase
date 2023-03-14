@@ -7,6 +7,7 @@ import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
 import getEntityInfos from "@/lib/get/getEntityInfos";
 import getReels from "@/lib/get/getHighlights";
+import Carousel from "../../tareks-components/carousel/CarouselComponent";
 
 export default async function EntityPageLayout({
   children,
@@ -20,6 +21,14 @@ export default async function EntityPageLayout({
 
   //Fetching reels and passing them as props
   const entityReels = await getReels(params.entityId);
+
+  // temp slides for the carousel
+  const slides = [
+    "https://i.ibb.co/ncrXc2V/1.png",
+    "https://i.ibb.co/B3s7v4h/2.png",
+    "https://i.ibb.co/XXR8kzF/3.png",
+    "https://i.ibb.co/yg7BSdM/4.png",
+  ];
 
   return (
     <>
@@ -48,7 +57,18 @@ export default async function EntityPageLayout({
           {/* EVERYTHING ON THE RIGHT OF THE LEFT COLUMN */}
           <div className="sm:h-[496px] sm:flex sm:flex-col justify-between sm:w-1/4 sm:grow">
             {/*  COVER PHOTOS CONTAINER */}
-            <CoverPhotos />
+            {/* <CoverPhotos /> */}
+
+            {/* CAROUSEL COMPONENT */}
+            <div className="max-w-lg">
+              <Carousel autoSlide={true}
+              autoSlideInterval={3000}>
+                {slides.map((slide) => (
+                  <img alt="cover-photo" src={slide} />
+                ))}
+              </Carousel>
+            </div>
+
             {/* HIGHLIGHTS CONTAINER */}
             <HighlightReels entityReels={entityReels} />
           </div>

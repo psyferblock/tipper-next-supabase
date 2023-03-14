@@ -1,9 +1,90 @@
-export default function ManageCoverPhotos() {
+"use client";
+
+import addBasicPictures from "@/lib/create/addBasicPictures";
+import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
+import deleteBasicPicture from "@/lib/delete/deleteBasicPicture";
+import Image from "next/image";
+import { ChangeEvent, useState } from "react";
+
+export default function ManageCoverPhotos({ entityId }) {
+  // Could be used for when Add Highlight button is clicked to go to new pic
+  // const buttonRef = useRef(null);
+
+  //"arrayOfPictureObjects" is an array containing a list of the following object:
+  // {
+  //   id:"...",
+  //   created_at: "...",
+  //   media_category:"...",
+  //   media_url:"...",
+  //   entity_highlight_id:"...",
+  // }
+  // const [arrayOfPictureObjects, setArrayOfPictureObjects] = useState([]);
+
+  useEffect(() => {
+    setHighlightName(highlight?.highlight_name);
+
+    async function getUrls() {
+      const arrayOfObjectPictures = await getPictureUrlsOfHighlight(
+        highlight?.id
+      );
+      console.log("arrayOfUrls::", arrayOfObjectPictures);
+      setArrayOfPictureObjects(arrayOfObjectPictures);
+    }
+    getUrls().catch(console.error);
+  }, [highlight]);
+
+  async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {
+    let file;
+
+    if (e.target.files) {
+      file = e.target.files[0];
+    }
+    let pictureUrl = await uploadPictureToBucket(
+      file,
+      "images-restaurant",
+      "public"
+    );
+    let newArray = arrayOfPictureObjects.concat({
+      id: null,
+      media_url: pictureUrl,
+    });
+    setArrayOfPictureObjects(newArray);
+  }
+  console.log("array of pics:", arrayOfPictureObjects);
+
+  async function handleDeletePictureButton(deletedPicutreObject) {
+    //Locating which picture should be deleted is based on the URL of the picture (could be done with
+    // picture Id instead, but would need to upload photo to DB and get its ID which is an extra API
+    // call for each picture upload)
+
+    //If picture alrready exists in database, we delete it from database right away
+    if (deletedPicutreObject.id != null) {
+      await deleteBasicPicture(deletedPicutreObject.id);
+    }
+    //Remove the picture from the state variable array
+    const newArray = arrayOfPictureObjects.filter(
+      (pictureObject) =>
+        pictureObject.media_url != deletedPicutreObject.media_url
+    );
+    setArrayOfPictureObjects(newArray);
+  }
+
+  function handleCancelButton() {
+    const newArray = arrayOfPictureObjects.filter(
+      (pictureObject) => pictureObject.id != null
+    );
+    setArrayOfPictureObjects(newArray);
+  }
   return (
     <div className="h-fit  bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">
       <div className="sm:flex">
         <div className="text-lg font-bold grow">Announcement Banners</div>
-        <button className="hidden sm:flex text-blue-500 items-center space-x-1">
+        <button
+          className="hidden sm:flex text-blue-500 items-center space-x-1"
+          onChange={(e) => {
+            handleUploadImageButton(e);
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -80,6 +161,23 @@ export default function ManageCoverPhotos() {
           </div>
         </div>
       </div>
+      {arrayOfPictureObjects ? (
+        <>
+          {arrayOfPictureObjects.map((pictureObject) => (
+            <div className="bg-gray-100  h-56 rounded-lg border-2 border-dashed border-gray-400 my-4 ">
+              <Image src={pictureObject.media_url} alt="cover photo" fill />
+              <button
+                onClick={() => handleDeletePictureButton(pictureObject)}
+                className="text-blue-500 z-10"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

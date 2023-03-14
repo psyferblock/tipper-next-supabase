@@ -6,7 +6,7 @@ import HighlightReels from "@/app/root-Components/entityPage-Components/Highligh
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
 import getEntityInfos from "@/lib/get/getEntityInfos";
-import getReels from "@/lib/get/getReels";
+import getReels from "@/lib/get/getHighlights";
 
 export default async function EntityPageLayout({
   children,

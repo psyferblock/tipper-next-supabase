@@ -24,6 +24,12 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(user)/[userId]/[entityId]/(manageEntity)/manageEntity/highlightReels/highlightReels-Components"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "app/(user)/[userId]/[entityId]/(manageEntity)/manageEntity/highlights/highlights-Components"
+  ],
   "exclude": ["node_modules"]
 }

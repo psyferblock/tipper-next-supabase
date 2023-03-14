@@ -2,10 +2,10 @@
 
 import { ChangeEvent, Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import createReel from "@/lib/create/createReel";
+import createHighlight from "@/lib/create/createHighlight";
 import Image from "next/image";
 import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
-import insertUrlsToReel from "@/lib/create/insertUrlsToReel";
+import insertUrlsToHighlight from "@/lib/create/insertUrlsToHighlight";
 
 export default function AddNewHighlightModal(props) {
   //State
@@ -17,8 +17,8 @@ export default function AddNewHighlightModal(props) {
   const buttonRef = useRef(null);
 
   async function handleAddButton() {
-    const newHighlightId = await createReel(highlightName, props.entityId);
-    await insertUrlsToReel(arrayOfPictureUrls, newHighlightId);
+    const newHighlightId = await createHighlight(highlightName, props.entityId);
+    await insertUrlsToHighlight(arrayOfPictureUrls, newHighlightId);
 
     props.closeModal();
   }
@@ -36,6 +36,18 @@ export default function AddNewHighlightModal(props) {
     );
     let newArray = arrayOfPictureUrls.concat(pictureUrl);
     console.log("new array after concat:", newArray);
+    setArrayOfPictureUrls(newArray);
+  }
+
+  async function handleDeletePictureButton(deletedPicutreUrl) {
+    //Locating which picture should be deleted is based on the URL of the picture (could be done with
+    // picture Id instead, but would need to upload photo to DB and get its ID which is an extra API
+    // call for each picture upload)
+
+    //Remove the picture from the state variable array
+    const newArray = arrayOfPictureUrls.filter(
+      (pictureUrl) => pictureUrl != deletedPicutreUrl
+    );
     setArrayOfPictureUrls(newArray);
   }
 
@@ -120,6 +132,7 @@ export default function AddNewHighlightModal(props) {
                         value={highlightName}
                         onChange={(e) => setHighlightName(e.target.value)}
                       />
+                      {/* DIV CONTAINING THE ADD HIGHLIGHT CONTAINER AND PICTURES */}
                       <div className=" space-x-4 sm:space-x-4 grid grid-rows-1 grid-flow-col overflow-x-auto">
                         {/* ADD HIGHLIGHT CONTAINER */}
                         <div className="bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6  sm:pt-[52px] ">
@@ -174,6 +187,14 @@ export default function AddNewHighlightModal(props) {
                                   alt="highlight picture"
                                   fill
                                 />
+                                <button
+                                  onClick={() =>
+                                    handleDeletePictureButton(pictureUrl)
+                                  }
+                                  className="text-blue-500 z-10"
+                                >
+                                  Remove
+                                </button>
                               </div>
                             ))}
                           </>

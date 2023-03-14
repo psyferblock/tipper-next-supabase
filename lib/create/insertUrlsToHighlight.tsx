@@ -1,7 +1,7 @@
 import supabase from "@/utils/supabase";
 
-export default async function insertUrlsToReel(
-  arrayOfPictureUrls,
+export default async function insertUrlsToHighlight(
+  arrayOfPictureUrls: string[],
   highlightId
 ) {
   for (let i = 0; i < arrayOfPictureUrls.length; i++) {
@@ -14,6 +14,5 @@ export default async function insertUrlsToReel(
       .select();
     if (error) throw error;
     console.log("data returned after url is added to highlight", data);
-    return data[0];
   }
 }

@@ -2,18 +2,16 @@
 
 import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import createReel from "@/lib/create/createReel";
 import Image from "next/image";
 import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
-import insertUrlsToReel from "@/lib/create/insertUrlsToReel";
-import getPictureUrlsOfReel from "@/lib/get/getPictureUrlsOfReel";
-import deletePictureFromReel from "@/lib/delete/deletePictureFromReel";
+import insertUrlsToHighlight from "@/lib/create/insertUrlsToHighlight";
+import getPictureUrlsOfHighlight from "@/lib/get/getPictureUrlsOfHighlight";
+import deletePictureFromHighlight from "@/lib/delete/deletePictureFromHighlight";
 
 export default function EditHighlightModal(props) {
-  //State
   const [highlightName, setHighlightName] = useState<string | undefined>();
 
-  //"arrayOfPictureUrls" is an array containing a list of the following object:
+  //"arrayOfPictureObjects" is an array containing a list of the following object:
   // {
   //   id:"...",
   //   created_at: "...",
@@ -21,42 +19,35 @@ export default function EditHighlightModal(props) {
   //   media_url:"...",
   //   entity_highlight_id:"...",
   // }
-  const [arrayOfPictureUrls, setArrayOfPictureUrls] = useState([]);
+  const [arrayOfPictureObjects, setArrayOfPictureObjects] = useState([]);
 
   const buttonRef = useRef(null);
 
-  const reel = props.reel;
+  const highlight = props.highlight;
 
   useEffect(() => {
-    setHighlightName(reel?.reel_name);
+    setHighlightName(highlight?.highlight_name);
 
     async function getUrls() {
-      const arrayOfObjectPictures = await getPictureUrlsOfReel(reel?.id);
+      const arrayOfObjectPictures = await getPictureUrlsOfHighlight(
+        highlight?.id
+      );
       console.log("arrayOfUrls::", arrayOfObjectPictures);
-      setArrayOfPictureUrls(arrayOfObjectPictures);
+      setArrayOfPictureObjects(arrayOfObjectPictures);
     }
     getUrls().catch(console.error);
-  }, [reel]);
+  }, [highlight]);
 
   async function handleSaveButton() {
-    //Converting the array of objects "arrayOfPictureUrls" to array of urls and keeping only newly
-    //uploaded pictures that are not yet stores in DB
-    const arrayOfUrls = arrayOfPictureUrls.map((pictureObject) => {
+    let arrayOfNewPictureUrls = arrayOfPictureObjects.map((pictureObject) => {
       if (pictureObject.id == null) {
         return pictureObject.media_url;
       }
     });
-    //Inserting the URLs into the database the newly uploaded images not present in DB
-    await insertUrlsToReel(arrayOfUrls, reel.id);
 
-    //Converting the array of objects "arrayOfPictureUrls" to array of urls and keeping only newly
-    //uploaded pictures that are not yet stores in DB
-    const arrayOfDeletedUrls = arrayOfPictureUrls.map((pictureObject) => {
-      if (pictureObject.id == null) {
-        return pictureObject.media_url;
-      }
-    });
-    await deletePictureFromReel(arrayOfDeletedUrls);
+    if (arrayOfNewPictureUrls.length > 0) {
+      await insertUrlsToHighlight(arrayOfNewPictureUrls, highlight.id);
+    }
 
     props.closeModal();
   }
@@ -72,30 +63,36 @@ export default function EditHighlightModal(props) {
       "images-restaurant",
       "public"
     );
-    let newArray = arrayOfPictureUrls.concat({
+    let newArray = arrayOfPictureObjects.concat({
       id: null,
       media_url: pictureUrl,
     });
-    setArrayOfPictureUrls(newArray);
+    setArrayOfPictureObjects(newArray);
   }
-  console.log("array of pics:", arrayOfPictureUrls);
+  console.log("array of pics:", arrayOfPictureObjects);
 
-  //Function to delete a picture in the reel
-  async function handleDeletePictureButton(deletedPicutreUrl) {
-    //Locating which picture should be deleted based on the URL of the picture (could be done with
+  async function handleDeletePictureButton(deletedPicutreObject) {
+    //Locating which picture should be deleted is based on the URL of the picture (could be done with
     // picture Id instead, but would need to upload photo to DB and get its ID which is an extra API
-    // call for each picture uploade)
-    const newArray = arrayOfPictureUrls.filter(
-      (pictureObject) => pictureObject.media_url != deletedPicutreUrl
+    // call for each picture upload)
+
+    //If picture alrready exists in database, we delete it from database right away
+    if (deletedPicutreObject.id != null) {
+      await deletePictureFromHighlight(deletedPicutreObject.id);
+    }
+    //Remove the picture from the state variable array
+    const newArray = arrayOfPictureObjects.filter(
+      (pictureObject) =>
+        pictureObject.media_url != deletedPicutreObject.media_url
     );
-    setArrayOfPictureUrls(newArray);
+    setArrayOfPictureObjects(newArray);
   }
 
   function handleCancelButton() {
-    const newArray = arrayOfPictureUrls.filter(
+    const newArray = arrayOfPictureObjects.filter(
       (pictureObject) => pictureObject.id != null
     );
-    setArrayOfPictureUrls(newArray);
+    setArrayOfPictureObjects(newArray);
     props.closeModal();
   }
 
@@ -175,6 +172,7 @@ export default function EditHighlightModal(props) {
                         value={highlightName}
                         onChange={(e) => setHighlightName(e.target.value)}
                       />
+                      {/* DIV CONTAINING THE ADD HIGHLIGHT CONTAINER AND PICTURES */}
                       <div className=" space-x-4 sm:space-x-4 grid grid-rows-1 grid-flow-col overflow-x-auto">
                         {/* ADD HIGHLIGHT CONTAINER */}
                         <div className="bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6  sm:pt-[52px] ">
@@ -220,9 +218,9 @@ export default function EditHighlightModal(props) {
                         </div>
                         {/* ADD HIGHLIGHT PLUS SIGN CONTAINER */}
 
-                        {arrayOfPictureUrls ? (
+                        {arrayOfPictureObjects ? (
                           <>
-                            {arrayOfPictureUrls.map((pictureObject) => (
+                            {arrayOfPictureObjects.map((pictureObject) => (
                               <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
                                 <Image
                                   src={pictureObject.media_url}
@@ -230,10 +228,12 @@ export default function EditHighlightModal(props) {
                                   fill
                                 />
 
-                                <button className="text-blue-500 z-10">
-                                  Replace
-                                </button>
-                                <button className="text-blue-500 z-10">
+                                <button
+                                  onClick={() =>
+                                    handleDeletePictureButton(pictureObject)
+                                  }
+                                  className="text-blue-500 z-10"
+                                >
                                   Remove
                                 </button>
                               </div>

@@ -10,7 +10,7 @@ import { useManageEntityInfosContext } from "./EntityInfoContext";
 import updateEntityInfos from "@/lib/update/updateEntityInfos";
 import StickyBarSaveCancel from "./entityInfos-Components/StickyBarSaveCancel";
 
-export default async function ManageEntityInfosPage() {
+export default async function ManageEntityInfosPage({ params }) {
   return (
     <>
       <div className="flex flex-col w-full pb-10">
@@ -27,14 +27,14 @@ export default async function ManageEntityInfosPage() {
 
         <div className="space-y-5">
           {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-          <ManageCoverPhotos />
+          <ManageCoverPhotos entityId={params.entityId} />
           <ManageTags />
           <ManageWorkingHours />
           <ManageSocialMedia />
           <ManageAboutUs />
           <ManageContactUs />
           {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-          <StickyBarSaveCancel />
+          <StickyBarSaveCancel entityId={params.entityId} />
         </div>
       </div>
     </>

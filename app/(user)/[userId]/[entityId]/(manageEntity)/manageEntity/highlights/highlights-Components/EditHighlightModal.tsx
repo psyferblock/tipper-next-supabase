@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import insertUrlsToHighlight from "@/lib/create/insertUrlsToHighlight";
-import getPictureUrlsOfHighlight from "@/lib/get/getPictureUrlsOfHighlight";
+import getPicturesOfHighlight from "@/lib/get/getPicturesOfHighlight";
 import deletePictureFromHighlight from "@/lib/delete/deletePictureFromHighlight";
 
 export default function EditHighlightModal(props) {
@@ -29,9 +29,7 @@ export default function EditHighlightModal(props) {
     setHighlightName(highlight?.highlight_name);
 
     async function getUrls() {
-      const arrayOfObjectPictures = await getPictureUrlsOfHighlight(
-        highlight?.id
-      );
+      const arrayOfObjectPictures = await getPicturesOfHighlight(highlight?.id);
       console.log("arrayOfUrls::", arrayOfObjectPictures);
       setArrayOfPictureObjects(arrayOfObjectPictures);
     }

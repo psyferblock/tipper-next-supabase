@@ -1,6 +1,6 @@
 import supabase from "@/utils/supabase";
 
-export default async function getPictureUrlsOfHighlight(highlightId) {
+export default async function getPicturesOfHighlight(highlightId) {
   const { data, error } = await supabase
     .from("highlight_media")
     .select()

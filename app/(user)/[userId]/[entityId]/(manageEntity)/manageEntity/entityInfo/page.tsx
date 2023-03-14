@@ -1,4 +1,3 @@
-import getEntityInfos from "@/lib/get/getEntityInfos";
 import ManageAboutUs from "./entityInfos-Components/ManageAboutUs";
 import ManageContactUs from "./entityInfos-Components/ManageContactUs";
 import ManageCoverPhotos from "./entityInfos-Components/ManageCoverPhotos";
@@ -6,8 +5,6 @@ import ManageSocialMedia from "./entityInfos-Components/ManageSocialMedia";
 import ManageTags from "./entityInfos-Components/ManageTags";
 import ManageWorkingHours from "./entityInfos-Components/ManageWorkingHours";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
-import { useManageEntityInfosContext } from "./EntityInfoContext";
-import updateEntityInfos from "@/lib/update/updateEntityInfos";
 import StickyBarSaveCancel from "./entityInfos-Components/StickyBarSaveCancel";
 
 export default async function ManageEntityInfosPage({ params }) {
@@ -27,7 +24,7 @@ export default async function ManageEntityInfosPage({ params }) {
 
         <div className="space-y-5">
           {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-          <ManageCoverPhotos entityId={params.entityId} />
+          <ManageCoverPhotos />
           <ManageTags />
           <ManageWorkingHours />
           <ManageSocialMedia />

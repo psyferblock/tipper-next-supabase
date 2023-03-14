@@ -2,11 +2,11 @@ import AboutUsSection from "@/app/root-Components/entityPage-Components/AboutUsS
 import ContactUsSection from "@/app/root-Components/entityPage-Components/ContactUsSection";
 import CoverPhotos from "@/app/root-Components/entityPage-Components/CoverPhotosSection";
 import EntityInfosLeftContainer from "@/app/root-Components/entityPage-Components/EntityInfosLeftContainer";
-import HighlightReels from "@/app/root-Components/entityPage-Components/HighlightReelsSection";
+import Highlights from "@/app/root-Components/entityPage-Components/HighlightsSection";
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
 import getEntityInfos from "@/lib/get/getEntityInfos";
-import getReels from "@/lib/get/getHighlights";
+import getHighlights from "@/lib/get/getHighlights";
 
 export default async function EntityPageLayout({
   children,
@@ -18,8 +18,8 @@ export default async function EntityPageLayout({
   //Fetching entity infos and passing them as props
   const entityInfos = await getEntityInfos(params.entityId);
 
-  //Fetching reels and passing them as props
-  const entityReels = await getReels(params.entityId);
+  //Fetching highlights and passing them as props
+  const entityHighlights = await getHighlights(params.entityId);
 
   return (
     <>
@@ -50,7 +50,7 @@ export default async function EntityPageLayout({
             {/*  COVER PHOTOS CONTAINER */}
             <CoverPhotos />
             {/* HIGHLIGHTS CONTAINER */}
-            <HighlightReels entityReels={entityReels} />
+            <Highlights entityHighlights={entityHighlights} />
           </div>
         </div>
 

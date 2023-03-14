@@ -5,53 +5,43 @@ import React, { FormEvent, useRef, useState } from "react";
 //importing qr code from qrcode.react library //
 
 import { QRCodeCanvas } from "qrcode.react";
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
-const logo =
-  "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fcurezone.com%2Fupload%2FMembers%2Fexploding_tomato.jpg&f=1&nofb=1&ipt=29485f3834a68a08de704237ee294f516e4f0b35c94c0d758aed1786cd61f889&ipo=images";
-
-export default function qrCodeGenerator() {
-  const [url, setUrl] = useState<string>("www.google.com");
-  const qrRef = useRef<string>();
+export default function qrCodeGenerator({ pageUrl, logo }) {
+  const [url, setUrl] = useState<string>("");
+  const qrRef = useRef<HTMLDivElement | null>(null);
   const [color, setColor] = useState<string>("black");
   const [size, setSize] = useState<string>("300");
 
   const downloadQrCode = (e: FormEvent) => {
     e.preventDefault();
     //  @ts-ignore
-    let canvas = qrRef.current.querySelector("canvas");
-    let imageUrl = canvas.current?.toDataURL("image/png",0.8); // programatically generating an image
+    setUrl(pageUrl);
+    let canvas = qrRef.current?.querySelector("canvas");
+    console.log("canvas", canvas);
+
+
+    let imageUrl = canvas.current?.toDataURL("image/png", 0.8); // programatically generating an image
     let anchor = document.createElement("a");
 
     anchor.href = imageUrl; // programatically creaing a link .( by adding the image to the href value in the "a" tag created )
-
+    // console.log("imageUrl", imageUrl);
     anchor.download = "qr-code-image.png"; // programatially naming the image
     document.body.appendChild(anchor); // attaching it to the dom
-    console.log("anchor", anchor);
+    // console.log("anchor", anchor);
 
     anchor.click(); // clicking on it
     document.body.removeChild(anchor); //and removing it
-    console.log("anchor", anchor);
+    // console.log("anchor", anchor);
 
     setUrl(""); // setting the url in the form to empty
-
-    // const canvas = document.getElementById("123456");
-    // const image = canvas[0].toDataURL("image/png", 0.8);
-    // // .replace("image/png", "image/octet-stream");
-    // console.log("pageUrl", image);
-    // let downloadLink = document.createElement("a");
-    // downloadLink.href = image;
-    // downloadLink.download = "123456.png"; // the name could be dynamic
-    // document.body.appendChild(downloadLink);
-    // downloadLink.click();
-    // document.body.removeChild(downloadLink);
-    // setUrl("");
   };
 
   const qrCode = (
     <QRCodeCanvas
-    // renderAs="canvas"
-      id="123456"
+      // renderAs="canvas"
+      id="canvas"
+      // typeof="canvas"
       size={parseInt(size)}
       value={url}
       //background color
@@ -73,12 +63,12 @@ export default function qrCodeGenerator() {
   return (
     <>
       <form onSubmit={downloadQrCode} className="">
-        <input
+        {/* <input
           type="text"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           placeholder="https://example.com"
-        />
+        /> */}
         <input
           type="text"
           value={color}
@@ -95,9 +85,9 @@ export default function qrCodeGenerator() {
         <button type="submit">Download QR Code</button>
       </form>
 
-      <div className="qr-container__qr-code" ref={qrRef}>
+      <canvas className="" ref={qrRef}>
         {qrCode}
-      </div>
+      </canvas>
     </>
   );
 }

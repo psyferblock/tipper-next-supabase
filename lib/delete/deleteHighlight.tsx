@@ -1,10 +1,10 @@
 import supabase from "@/utils/supabase";
 
-export default async function deleteReel(reelId) {
+export default async function deleteHighlight(highlightId) {
   const { data, error } = await supabase
-    .from("entity_reel")
+    .from("entity_highlight")
     .delete()
-    .eq("id", reelId);
+    .eq("id", highlightId);
   if (error) throw error;
   console.log(data);
 }

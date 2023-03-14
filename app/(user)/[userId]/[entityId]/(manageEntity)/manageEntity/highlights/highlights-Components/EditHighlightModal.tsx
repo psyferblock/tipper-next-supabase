@@ -1,24 +1,53 @@
 "use client";
 
-import { ChangeEvent, Fragment, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import createReel from "@/lib/create/createReel";
 import Image from "next/image";
 import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
-import insertUrlsToReel from "@/lib/create/insertUrlsToReel";
+import insertUrlsToHighlight from "@/lib/create/insertUrlsToHighlight";
+import getPictureUrlsOfHighlight from "@/lib/get/getPictureUrlsOfHighlight";
+import deletePictureFromHighlight from "@/lib/delete/deletePictureFromHighlight";
 
-export default function AddNewHighlightModal(props) {
-  //State
+export default function EditHighlightModal(props) {
   const [highlightName, setHighlightName] = useState<string | undefined>();
-  const [arrayOfPictureUrls, setArrayOfPictureUrls] = useState([]);
 
-  console.log("arrayOfPictureUrls", arrayOfPictureUrls);
+  //"arrayOfPictureObjects" is an array containing a list of the following object:
+  // {
+  //   id:"...",
+  //   created_at: "...",
+  //   media_category:"...",
+  //   media_url:"...",
+  //   entity_highlight_id:"...",
+  // }
+  const [arrayOfPictureObjects, setArrayOfPictureObjects] = useState([]);
 
   const buttonRef = useRef(null);
 
-  async function handleAddButton() {
-    const newHighlightId = await createReel(highlightName, props.entityId);
-    await insertUrlsToReel(arrayOfPictureUrls, newHighlightId);
+  const highlight = props.highlight;
+
+  useEffect(() => {
+    setHighlightName(highlight?.highlight_name);
+
+    async function getUrls() {
+      const arrayOfObjectPictures = await getPictureUrlsOfHighlight(
+        highlight?.id
+      );
+      console.log("arrayOfUrls::", arrayOfObjectPictures);
+      setArrayOfPictureObjects(arrayOfObjectPictures);
+    }
+    getUrls().catch(console.error);
+  }, [highlight]);
+
+  async function handleSaveButton() {
+    let arrayOfNewPictureUrls = arrayOfPictureObjects.map((pictureObject) => {
+      if (pictureObject.id == null) {
+        return pictureObject.media_url;
+      }
+    });
+
+    if (arrayOfNewPictureUrls.length > 0) {
+      await insertUrlsToHighlight(arrayOfNewPictureUrls, highlight.id);
+    }
 
     props.closeModal();
   }
@@ -34,16 +63,39 @@ export default function AddNewHighlightModal(props) {
       "images-restaurant",
       "public"
     );
-    let newArray = arrayOfPictureUrls.concat(pictureUrl);
-    console.log("new array after concat:", newArray);
-    setArrayOfPictureUrls(newArray);
+    let newArray = arrayOfPictureObjects.concat({
+      id: null,
+      media_url: pictureUrl,
+    });
+    setArrayOfPictureObjects(newArray);
+  }
+  console.log("array of pics:", arrayOfPictureObjects);
+
+  async function handleDeletePictureButton(deletedPicutreObject) {
+    //Locating which picture should be deleted based on the URL of the picture (could be done with
+    // picture Id instead, but would need to upload photo to DB and get its ID which is an extra API
+    // call for each picture upload)
+
+    //If picture alrready exists in database, we delete it from database right away
+    if (deletedPicutreObject.id != null) {
+      await deletePictureFromHighlight(deletedPicutreObject.id);
+    }
+    //Remove the picture from the state variable array
+    const newArray = arrayOfPictureObjects.filter(
+      (pictureObject) =>
+        pictureObject.media_url != deletedPicutreObject.media_url
+    );
+    setArrayOfPictureObjects(newArray);
   }
 
   function handleCancelButton() {
-    setArrayOfPictureUrls([]);
-    setHighlightName("");
+    const newArray = arrayOfPictureObjects.filter(
+      (pictureObject) => pictureObject.id != null
+    );
+    setArrayOfPictureObjects(newArray);
     props.closeModal();
   }
+
   return (
     <Transition.Root show={props.open} as={Fragment}>
       <Dialog
@@ -85,7 +137,7 @@ export default function AddNewHighlightModal(props) {
                           as="h3"
                           className="text-lg text-start font-medium leading-6 text-gray-900 mb-4"
                         >
-                          Add New Highlight
+                          Edit Highlight
                         </Dialog.Title>
                         <button className="sm:hidden">
                           <svg
@@ -165,15 +217,24 @@ export default function AddNewHighlightModal(props) {
                         </div>
                         {/* ADD HIGHLIGHT PLUS SIGN CONTAINER */}
 
-                        {arrayOfPictureUrls ? (
+                        {arrayOfPictureObjects ? (
                           <>
-                            {arrayOfPictureUrls.map((pictureUrl) => (
+                            {arrayOfPictureObjects.map((pictureObject) => (
                               <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
                                 <Image
-                                  src={pictureUrl}
+                                  src={pictureObject.media_url}
                                   alt="highlight picture"
                                   fill
                                 />
+
+                                <button
+                                  onClick={() =>
+                                    handleDeletePictureButton(pictureObject)
+                                  }
+                                  className="text-blue-500 z-10"
+                                >
+                                  Remove
+                                </button>
                               </div>
                             ))}
                           </>
@@ -208,9 +269,9 @@ export default function AddNewHighlightModal(props) {
                   <button
                     type="button"
                     className="inline-flex w-full ml-3 justify-center rounded-3xl border border-transparent bg-blue-500 px-7 sm:px-11 py-2 sm:py-2 text-base font-medium text-white shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => handleAddButton()}
+                    onClick={() => handleSaveButton()}
                   >
-                    Add
+                    Save
                   </button>
                   <button
                     type="button"

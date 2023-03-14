@@ -1,16 +1,16 @@
 import supabase from "@/utils/supabase";
 
-export default async function createReel(highlightName, entityId) {
+export default async function createHighlight(highlightName, entityId) {
   const { data, error } = await supabase
-    .from("entity_reel")
+    .from("entity_highlight")
     .insert({
-      reel_name: highlightName,
+      highlight_name: highlightName,
       entity_id: entityId,
     })
     .select();
 
   if (error) throw error;
-  console.log("data returned after reel creation", data);
+  console.log("data returned after highlight creation", data);
   const newHighlightId = data[0].id;
   return newHighlightId;
 }

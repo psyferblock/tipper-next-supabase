@@ -60,9 +60,8 @@ export default async function EntityPageLayout({
             {/* <CoverPhotos /> */}
 
             {/* CAROUSEL COMPONENT */}
-            <div className="max-w-lg">
-              <Carousel autoSlide={true}
-              autoSlideInterval={3000}>
+            <div className="max-w-lg ">
+              <Carousel autoSlide={true} autoSlideInterval={3000}>
                 {slides.map((slide) => (
                   <img alt="cover-photo" src={slide} />
                 ))}

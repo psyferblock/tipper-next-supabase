@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "react-feather";
+// import LeftRightButtons from "./LeftRightButtons";
 
 
 function Carousel({
@@ -31,7 +32,9 @@ function Carousel({
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {slides}
-        <div className="absolute inset-1 flex items-center justify-between p-4">
+
+        {/* BELOW IS THE DIV THATS CAUSING THE HYDRATION ERRORS. ITS JUST A LEFT AND RIGHT BUTTON TO MOVE THE PICTURES. */}
+        {/* <div className="absolute inset-1 flex items-center justify-between p-4">
           <button
             onClick={previous}
             className="p-1 rounded-full shadow bg-white/80 text-gray-800 hover:bg-white"
@@ -44,7 +47,8 @@ function Carousel({
           >
             <ChevronRight size={40} />
           </button>
-        </div>
+        </div> */}
+        {/* <LeftRightButtons current={current} slides={slides}/> */}
         {/* auto slide function  */}
         <div className="absolute bottom-4 right-0 left-0 ">
           <div className="flex items-center justify-center gap-2">

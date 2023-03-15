@@ -15,6 +15,7 @@ export default function StickyBarSaveCancel({ entityId }) {
     whatsappNumber,
     aboutUsDescription,
     aboutUsPictureUrl,
+    isContactUsSectionPublic,
     contactUsDescription,
     contactUsPictureUrl,
     setArrayOfPictureObjects,
@@ -31,6 +32,7 @@ export default function StickyBarSaveCancel({ entityId }) {
       whatsappNumber,
       aboutUsDescription,
       aboutUsPictureUrl,
+      isContactUsSectionPublic,
       contactUsDescription,
       contactUsPictureUrl
     );

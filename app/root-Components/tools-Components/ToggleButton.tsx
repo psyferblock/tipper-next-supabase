@@ -1,15 +1,25 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Switch } from "@headlessui/react";
 
 export default function ToggleButton(props) {
   const [enabled, setEnabled] = useState(props.switchedOn);
+  console.log("enabled is:", enabled);
+
+  function handleSwitch() {
+    setEnabled(!enabled);
+    props.handleToggleButton(!enabled);
+  }
+
+  useEffect(() => {
+    setEnabled(props.switchedOn);
+  }, [props.switchedOn]);
 
   return (
     <div>
       <Switch
         checked={enabled}
-        onChange={setEnabled}
+        onChange={() => handleSwitch()}
         className={`${enabled ? "bg-blue-500" : "bg-gray-400"}
           relative inline-flex h-[19px] w-[35px] shrink-0 cursor-pointer rounded-full border-2
           border-transparent transition-colors duration-200 ease-in-out

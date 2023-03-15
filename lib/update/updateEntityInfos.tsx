@@ -10,6 +10,7 @@ export default async function updateEntityInfos(
   whatsappNumber,
   aboutUsDescription,
   aboutUsPictureUrl,
+  isContactUsSectionPublic,
   contactUsDescription,
   contactUsPictureUrl
 ) {
@@ -25,6 +26,7 @@ export default async function updateEntityInfos(
       whatsapp_phone_number: whatsappNumber,
       about_us_description: aboutUsDescription,
       about_us_picture_url: aboutUsPictureUrl,
+      is_contact_us_public: isContactUsSectionPublic,
       contact_us_description: contactUsDescription,
       contact_us_picture_url: contactUsPictureUrl,
     })

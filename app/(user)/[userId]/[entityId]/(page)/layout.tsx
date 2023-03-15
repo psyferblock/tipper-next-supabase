@@ -18,6 +18,9 @@ export default async function EntityPageLayout({
   //Fetching entity infos and passing them as props
   const entityInfos = await getEntityInfos(params.entityId);
 
+  //Checking if contact_us is set to public or not
+  const isContactUsSectionPublic = entityInfos.is_contact_us_public;
+
   //Fetching highlights and passing them as props
   const entityHighlights = await getHighlights(params.entityId);
 
@@ -57,12 +60,14 @@ export default async function EntityPageLayout({
         {/* OUR MENU SECTION */}
         {children}
 
-        {/* GET IN TOUCH WITH US SECTION */}
-        <ContactUsSection
-          description={entityInfos.contact_us_description}
-          phoneNumber={entityInfos.entity_phone_number}
-          pictureUrl={entityInfos.contact_us_picture_url}
-        />
+        {/* CONTACT US SECTION */}
+        {isContactUsSectionPublic && (
+          <ContactUsSection
+            description={entityInfos.contact_us_description}
+            phoneNumber={entityInfos.entity_phone_number}
+            pictureUrl={entityInfos.contact_us_picture_url}
+          />
+        )}
 
         {/* ABOUT US SECTION */}
         <AboutUsSection

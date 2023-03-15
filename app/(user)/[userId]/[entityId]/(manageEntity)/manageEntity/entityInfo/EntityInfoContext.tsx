@@ -23,6 +23,7 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
       whatsappNumber,
       aboutUsDescription,
       aboutUsPictureUrl,
+      isContactUsSectionPublic,
       contactUsDescription,
       contactUsPictureUrl,
     },
@@ -48,6 +49,8 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
           return { ...state, aboutUsDescription: action.payload };
         case "setAboutUsPictureUrl":
           return { ...state, aboutUsPictureUrl: action.payload };
+        case "setIsContactUsSectionPublic":
+          return { ...state, isContactUsSectionPublic: action.payload };
         case "setContactUsDescription":
           return { ...state, contactUsDescription: action.payload };
         case "setContactUsPictureUrl":
@@ -64,6 +67,7 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
       whatsappNumber: "",
       aboutUsDescription: "",
       aboutUsPictureUrl: "",
+      isContactUsSectionPublic: "",
       contactUsDescription: "",
       contactUsPictureUrl: "",
     }
@@ -82,6 +86,8 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
 
     setAboutUsDescription(entityInfos.about_us_description);
     setAboutUsPictureUrl(entityInfos.about_us_picture_url);
+
+    setIsContactUsSectionPublic(entityInfos.is_contact_us_public);
     setContactUsDescription(entityInfos.contact_us_description);
     setContactUsPictureUrl(entityInfos.contact_us_picture_url);
   }, []);
@@ -179,6 +185,16 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
   /**
    * Setter function for tag state variable
    */
+  const setIsContactUsSectionPublic = useCallback((isPublic: boolean) => {
+    dispatch({
+      type: "setIsContactUsSectionPublic",
+      payload: isPublic,
+    });
+  }, []);
+
+  /**
+   * Setter function for tag state variable
+   */
   const setContactUsDescription = useCallback((description: string) => {
     dispatch({
       type: "setContactUsDescription",
@@ -206,6 +222,7 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
     whatsappNumber,
     aboutUsDescription,
     aboutUsPictureUrl,
+    isContactUsSectionPublic,
     contactUsDescription,
     contactUsPictureUrl,
     setArrayOfPictureObjects,
@@ -217,6 +234,7 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
     setWhatsappNumber,
     setAboutUsDescription,
     setAboutUsPictureUrl,
+    setIsContactUsSectionPublic,
     setContactUsDescription,
     setContactUsPictureUrl,
   };

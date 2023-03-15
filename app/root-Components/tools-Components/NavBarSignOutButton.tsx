@@ -10,6 +10,16 @@ export default function NavBarSignOutButton() {
   async function handleSignOutButton() {
     await supabase.auth.signOut();
   }
+  async function handleSignInButton() {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: "claude1.massaad@gmail.com",
+      password: "123456",
+    });
+    if (error) throw error;
+    const userId = data;
+    console.log("data after sign in", userId);
+    router.push("/");
+  }
   const router = useRouter();
 
   useEffect(() => {
@@ -25,8 +35,13 @@ export default function NavBarSignOutButton() {
   }, [supabase, router]);
 
   return (
-    <button onClick={handleSignOutButton} className="hover:text-sky-400">
-      Sign Out
-    </button>
+    <>
+      <button onClick={handleSignOutButton} className="hover:text-sky-400">
+        Sign Out
+      </button>
+      <button onClick={handleSignInButton} className="hover:text-sky-400">
+        Sign IN
+      </button>
+    </>
   );
 }

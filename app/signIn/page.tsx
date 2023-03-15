@@ -15,7 +15,7 @@ export default function SignInPage() {
   const router = useRouter();
 
   const handleBackButton = () => {
-    router.push("/");
+    router.push("");
   };
 
   // async function signInWithEmail() {
@@ -47,7 +47,7 @@ export default function SignInPage() {
     if (error) throw error;
     const userId = data;
     console.log("data after sign in", userId);
-    router.push("/");
+    router.push("");
   }
 
   return (

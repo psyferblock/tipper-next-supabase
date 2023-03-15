@@ -7,6 +7,7 @@ import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
 import getEntityInfos from "@/lib/get/getEntityInfos";
 import getHighlights from "@/lib/get/getHighlights";
+import getBasicPictures from "@/lib/get/getBasicPictures";
 
 export default async function EntityPageLayout({
   children,
@@ -23,6 +24,12 @@ export default async function EntityPageLayout({
 
   //Fetching highlights and passing them as props
   const entityHighlights = await getHighlights(params.entityId);
+
+  //Fetching cover pictures and passing them as props
+  const entityCoverPictures = await getBasicPictures(
+    "cover_picture",
+    params.entityId
+  );
 
   return (
     <>
@@ -51,7 +58,7 @@ export default async function EntityPageLayout({
           {/* EVERYTHING ON THE RIGHT OF THE LEFT COLUMN */}
           <div className="sm:h-[496px] sm:flex sm:flex-col justify-between sm:w-1/4 sm:grow">
             {/*  COVER PHOTOS CONTAINER */}
-            <CoverPhotos />
+            <CoverPhotos entityCoverPictures={entityCoverPictures} />
             {/* HIGHLIGHTS CONTAINER */}
             <Highlights entityHighlights={entityHighlights} />
           </div>

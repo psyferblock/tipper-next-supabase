@@ -1,4 +1,4 @@
-import supabase from "@/utils/supabase";
+import { supabase } from "@/utils/supabaseClient";
 
 export default async function getMyUserInfos(userId) {
   const { data, error } = await supabase

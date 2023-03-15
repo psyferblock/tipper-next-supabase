@@ -1,5 +1,5 @@
 "use client";
-import supabase from "@/utils/supabase";
+import { supabase } from "@/utils/supabaseClient";
 import { useState } from "react";
 import { useAuthContext } from "../Store";
 import { useRouter } from "next/navigation";
@@ -8,8 +8,8 @@ import Link from "next/link";
 // import dynamic from "next/dynamic";
 
 export default function SignInPage() {
-  const [password, setPassword] = useState<string | undefined>();
   const [email, setEmail] = useState<string | undefined>();
+  const [password, setPassword] = useState<string | undefined>();
   const { userId, setUserId } = useAuthContext();
 
   const router = useRouter();
@@ -38,6 +38,17 @@ export default function SignInPage() {
   //     }
   //   }
   // }
+
+  async function handleSignInButton() {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    });
+    if (error) throw error;
+    const userId = data;
+    console.log("data after sign in", userId);
+    router.push("/");
+  }
 
   return (
     <div className="sm:h-fit sm:min-h-screen sm:px-0 px-3 py-5 sm:py-0">
@@ -115,7 +126,7 @@ export default function SignInPage() {
           {/* SIGN IN BUTTON */}
           <button
             className="w-full h-10 mt-8 hover:bg-blue-600 hover:text-lg rounded-3xl bg-blue-500 text-white text-sm"
-            // onClick={signInWithEmail}
+            onClick={handleSignInButton}
           >
             Sign In
           </button>

@@ -1,4 +1,4 @@
-import supabase from "@/utils/supabase";
+import { supabase } from "@/utils/supabaseClient";
 
 export default async function getPicturesOfHighlight(highlightId) {
   const { data, error } = await supabase

@@ -1,7 +1,7 @@
 // A basic picture is a picture belonging to any category (cover photos, menu item photos,
 // contact us photo) except the highlight category
 
-import supabase from "@/utils/supabase";
+import { supabase } from "@/utils/supabaseClient";
 
 export default async function addBasicPictures(
   mediaCategory,

@@ -1,9 +1,19 @@
 import EntitiesCardsInScrollRowDirection from "./EntitiesCardsInScrollRowDirection";
 import Link from "next/link";
 import getAllEntities from "@/lib/get/getAllEntities";
+import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { headers, cookies } from "next/headers";
 
 export default async function HomePageListingOfEntitiesCards(props) {
-  const listOfEntities = await getAllEntities();
+  // const listOfEntities = await getAllEntities();
+
+  const supabase = createServerComponentSupabaseClient({
+    headers,
+    cookies,
+  });
+  let { data, error } = await supabase.from("entity").select("*");
+  if (error) throw error;
+  let listOfEntities = data;
 
   const industries = [
     {
@@ -24,7 +34,7 @@ export default async function HomePageListingOfEntitiesCards(props) {
     },
   ];
 
-  console.log("props list:", props.listOfEntities);
+  // console.log("props list:", props.listOfEntities);
   return (
     <>
       {industries.map((industry) => (

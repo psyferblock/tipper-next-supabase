@@ -6,8 +6,9 @@ import HighlightReels from "@/app/root-Components/entityPage-Components/Highligh
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
 import getEntityInfos from "@/lib/get/getEntityInfos";
-import getReels from "@/lib/get/getHighlights";
 import Carousel from "../../tareks-components/carousel/CarouselComponent";
+import getHighlights from "@/lib/get/getHighlights";
+import HighlightsComponent from "@/app/(user)/[userId]/tareks-components/highlights-section/HighlightsComponent";
 
 export default async function EntityPageLayout({
   children,
@@ -20,7 +21,7 @@ export default async function EntityPageLayout({
   const entityInfos = await getEntityInfos(params.entityId);
 
   //Fetching reels and passing them as props
-  const entityReels = await getReels(params.entityId);
+  const entityReels = await getHighlights(params.entityId);
 
   // temp slides for the carousel
   const slides = [
@@ -70,6 +71,7 @@ export default async function EntityPageLayout({
 
             {/* HIGHLIGHTS CONTAINER */}
             <HighlightReels entityReels={entityReels} />
+            {/* <HighlightsComponent/> */}
           </div>
         </div>
 
@@ -77,17 +79,17 @@ export default async function EntityPageLayout({
         {children}
 
         {/* GET IN TOUCH WITH US SECTION */}
-        <ContactUsSection
+        {/* <ContactUsSection
           description={entityInfos.contact_us_description}
           phoneNumber={entityInfos.entity_phone_number}
           pictureUrl={entityInfos.contact_us_picture_url}
-        />
+        /> */}
 
         {/* ABOUT US SECTION */}
-        <AboutUsSection
+        {/* <AboutUsSection
           description={entityInfos.about_us_description}
           pictureUrl={entityInfos.about_us_picture_url}
-        />
+        /> */}
       </div>
     </>
   );

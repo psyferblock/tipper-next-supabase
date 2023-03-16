@@ -30,6 +30,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/(user)/[userId]/[entityId]/(manageEntity)/manageEntity/highlights/highlights-Components"
-  ],
+, "app/(user)/[userId]/tareks-components/highlights-section/HighlightHelpers.js"  ],
   "exclude": ["node_modules"]
 }

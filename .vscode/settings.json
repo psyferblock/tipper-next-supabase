@@ -1,4 +1,14 @@
 {
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "editor.tokenColorCustomizations": {
+    "comments": "#a0cbb3" ,
+    "textMateRules": [{
+      "scope": "variable.parameter.url.css",
+      "settings": {
+          "foreground": "#ffffff"
+      }
+  }]
+    
+  }
 }

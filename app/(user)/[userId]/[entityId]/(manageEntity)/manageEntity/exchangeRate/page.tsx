@@ -1,10 +1,12 @@
-import getExchangeRate from "@/lib/get/getExchangeRate";
+import { getExchangeRateServer } from "@/lib/get/getExchangeRate";
+import { createServerClient } from "@/utils/supabase-server";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import ExchangeRateInputField from "./exchangeRate-Components/ExchangeRateInputField";
 
 export default async function ManageExchangeRatePage({ params }) {
-  //Fetching exchange rate
-  const exchangeRate = await getExchangeRate(params.entityId);
+  //Fetching exchange rate from DB
+  const supabase = createServerClient();
+  const exchangeRate = await getExchangeRateServer(supabase, params.entityId);
   return (
     <>
       <div className="flex flex-col space-y-5 sm:space-y-0 w-full">

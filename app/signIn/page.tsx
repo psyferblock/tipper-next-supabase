@@ -13,7 +13,7 @@ export default function SignInPage() {
   const router = useRouter();
 
   const handleBackButton = () => {
-    router.push("");
+    router.back();
   };
 
   async function handleSignInButton() {
@@ -24,7 +24,7 @@ export default function SignInPage() {
     if (error) throw error;
     const userId = data;
     console.log("data after sign in", userId);
-    router.push("");
+    router.back();
   }
 
   return (

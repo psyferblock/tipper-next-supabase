@@ -5,6 +5,7 @@ import { getAllEntitiesServer } from "@/lib/get/getAllEntities";
 import { createServerClient } from "@/utils/supabase-server";
 
 export default async function HomePageListingOfEntitiesCards(props) {
+  //Fetch from DB
   const supabase = createServerClient();
   let listOfEntities = await getAllEntitiesServer(supabase);
 

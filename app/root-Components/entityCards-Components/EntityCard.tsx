@@ -1,10 +1,16 @@
-import getFirstMenuCategoryId from "@/lib/get/getFirstMenuCategoryId";
+import { getFirstMenuCategoryIdServer } from "@/lib/get/getFirstMenuCategoryId";
+import { createServerClient } from "@/utils/supabase-server";
 import Link from "next/link";
 export default async function EntityCard(props) {
   const entity = props?.entity;
   const entityId = entity?.id;
 
-  const firstMenuCategoryId = await getFirstMenuCategoryId(entityId);
+  //Fetching from DB
+  const supabase = createServerClient();
+  const firstMenuCategoryId = await getFirstMenuCategoryIdServer(
+    supabase,
+    entityId
+  );
   // const userId = props.userId;
   const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
   return (

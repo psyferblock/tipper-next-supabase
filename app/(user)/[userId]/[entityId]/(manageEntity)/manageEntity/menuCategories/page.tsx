@@ -1,8 +1,14 @@
-import getMenuCategories from "@/lib/get/getMenuCategories";
+import { getMenuCategoriesServer } from "@/lib/get/getMenuCategories";
+import { createServerClient } from "@/utils/supabase-server";
 import ManageMenuCategories from "./ManageMenuCategories";
 
 export default async function ManageMenuCategoriesPage({ params }) {
-  const menuCategories = await getMenuCategories(params.entityId);
+  //Fetching from DB
+  const supabase = createServerClient();
+  const menuCategories = await getMenuCategoriesServer(
+    supabase,
+    params.entityId
+  );
   // console.log("menu categgg", menuCategories);
   return <ManageMenuCategories menuCategories={menuCategories} />;
 }

@@ -10,7 +10,7 @@ export default function SignUpPage() {
   const router = useRouter();
 
   const handleBackButton = () => {
-    router.push("/signIn");
+    router.back();
   };
 
   async function handleSignUpButton() {
@@ -21,6 +21,7 @@ export default function SignUpPage() {
     if (error) throw error;
     const userId = data.user?.id;
     console.log("userId", userId);
+    router.back();
   }
   return (
     <div className=" sm:h-fit sm:min-h-screen px-3 sm:px-0 py-5 sm:py-0">

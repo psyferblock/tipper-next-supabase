@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import insertUrlsToHighlight from "@/lib/create/insertUrlsToHighlight";
-import getPicturesOfHighlight from "@/lib/get/getPicturesOfHighlight";
+import { getPicturesOfHighlight } from "@/lib/get/getPicturesOfHighlight";
 import deletePictureFromHighlight from "@/lib/delete/deletePictureFromHighlight";
 
 export default function EditHighlightModal(props) {

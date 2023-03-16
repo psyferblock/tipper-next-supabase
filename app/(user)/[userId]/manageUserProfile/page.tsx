@@ -1,9 +1,10 @@
-import getMyUserInfos from "@/lib/get/getMyUserInfos";
+import { getMyUserInfosServer } from "@/lib/get/getMyUserInfos";
 import Link from "next/link";
 import ActivitiesHistory from "./manageUserProfile-Components/ActivitiesHistory";
 import SecuritySection from "./manageUserProfile-Components/SecuritySection";
 import BasicInfosSection from "./manageUserProfile-Components/BasicInfosSection";
-import getFirstMenuCategoryId from "@/lib/get/getFirstMenuCategoryId";
+import { getFirstMenuCategoryIdServer } from "@/lib/get/getFirstMenuCategoryId";
+import { createServerClient } from "@/utils/supabase-server";
 
 export default async function ManageUserProfilePage({ params }) {
   const userOwnsEntity = true;
@@ -11,11 +12,15 @@ export default async function ManageUserProfilePage({ params }) {
   const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
   const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
 
+  const supabase = createServerClient();
   //Getting a user's profile information
-  const userInfos = await getMyUserInfos(userId);
+  const userInfos = await getMyUserInfosServer(supabase, userId);
 
   //Fetching the name of the first menu category to include in URL in case user accesses his entity
-  const firstMenuCategoryId = await getFirstMenuCategoryId(entityId);
+  const firstMenuCategoryId = await getFirstMenuCategoryIdServer(
+    supabase,
+    entityId
+  );
 
   return (
     <>

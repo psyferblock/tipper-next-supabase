@@ -1,10 +1,13 @@
 import MenuItemCard from "@/app/root-Components/menu-Components/MenuItemCard";
-import getExchangeRate from "@/lib/get/getExchangeRate";
-import getMenuItems from "@/lib/get/getMenuItems";
+import { getExchangeRateServer } from "@/lib/get/getExchangeRate";
+import { getMenuItemsServer } from "@/lib/get/getMenuItems";
+import { createServerClient } from "@/utils/supabase-server";
 
 export default async function EntityPageMenuItems({ params }) {
-  const menuItems = await getMenuItems(params.categoryId);
-  const exchangeRate = await getExchangeRate(params.entityId);
+  //Fetching from DB
+  const supabase = createServerClient();
+  const menuItems = await getMenuItemsServer(supabase, params.categoryId);
+  const exchangeRate = await getExchangeRateServer(supabase, params.entityId);
   return (
     <>
       <div className="grid h-96 sm:h-fit gap-3 overflow-y-auto sm:grid sm:grid-rows-2 sm:grid-flow-col sm:gap-5 sm:pb-5 sm:overflow-x-auto">

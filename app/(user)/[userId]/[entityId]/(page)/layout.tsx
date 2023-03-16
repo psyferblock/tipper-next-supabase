@@ -5,9 +5,10 @@ import EntityInfosLeftContainer from "@/app/root-Components/entityPage-Component
 import Highlights from "@/app/root-Components/entityPage-Components/HighlightsSection";
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
-import getEntityInfos from "@/lib/get/getEntityInfos";
-import getHighlights from "@/lib/get/getHighlights";
-import getBasicPictures from "@/lib/get/getBasicPictures";
+import { getHighlightsServer } from "@/lib/get/getHighlights";
+import { getBasicPicturesServer } from "@/lib/get/getBasicPictures";
+import { createServerClient } from "@/utils/supabase-server";
+import { getEntityInfosServer } from "@/lib/get/getEntityInfos";
 
 export default async function EntityPageLayout({
   children,
@@ -16,20 +17,23 @@ export default async function EntityPageLayout({
   children: React.ReactNode;
   params: { entityId: number };
 }) {
+  //Fetching from DB
+  const supabase = createServerClient();
   //Fetching entity infos and passing them as props
-  const entityInfos = await getEntityInfos(params.entityId);
-
-  //Checking if contact_us is set to public or not
-  const isContactUsSectionPublic = entityInfos.is_contact_us_public;
+  const entityInfos = await getEntityInfosServer(supabase, params.entityId);
 
   //Fetching highlights and passing them as props
-  const entityHighlights = await getHighlights(params.entityId);
+  const entityHighlights = await getHighlightsServer(supabase, params.entityId);
 
   //Fetching cover pictures and passing them as props
-  const entityCoverPictures = await getBasicPictures(
+  const entityCoverPictures = await getBasicPicturesServer(
+    supabase,
     "cover_picture",
     params.entityId
   );
+
+  //Checking if contact_us is set to public or not
+  const isContactUsSectionPublic = entityInfos.is_contact_us_public;
 
   return (
     <>

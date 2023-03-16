@@ -1,4 +1,3 @@
-import { supabase } from "@/utils/supabase-browser";
 import { createServerClient } from "@/utils/supabase-server";
 
 import "./globals.css";

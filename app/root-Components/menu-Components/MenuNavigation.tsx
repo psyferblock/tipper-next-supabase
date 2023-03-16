@@ -1,8 +1,11 @@
-import getMenuCategories from "@/lib/get/getMenuCategories";
+import { getMenuCategoriesServer } from "@/lib/get/getMenuCategories";
+import { createServerClient } from "@/utils/supabase-server";
 import MenuCategoriesNavLink from "./MenuCategoriesNavLink";
 
 export default async function MenuNavigation({ entityId }) {
-  const menuCategories = await getMenuCategories(entityId);
+  //Fetching from DB
+  const supabase = createServerClient();
+  const menuCategories = await getMenuCategoriesServer(supabase, entityId);
 
   return (
     <>

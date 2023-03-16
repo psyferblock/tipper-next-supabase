@@ -1,7 +1,5 @@
 import Link from "next/link";
-import { supabase } from "@/utils/supabase-browser";
 import NavBarSignOutButton from "./NavBarSignOutButton";
-import { useEffect } from "react";
 
 export default function Navbar({ session }) {
   return (

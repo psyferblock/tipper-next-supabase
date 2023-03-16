@@ -3,7 +3,6 @@
 import { ChangeEvent, Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import createMenuItem from "@/lib/create/createMenuItem";
-import supabase from "@/utils/supabase-browser";
 import uploadPicture from "@/lib/create/uploadPictureToBucket";
 import Image from "next/image";
 

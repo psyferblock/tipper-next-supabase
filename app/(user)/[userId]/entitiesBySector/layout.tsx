@@ -1,4 +1,3 @@
-import EntitiesCardsInGridDirection from "@/app/root-Components/entityCards-Components/EntitiesCardsInGridDirection";
 import HomePageSearchBar from "@/app/root-Components/tools-Components/HomePageSearchBar";
 
 export default function EntitiesBySectorLayout({

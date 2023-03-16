@@ -76,20 +76,20 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
   useEffect(() => {
     setArrayOfPictureObjects(coverPictures);
 
-    setTags(entityInfos.entity_tags);
+    setTags(entityInfos?.entity_tags);
 
-    setPhoneNumber(entityInfos.entity_phone_number);
-    setEmailAddress(entityInfos.entity_email);
-    setInstagramUrl(entityInfos.instagram_link);
-    setFacebookUrl(entityInfos.facebook_link);
-    setWhatsappNumber(entityInfos.whatsapp_phone_number);
+    setPhoneNumber(entityInfos?.entity_phone_number);
+    setEmailAddress(entityInfos?.entity_email);
+    setInstagramUrl(entityInfos?.instagram_link);
+    setFacebookUrl(entityInfos?.facebook_link);
+    setWhatsappNumber(entityInfos?.whatsapp_phone_number);
 
-    setAboutUsDescription(entityInfos.about_us_description);
-    setAboutUsPictureUrl(entityInfos.about_us_picture_url);
+    setAboutUsDescription(entityInfos?.about_us_description);
+    setAboutUsPictureUrl(entityInfos?.about_us_picture_url);
 
-    setIsContactUsSectionPublic(entityInfos.is_contact_us_public);
-    setContactUsDescription(entityInfos.contact_us_description);
-    setContactUsPictureUrl(entityInfos.contact_us_picture_url);
+    setIsContactUsSectionPublic(entityInfos?.is_contact_us_public);
+    setContactUsDescription(entityInfos?.contact_us_description);
+    setContactUsPictureUrl(entityInfos?.contact_us_picture_url);
   }, []);
 
   /**

@@ -1,11 +1,16 @@
+"use client";
 import getPicturesOfHighlight from "@/lib/get/getPicturesOfHighlight";
 import Highlight from "./Highlight";
 
-export default async function HighlightDisplayModal() {
-  const picturesInHighlight = await getPicturesOfHighlight(9);
+export default function HighlightDisplayModal() {
+  async function handle() {
+    const picturesInHighlight = await getPicturesOfHighlight(9);
+  }
+
   return (
     <div>
-      <Highlight picturesInHighlight={picturesInHighlight} />
+      hello <button onClick={handle}>la</button>
+      {/* <Highlight picturesInHighlight={picturesInHighlight} /> */}
     </div>
   );
 }

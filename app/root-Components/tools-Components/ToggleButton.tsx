@@ -4,7 +4,6 @@ import { Switch } from "@headlessui/react";
 
 export default function ToggleButton(props) {
   const [enabled, setEnabled] = useState(props.switchedOn);
-  console.log("enabled is:", enabled);
 
   function handleSwitch() {
     setEnabled(!enabled);

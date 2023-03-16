@@ -43,7 +43,7 @@ export default function ManageTags() {
       </div>
       {/* TAGS ROW */}
       <div className=" grid grid-flow-col gap-3 pb-3 sm:pb-2 px-1 sm:px-2 sm:py-1 overflow-x-auto sm:space-x-3">
-        {tags.map((tag) => (
+        {tags?.map((tag) => (
           <div className="px-2 py-1 flex w-fit items-center space-x-3 justify-between bg-gray-100 rounded-lg text-black text-xs  drop-shadow-md">
             <p>{tag}</p>
             <button onClick={() => handleDeleteTagButton(tag)}>

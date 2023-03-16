@@ -1,5 +1,6 @@
 import getBasicPictures from "@/lib/get/getBasicPictures";
-import getEntityInfos from "@/lib/get/getEntityInfos";
+import { getEntityInfosServer } from "@/lib/get/getEntityInfos";
+import { createServerClient } from "@/utils/supabase-server";
 import { ManageEntityInfosContextProvider } from "./EntityInfoContext";
 
 export default async function ManageEntityInfosLayout({
@@ -9,11 +10,14 @@ export default async function ManageEntityInfosLayout({
   children: React.ReactNode;
   params: { entityId: number };
 }) {
-  const entityInfos = await getEntityInfos(params.entityId);
+  //Fetching from DB
+  const supabase = createServerClient();
+  const entityInfos = await getEntityInfosServer(supabase, params.entityId);
   const coverPictures = await getBasicPictures(
     "cover_picture",
     params.entityId
   );
+
   return (
     <ManageEntityInfosContextProvider
       entityInfos={entityInfos}

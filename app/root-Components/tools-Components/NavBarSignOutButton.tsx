@@ -1,6 +1,5 @@
 "use client";
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase-browser";
 

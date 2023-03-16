@@ -1,7 +1,6 @@
 "use client";
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
-import { useState } from "react";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
 
 export default function ManageSocialMedia() {

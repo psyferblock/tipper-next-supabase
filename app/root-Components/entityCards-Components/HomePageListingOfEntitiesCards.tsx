@@ -1,17 +1,12 @@
 import EntitiesCardsInScrollRowDirection from "./EntitiesCardsInScrollRowDirection";
 import Link from "next/link";
-import getAllEntities from "@/lib/get/getAllEntities";
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { headers, cookies } from "next/headers";
+import { getAllEntitiesServer } from "@/lib/get/getAllEntities";
+
 import { createServerClient } from "@/utils/supabase-server";
 
 export default async function HomePageListingOfEntitiesCards(props) {
-  // const listOfEntities = await getAllEntities();
-
   const supabase = createServerClient();
-  let { data, error } = await supabase.from("entity").select("*");
-  if (error) throw error;
-  let listOfEntities = data;
+  let listOfEntities = await getAllEntitiesServer(supabase);
 
   const industries = [
     {

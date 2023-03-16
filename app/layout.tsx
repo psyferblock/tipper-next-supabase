@@ -1,9 +1,6 @@
-// "use client";
-
 import { supabase } from "@/utils/supabase-browser";
 import { createServerClient } from "@/utils/supabase-server";
-// import { useRouter } from "next/navigation";
-// import { useEffect } from "react";
+
 import "./globals.css";
 import Navbar from "./root-Components/tools-Components/NavBar";
 import { AuthContextProvider } from "./Store";

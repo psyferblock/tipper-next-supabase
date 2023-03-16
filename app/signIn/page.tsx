@@ -1,7 +1,6 @@
 "use client";
 import { supabase } from "@/utils/supabase-browser";
 import { useState } from "react";
-import { useAuthContext } from "../Store";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -10,34 +9,12 @@ import Link from "next/link";
 export default function SignInPage() {
   const [email, setEmail] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
-  const { userId, setUserId } = useAuthContext();
 
   const router = useRouter();
 
   const handleBackButton = () => {
     router.push("");
   };
-
-  // async function signInWithEmail() {
-  //   try {
-  //     if (email && password) {
-  //       const response = await supabase.auth.signInWithPassword({
-  //         email: email,
-  //         password: password,
-  //       });
-  //       if (response.error) throw response.error;
-  //       const responseId = await response.data.user?.id;
-  //       localStorage.setItem("user", JSON.stringify(responseId));
-  //       console.log("userId on sign in", responseId);
-  //       setUserId(responseId);
-  //       router.push("1/manageUserProfile");
-  //     }
-  //   } catch (error) {
-  //     if (error) {
-  //       throw error;
-  //     }
-  //   }
-  // }
 
   async function handleSignInButton() {
     const { data, error } = await supabase.auth.signInWithPassword({

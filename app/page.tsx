@@ -1,7 +1,15 @@
 import HomePageListingOfEntitiesCards from "@/app/root-Components/entityCards-Components/HomePageListingOfEntitiesCards";
 import HomePageSearchBar from "@/app/root-Components/tools-Components/HomePageSearchBar";
+import { createServerClient } from "@/utils/supabase-server";
 
 export default async function TipperHomePage({ params }) {
+  const supabase = createServerClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  console.log("session in home page:", session);
   return (
     <>
       <div className="sm:h-fit sm:min-h-screen px-3 sm:px-12 py-5 sm:py-8">

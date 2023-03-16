@@ -21,6 +21,11 @@ export async function getBasicPicturesServer(
     .select()
     .eq("media_category", mediaCategory)
     .eq("entity_id", entityId);
+  //   can replace here with the functions used in this example:
+  //   const { data, error } = await supabase
+  // .from('cities')
+  // .select('name, country_id')
+  // .match({name: 'Beijing', country_id: 156})
   if (error) throw error;
   console.log("arrayOfPictures of category returned:", data);
   return data;

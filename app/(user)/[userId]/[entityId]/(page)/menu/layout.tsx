@@ -1,5 +1,6 @@
 import MenuNavigation from "@/app/root-Components/menu-Components/MenuNavigation";
-import getExchangeRate from "@/lib/get/getExchangeRate";
+import { getExchangeRateServer } from "@/lib/get/getExchangeRate";
+import { createServerClient } from "@/utils/supabase-server";
 
 export default async function EntityPageMenuSectionLayout({
   children,
@@ -8,7 +9,9 @@ export default async function EntityPageMenuSectionLayout({
   children: React.ReactNode;
   params: { entityId: number };
 }) {
-  const exchangeRate = await getExchangeRate(params.entityId);
+  //Fetching from DB
+  const supabase = createServerClient();
+  const exchangeRate = await getExchangeRateServer(supabase, params.entityId);
   const exchangeRateFormatted = exchangeRate.toLocaleString();
 
   return (

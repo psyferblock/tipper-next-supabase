@@ -1,20 +1,18 @@
-import { useState } from "react";
 import Link from "next/link";
+import NavBarSignOutButton from "./NavBarSignOutButton";
 
-export default function Navbar() {
-  const isSignedIn = false;
-
+export default function Navbar({ session }) {
   return (
     <>
       <div className="bg-gray-500 fixed w-full z-10 flex justify-between sm:justify-between sm:items-center h-16 sm:h-[78px] px-3 sm:px-12">
         <Link
-          href="/1"
+          href="/"
           className="py-4 sm:py-[18px] font-light sm:font-normal text-white hover:text-purple-400 text-2xl sm:text-4xl"
         >
           Tipper
         </Link>
 
-        {isSignedIn ? (
+        {session ? (
           <div className="flex items-center space-x-4 sm:space-x-2 ">
             <button className="sm:hidden">
               <svg
@@ -54,6 +52,7 @@ export default function Navbar() {
                 alt=""
               />
             </Link>
+            <NavBarSignOutButton />
           </div>
         ) : (
           <div className="text-white text-sm sm:text-sm pt-1 sm:pt-0 font-light sm:font-normal flex items-center space-x-3 sm:space-x-5 ">

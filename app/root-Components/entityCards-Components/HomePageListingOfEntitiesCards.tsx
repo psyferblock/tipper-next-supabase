@@ -1,9 +1,13 @@
 import EntitiesCardsInScrollRowDirection from "./EntitiesCardsInScrollRowDirection";
 import Link from "next/link";
-import getAllEntities from "@/lib/get/getAllEntities";
+import { getAllEntitiesServer } from "@/lib/get/getAllEntities";
+
+import { createServerClient } from "@/utils/supabase-server";
 
 export default async function HomePageListingOfEntitiesCards(props) {
-  const listOfEntities = await getAllEntities();
+  //Fetch from DB
+  const supabase = createServerClient();
+  let listOfEntities = await getAllEntitiesServer(supabase);
 
   const industries = [
     {
@@ -24,7 +28,7 @@ export default async function HomePageListingOfEntitiesCards(props) {
     },
   ];
 
-  console.log("props list:", props.listOfEntities);
+  // console.log("props list:", props.listOfEntities);
   return (
     <>
       {industries.map((industry) => (

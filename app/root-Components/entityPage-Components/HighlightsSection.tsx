@@ -1,10 +1,11 @@
 "use client";
+import { useAuthContext } from "@/app/Store";
 import { useRouter } from "next/navigation";
 
-export default function EntityPageHighlightReelsSection({ entityReels }) {
+export default function EntityPageHighlightsSection({ entityHighlights }) {
   // BOOLEAN TO DETERMINE WHETHER IT IS ADD HIGHLIGHT OR SHARE BUTTON NEXT TO HIGHLIGHTS
   const userIsOwner = true;
-  const listOfHighlightReels = [
+  const listOfHighlights = [
     "Events",
     "Discounts",
     "Our Cookies",
@@ -15,16 +16,17 @@ export default function EntityPageHighlightReelsSection({ entityReels }) {
   ];
   const router = useRouter();
 
+  const { userId, ownedEntityId } = useAuthContext();
   const handleAddHighlightButton = (e) => {
     e.preventDefault();
-    router.push("1/1/manageEntity/highlightReels");
+    router.push(`${userId}/${ownedEntityId}/manageEntity/highlights`);
   };
   return (
     <div className="flex sm:space-x-3">
       <div className="h-fit rounded-lg py-2 sm:drop-shadow-lg text-xs grid grid-rows-1 grid-flow-col gap-2 sm:gap-6 overflow-x-auto">
-        {entityReels.map((reel) => (
+        {entityHighlights.map((highlight) => (
           <button className="drop-shadow-lg sm:drop-shadow-none h-[68px] sm:h-[116px] w-[68px] sm:w-[116px] rounded-full bg-white font-semibold ">
-            {reel.reel_name}
+            {highlight.highlight_name}
           </button>
         ))}
       </div>

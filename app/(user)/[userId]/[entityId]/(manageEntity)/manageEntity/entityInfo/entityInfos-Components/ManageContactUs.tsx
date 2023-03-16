@@ -3,15 +3,17 @@
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import uploadPicture from "@/lib/create/uploadPictureToBucket";
 import Image from "next/image";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
 
 export default function ManageContactUsPage() {
   const {
     contactUsDescription,
+    isContactUsSectionPublic,
     setContactUsDescription,
     contactUsPictureUrl,
     setContactUsPictureUrl,
+    setIsContactUsSectionPublic,
   } = useManageEntityInfosContext();
 
   async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {
@@ -24,13 +26,21 @@ export default function ManageContactUsPage() {
     //Setting the picture URL in context
     setContactUsPictureUrl(pictureUrl);
   }
+
+  //Changing the state in context of isContactUsSectionPublic to the opposite boolean value of current state
+  function handleToggleButton(boolean) {
+    setIsContactUsSectionPublic(boolean);
+  }
   return (
     <div className="h-fit  bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg space-y-4">
       <div className="sm:flex items-center sm:space-x-6">
         <div className="text-lg font-bold mb-1">Contact Us</div>
         <div className="flex items-center pb-0.5 space-x-1 sm:py-0 py-1">
           <div className="pt-0.5">
-            <ToggleButton />
+            <ToggleButton
+              handleToggleButton={handleToggleButton}
+              switchedOn={isContactUsSectionPublic}
+            />
           </div>
           <p className="text-xs sm:mt-0">
             Show "Contact Us" section on your entity's public page

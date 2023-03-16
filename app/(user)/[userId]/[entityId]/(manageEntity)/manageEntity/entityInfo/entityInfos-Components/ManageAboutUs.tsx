@@ -2,9 +2,8 @@
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import uploadPicture from "@/lib/create/uploadPictureToBucket";
-import supabase from "@/utils/supabase";
 import Image from "next/image";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
 
 export default function ManageAboutUsPage() {

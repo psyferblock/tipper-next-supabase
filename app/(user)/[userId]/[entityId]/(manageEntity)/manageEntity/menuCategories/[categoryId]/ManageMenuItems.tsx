@@ -2,7 +2,6 @@
 
 import SearchBar from "@/app/root-Components/tools-Components/BasicSearchBar";
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
-import supabase from "@/utils/supabase";
 import { lazy, Suspense, useState } from "react";
 import ManageMenuItemsMobile from "./menuItems-Components/ManageMenuItemsMobile";
 import Link from "next/link";

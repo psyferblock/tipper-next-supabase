@@ -1,9 +1,12 @@
-import getHighlights from "@/lib/get/getHighlights";
+import { getHighlightsServer } from "@/lib/get/getHighlights";
+import { createServerClient } from "@/utils/supabase-server";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import ManageHighlights from "./highlights-Components/ManageHighlights";
 
 export default async function ManageHighlightsPage({ params }) {
-  const entityHighlights = await getHighlights(params.entityId);
+  //Fetching Highlights from DB
+  const supabase = createServerClient();
+  const entityHighlights = await getHighlightsServer(supabase, params.entityId);
 
   return (
     <>

@@ -2,11 +2,13 @@ import AboutUsSection from "@/app/root-Components/entityPage-Components/AboutUsS
 import ContactUsSection from "@/app/root-Components/entityPage-Components/ContactUsSection";
 import CoverPhotos from "@/app/root-Components/entityPage-Components/CoverPhotosSection";
 import EntityInfosLeftContainer from "@/app/root-Components/entityPage-Components/EntityInfosLeftContainer";
-import HighlightReels from "@/app/root-Components/entityPage-Components/HighlightReelsSection";
+import Highlights from "@/app/root-Components/entityPage-Components/HighlightsSection";
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
-import getEntityInfos from "@/lib/get/getEntityInfos";
-import getReels from "@/lib/get/getHighlights";
+import { getHighlightsServer } from "@/lib/get/getHighlights";
+import { getBasicPicturesServer } from "@/lib/get/getBasicPictures";
+import { createServerClient } from "@/utils/supabase-server";
+import { getEntityInfosServer } from "@/lib/get/getEntityInfos";
 
 export default async function EntityPageLayout({
   children,
@@ -15,11 +17,23 @@ export default async function EntityPageLayout({
   children: React.ReactNode;
   params: { entityId: number };
 }) {
+  //Fetching from DB
+  const supabase = createServerClient();
   //Fetching entity infos and passing them as props
-  const entityInfos = await getEntityInfos(params.entityId);
+  const entityInfos = await getEntityInfosServer(supabase, params.entityId);
 
-  //Fetching reels and passing them as props
-  const entityReels = await getReels(params.entityId);
+  //Fetching highlights and passing them as props
+  const entityHighlights = await getHighlightsServer(supabase, params.entityId);
+
+  //Fetching cover pictures and passing them as props
+  const entityCoverPictures = await getBasicPicturesServer(
+    supabase,
+    "cover_picture",
+    params.entityId
+  );
+
+  //Checking if contact_us is set to public or not
+  const isContactUsSectionPublic = entityInfos.is_contact_us_public;
 
   return (
     <>
@@ -48,21 +62,23 @@ export default async function EntityPageLayout({
           {/* EVERYTHING ON THE RIGHT OF THE LEFT COLUMN */}
           <div className="sm:h-[496px] sm:flex sm:flex-col justify-between sm:w-1/4 sm:grow">
             {/*  COVER PHOTOS CONTAINER */}
-            <CoverPhotos />
+            <CoverPhotos entityCoverPictures={entityCoverPictures} />
             {/* HIGHLIGHTS CONTAINER */}
-            <HighlightReels entityReels={entityReels} />
+            <Highlights entityHighlights={entityHighlights} />
           </div>
         </div>
 
         {/* OUR MENU SECTION */}
         {children}
 
-        {/* GET IN TOUCH WITH US SECTION */}
-        <ContactUsSection
-          description={entityInfos.contact_us_description}
-          phoneNumber={entityInfos.entity_phone_number}
-          pictureUrl={entityInfos.contact_us_picture_url}
-        />
+        {/* CONTACT US SECTION */}
+        {isContactUsSectionPublic && (
+          <ContactUsSection
+            description={entityInfos.contact_us_description}
+            phoneNumber={entityInfos.entity_phone_number}
+            pictureUrl={entityInfos.contact_us_picture_url}
+          />
+        )}
 
         {/* ABOUT US SECTION */}
         <AboutUsSection

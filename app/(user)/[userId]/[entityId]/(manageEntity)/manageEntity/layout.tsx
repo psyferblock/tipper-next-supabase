@@ -1,4 +1,5 @@
-import getFirstMenuCategoryId from "@/lib/get/getFirstMenuCategoryId";
+import { getFirstMenuCategoryIdServer } from "@/lib/get/getFirstMenuCategoryId";
+import { createServerClient } from "@/utils/supabase-server";
 import Link from "next/link";
 import CategoriesNavLink from "./manageEntity-Components/CategoriesNavLink";
 
@@ -9,6 +10,13 @@ export default async function ManageEntityLayout({
   children: React.ReactNode;
   params: any;
 }) {
+  //Fetching from DB
+  const supabase = createServerClient();
+  const firstMenuCategoryId = await getFirstMenuCategoryIdServer(
+    supabase,
+    params.entityId
+  );
+
   const managementCategories = [
     {
       name: "Menu",
@@ -31,7 +39,6 @@ export default async function ManageEntityLayout({
       route: "qrCode",
     },
   ];
-  const firstMenuCategoryId = await getFirstMenuCategoryId(params.entityId);
 
   return (
     <div className="bg-gray-300 sm:h-fit sm:min-h-screen px-3 sm:px-12 pt-0 pb-7 sm:py-8">

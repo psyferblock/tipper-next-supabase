@@ -11,9 +11,10 @@ import React, {
 /**
  * Function returning all the tools that children component will inherit when using the context.
  */
-function createManageEntityInfosTools(entityInfos) {
+function createManageEntityInfosTools(entityInfos, coverPictures) {
   const [
     {
+      arrayOfPictureObjects,
       tags,
       phoneNumber,
       emailAddress,
@@ -22,6 +23,7 @@ function createManageEntityInfosTools(entityInfos) {
       whatsappNumber,
       aboutUsDescription,
       aboutUsPictureUrl,
+      isContactUsSectionPublic,
       contactUsDescription,
       contactUsPictureUrl,
     },
@@ -29,6 +31,8 @@ function createManageEntityInfosTools(entityInfos) {
   ] = useReducer(
     (state, action) => {
       switch (action.type) {
+        case "setArrayOfPictureObjects":
+          return { ...state, arrayOfPictureObjects: action.payload };
         case "setTags":
           return { ...state, tags: action.payload };
         case "setPhoneNumber":
@@ -45,6 +49,8 @@ function createManageEntityInfosTools(entityInfos) {
           return { ...state, aboutUsDescription: action.payload };
         case "setAboutUsPictureUrl":
           return { ...state, aboutUsPictureUrl: action.payload };
+        case "setIsContactUsSectionPublic":
+          return { ...state, isContactUsSectionPublic: action.payload };
         case "setContactUsDescription":
           return { ...state, contactUsDescription: action.payload };
         case "setContactUsPictureUrl":
@@ -52,6 +58,7 @@ function createManageEntityInfosTools(entityInfos) {
       }
     },
     {
+      arrayOfPictureObjects: [],
       tags: [],
       phoneNumber: "",
       emailAddress: "",
@@ -60,24 +67,39 @@ function createManageEntityInfosTools(entityInfos) {
       whatsappNumber: "",
       aboutUsDescription: "",
       aboutUsPictureUrl: "",
+      isContactUsSectionPublic: "",
       contactUsDescription: "",
       contactUsPictureUrl: "",
     }
   );
 
   useEffect(() => {
-    setTags(entityInfos.entity_tags);
+    setArrayOfPictureObjects(coverPictures);
 
-    setPhoneNumber(entityInfos.entity_phone_number);
-    setEmailAddress(entityInfos.entity_email);
-    setInstagramUrl(entityInfos.instagram_link);
-    setFacebookUrl(entityInfos.facebook_link);
-    setWhatsappNumber(entityInfos.whatsapp_phone_number);
+    setTags(entityInfos?.entity_tags);
 
-    setAboutUsDescription(entityInfos.about_us_description);
-    setAboutUsPictureUrl(entityInfos.about_us_picture_url);
-    setContactUsDescription(entityInfos.contact_us_description);
-    setContactUsPictureUrl(entityInfos.contact_us_picture_url);
+    setPhoneNumber(entityInfos?.entity_phone_number);
+    setEmailAddress(entityInfos?.entity_email);
+    setInstagramUrl(entityInfos?.instagram_link);
+    setFacebookUrl(entityInfos?.facebook_link);
+    setWhatsappNumber(entityInfos?.whatsapp_phone_number);
+
+    setAboutUsDescription(entityInfos?.about_us_description);
+    setAboutUsPictureUrl(entityInfos?.about_us_picture_url);
+
+    setIsContactUsSectionPublic(entityInfos?.is_contact_us_public);
+    setContactUsDescription(entityInfos?.contact_us_description);
+    setContactUsPictureUrl(entityInfos?.contact_us_picture_url);
+  }, []);
+
+  /**
+   * Setter function for arrayOfObjectPictures state variable
+   */
+  const setArrayOfPictureObjects = useCallback((newArray: string[]) => {
+    dispatch({
+      type: "setArrayOfPictureObjects",
+      payload: newArray,
+    });
   }, []);
 
   /**
@@ -99,6 +121,7 @@ function createManageEntityInfosTools(entityInfos) {
       payload: number,
     });
   }, []);
+
   /**
    * Setter function for tag state variable
    */
@@ -118,6 +141,7 @@ function createManageEntityInfosTools(entityInfos) {
       payload: url,
     });
   }, []);
+
   /**
    * Setter function for tag state variable
    */
@@ -161,6 +185,16 @@ function createManageEntityInfosTools(entityInfos) {
   /**
    * Setter function for tag state variable
    */
+  const setIsContactUsSectionPublic = useCallback((isPublic: boolean) => {
+    dispatch({
+      type: "setIsContactUsSectionPublic",
+      payload: isPublic,
+    });
+  }, []);
+
+  /**
+   * Setter function for tag state variable
+   */
   const setContactUsDescription = useCallback((description: string) => {
     dispatch({
       type: "setContactUsDescription",
@@ -179,6 +213,7 @@ function createManageEntityInfosTools(entityInfos) {
   }, []);
 
   return {
+    arrayOfPictureObjects,
     tags,
     phoneNumber,
     emailAddress,
@@ -187,8 +222,10 @@ function createManageEntityInfosTools(entityInfos) {
     whatsappNumber,
     aboutUsDescription,
     aboutUsPictureUrl,
+    isContactUsSectionPublic,
     contactUsDescription,
     contactUsPictureUrl,
+    setArrayOfPictureObjects,
     setTags,
     setPhoneNumber,
     setEmailAddress,
@@ -197,6 +234,7 @@ function createManageEntityInfosTools(entityInfos) {
     setWhatsappNumber,
     setAboutUsDescription,
     setAboutUsPictureUrl,
+    setIsContactUsSectionPublic,
     setContactUsDescription,
     setContactUsPictureUrl,
   };
@@ -225,14 +263,15 @@ export function useManageEntityInfosContext() {
 export function ManageEntityInfosContextProvider({
   children,
   entityInfos,
+  coverPictures,
 }: {
   children: React.ReactNode;
   entityInfos: any;
 }) {
-  createManageEntityInfosTools(entityInfos);
+  createManageEntityInfosTools(entityInfos, coverPictures);
   return (
     <ManageEntityInfosContext.Provider
-      value={createManageEntityInfosTools(entityInfos)}
+      value={createManageEntityInfosTools(entityInfos, coverPictures)}
     >
       {children}
     </ManageEntityInfosContext.Provider>

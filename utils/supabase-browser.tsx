@@ -3,7 +3,6 @@ import {
   createServerComponentSupabaseClient,
 } from "@supabase/auth-helpers-nextjs";
 import { createClient } from "@supabase/supabase-js";
-import { headers, cookies } from "next/headers";
 
 // export const supabase = createClient(
 //   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,7 +10,5 @@ import { headers, cookies } from "next/headers";
 // );
 
 export const supabase = createBrowserSupabaseClient();
-// export const supabase = createServerComponentSupabaseClient({
-//   headers,
-//   cookies,
-// });
+
+export const createBrowserClient = () => createBrowserSupabaseClient();

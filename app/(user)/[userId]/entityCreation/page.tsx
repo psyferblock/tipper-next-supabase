@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuthContext } from "../../../Store";
-import supabase from "@/utils/supabaseClient";
+import supabase from "@/utils/supabase-browser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";

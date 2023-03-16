@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/supabaseClient";
+import { supabase } from "@/utils/supabase-browser";
 
 export default async function getEntityInfos(entityId: number) {
   //Entity Infos Reading from Database

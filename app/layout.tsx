@@ -1,12 +1,26 @@
+// "use client";
+
+import { supabase } from "@/utils/supabase-browser";
+import { createServerClient } from "@/utils/supabase-server";
+// import { useRouter } from "next/navigation";
+// import { useEffect } from "react";
 import "./globals.css";
 import Navbar from "./root-Components/tools-Components/NavBar";
 import { AuthContextProvider } from "./Store";
+import SupabaseListener from "./supabase-listener";
+import SupabaseProvider from "./supabase-provider";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createServerClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
       {/*
@@ -15,11 +29,14 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <Navbar />
-        <div className="h-16 mb-0 sm:mb-3"></div>
-        <div className="bg-gray-300 min-h-screen">
-          <AuthContextProvider>{children}</AuthContextProvider>
-        </div>
+        <SupabaseProvider session={session}>
+          <SupabaseListener serverAccessToken={session?.access_token} />
+          <Navbar session={session} />
+          <div className="h-16 mb-0 sm:mb-3"></div>
+          <div className="bg-gray-300 min-h-screen">
+            <AuthContextProvider>{children}</AuthContextProvider>
+          </div>
+        </SupabaseProvider>
       </body>
     </html>
   );

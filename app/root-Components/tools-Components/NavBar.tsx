@@ -1,11 +1,9 @@
 import Link from "next/link";
-import { supabase } from "@/utils/supabaseClient";
+import { supabase } from "@/utils/supabase-browser";
 import NavBarSignOutButton from "./NavBarSignOutButton";
 import { useEffect } from "react";
 
-export default function Navbar() {
-  const isSignedIn = true;
-
+export default function Navbar({ session }) {
   return (
     <>
       <div className="bg-gray-500 fixed w-full z-10 flex justify-between sm:justify-between sm:items-center h-16 sm:h-[78px] px-3 sm:px-12">
@@ -16,7 +14,7 @@ export default function Navbar() {
           Tipper
         </Link>
 
-        {isSignedIn ? (
+        {session ? (
           <div className="flex items-center space-x-4 sm:space-x-2 ">
             <button className="sm:hidden">
               <svg

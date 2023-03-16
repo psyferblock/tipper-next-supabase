@@ -1,4 +1,4 @@
-import { supabase } from "@/utils/supabaseClient";
+import { supabase } from "@/utils/supabase-browser";
 
 export default async function getMenuCategories(entityId: number) {
   const { data, error } = await supabase

@@ -66,7 +66,7 @@ export default async function ManageEntityLayout({
 
       <div className="flex">
         {/* LEFT MENU */}
-        <div className="hidden sm:block sm:w-[340px]">
+        <div className="hidden sm:block sm:flex-none sm:w-80 h-fit">
           <div className="rounded-lg bg-white mr-4 py-6 flex flex-col drop-shadow-lg">
             {managementCategories.map((category) => (
               <CategoriesNavLink categoryRoute={category.route}>
@@ -75,7 +75,7 @@ export default async function ManageEntityLayout({
             ))}
           </div>
         </div>
-        {children}
+        <div className="grow w-1/4 sm:w-1/4 sm:grow">{children}</div>
       </div>
     </div>
   );

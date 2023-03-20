@@ -56,6 +56,7 @@ export default async function EntityPageLayout({
           <p className="font-semibold text-2xl ">Entity Name</p>
           <ManageEntityButtonDesktop />
         </div>
+        {/* TOP OF THE PAGE CONTAINER */}
         <div className="sm:flex sm:flex-row flex flex-col-reverse sm:space-x-5 sm:h-[496px] sm:mb-8">
           <EntityInfosLeftContainer entityInfos={entityInfos} />
 

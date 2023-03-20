@@ -3,6 +3,7 @@ import { supabase } from "@/utils/supabase-browser";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSupabase } from "../supabase-provider";
 
 // import dynamic from "next/dynamic";
 
@@ -26,6 +27,9 @@ export default function SignInPage() {
     console.log("data after sign in", userId);
     router.back();
   }
+
+  // const { session } = useSupabase();
+  // console.log("session in sign in page:", session);
 
   return (
     <div className="sm:h-fit sm:min-h-screen sm:px-0 px-3 py-5 sm:py-0">

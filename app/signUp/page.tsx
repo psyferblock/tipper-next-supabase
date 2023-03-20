@@ -1,4 +1,5 @@
 "use client";
+import createUserProfile from "@/lib/create/createUserProfile";
 import { supabase } from "@/utils/supabase-browser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -20,7 +21,8 @@ export default function SignUpPage() {
     });
     if (error) throw error;
     const userId = data.user?.id;
-    console.log("userId", userId);
+    console.log("userId after sign up", userId);
+    await createUserProfile(userId, email);
     router.back();
   }
   return (

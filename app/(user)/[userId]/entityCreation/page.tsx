@@ -26,7 +26,10 @@ export default function EntityCreationForm({ params }) {
 
   //Functions
   async function createEntity() {
+    console.log('enterFunction', )
     try {
+    console.log('entered try block', )
+      
       const { data, error } = await supabase
         .from("entity")
         .insert({
@@ -38,11 +41,13 @@ export default function EntityCreationForm({ params }) {
           entity_phone_number: ownerContactNumber,
           owner_gender: ownerGender,
           user_id: userId,
+          is_verified:false,
         })
         .select();
 
       if (error) throw error;
       const entityId = data[0].id;
+       console.log('entityId', entityId)
       localStorage.setItem("entityId", JSON.stringify(entityId));
       router.push("1/1");
       console.log("response after entity creation", data);
@@ -158,14 +163,13 @@ export default function EntityCreationForm({ params }) {
                 />
               </div>
               {/* BUSINESS OWNER NAME */}
-              <div className="space-y-1 pt-4">
+              {/* <div className="space-y-1 pt-4">
                 <label
                   htmlFor="names"
                   className="text-xs text-gray-600 font-medium"
                 >
                   Business Owner*
                 </label>
-                {/* FIRST AND LAST NAME INPUT FIELD */}
                 <input
                   type="text"
                   name="names"
@@ -177,7 +181,7 @@ export default function EntityCreationForm({ params }) {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
             {/* EMAIL ADDRESS */}
             <div className="space-y-1">
               <label
@@ -220,7 +224,7 @@ export default function EntityCreationForm({ params }) {
             </div>
 
             {/* GENDER RADIO BUTTON */}
-            <div>
+            {/* <div>
               <label
                 htmlFor="gender"
                 className="text-xs text-gray-600 font-medium"
@@ -280,8 +284,8 @@ export default function EntityCreationForm({ params }) {
                     className="ml-2 text-xs font-normal text-gray-900 dark:text-gray-500"
                   >
                     Other
-                  </label>
-                </div>
+                  </label> */}
+                {/* </div> */}
               </div>
             </div>
           </div>
@@ -294,6 +298,6 @@ export default function EntityCreationForm({ params }) {
           </button>
         </div>
       </div>
-    </div>
+    // </div>
   );
 }

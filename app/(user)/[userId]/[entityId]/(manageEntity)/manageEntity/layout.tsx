@@ -31,8 +31,8 @@ export default async function ManageEntityLayout({
       route: "entityInfo",
     },
     {
-      name: "Highlight Reels",
-      route: "highlightReels",
+      name: "Highlight",
+      route: "highlights",
     },
     {
       name: "QR Code",

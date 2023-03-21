@@ -71,27 +71,24 @@ export default function ManageMenuCategories(props) {
         {/* DIV TO COMPENSATE THE HEADER DIV FIXED */}
         <div className="h-14 sm:h-0"></div>
         {/* MENU HEADER AND ADD CATEGORY BUTTON */}
-        <div className="flex  items-center justify-between">
-          <div className="flex items-center space-x-6">
+        <div className="flex  items-center justify-end">
+          {/* UPLOAD MENU AS PDF */}
+          {/* <div className="flex items-center space-x-6">
             <div className="flex pt-1 space-x-2 sm:flex-row flex-row-reverse">
-              <p className="text-xs mt-0.5 ml-2 sm:ml-0">
+              <div className="text-xs mt-0.5 ml-2 sm:ml-0">
                 Upload your menu as a PDF
-              </p>
+              </div>
               <ToggleButton />
             </div>
-          </div>
+          </div> */}
 
-          {!isPdf && (
-            <>
-              {/* ADD CATEGORY BUTTON */}
-              <button
-                onClick={handleAddCategoryButton}
-                className="hidden sm:block w-32 h-10 hover:bg-blue-600 text-xs rounded-3xl bg-blue-500 text-white -mt-2"
-              >
-                Add New Category
-              </button>
-            </>
-          )}
+          {/* ADD CATEGORY BUTTON */}
+          <button
+            onClick={handleAddCategoryButton}
+            className="hidden sm:block w-32 h-10 hover:bg-blue-600 text-xs rounded-3xl bg-blue-500 text-white -mt-2"
+          >
+            Add New Category
+          </button>
         </div>
 
         {isPdf ? (

@@ -1,29 +1,50 @@
 "use client";
 
+import { useSupabase } from "@/app/supabase-provider";
+import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import updateBasicUserInfos from "@/lib/update/updateBasicUserInfos";
-import { useState } from "react";
+import Image from "next/image";
+import { ChangeEvent, useState } from "react";
+import ProfilePicture from "../../../../../public/ProfilePicture.jpg";
 
 export default function BasicInfosSection({ userInfos }) {
-  const [fullName, setFullName] = useState(
-    `${userInfos.first_name} ${userInfos.last_name}`
-  );
+  const [firstName, setFirstName] = useState(userInfos.first_name);
+  const [lastName, setLastName] = useState(userInfos.last_name);
   const [dateOfBirth, setDateOfBirth] = useState(userInfos.date_of_birth);
   const [gender, setGender] = useState(userInfos.gender);
   const [contactNumber, setContactNumber] = useState(userInfos.phone_number);
-  //   const [photo , setPhoto] = useState()
+  const [profilePictureUrl, setProfilePictureUrl] = useState(
+    userInfos.profile_picture_url
+  );
 
   //Variable representing if the user is editing the section or not
   const [editing, setEditing] = useState(false);
 
   async function onSaveButtonClick() {
-    const res = await updateBasicUserInfos(
+    await updateBasicUserInfos(
       userInfos.user_id,
-      fullName,
+      firstName,
+      lastName,
       dateOfBirth,
       gender,
-      contactNumber
+      contactNumber,
+      profilePictureUrl
     );
     setEditing(false);
+  }
+
+  async function handleChangePhotoButton(e: ChangeEvent<HTMLInputElement>) {
+    let file;
+
+    if (e.target.files) {
+      file = e.target.files[0];
+    }
+    let pictureUrl = await uploadPictureToBucket(
+      file,
+      "images-restaurant",
+      "public"
+    );
+    setProfilePictureUrl(pictureUrl);
   }
   return (
     <div className="bg-white drop-shadow-lg sm:h-fit sm:w-full rounded-lg sm:rounded-lg pt-2 pb-3 sm:py-4 px-4 sm:px-6">
@@ -49,32 +70,79 @@ export default function BasicInfosSection({ userInfos }) {
       </div>
       <div className="sm:flex space-y-4 sm:space-x-12">
         <div className="mx-auto w-1/2 sm:w-2/12">
-          <img
-            className="inline-block mb-2 rounded-full ring-2 ring-white"
-            src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-            alt=""
-          />
+          <div className="relative mt-6 w-32 h-32 mb-2 rounded-full ring-2 ring-white overflow-hidden">
+            {profilePictureUrl ? (
+              <Image src={profilePictureUrl} alt="profile picture" fill />
+            ) : (
+              <Image
+                // src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
+                src={ProfilePicture}
+                alt=""
+                fill
+              />
+            )}
+          </div>
+
           <div className="text-blue-500 flex sm:flex justify-center sm:justify-center space-x-[3px] sm:space-x-[0.6px] text-xs sm:text-xs  ">
-            <button disabled={!editing}>Change photo</button>
-            <span>|</span> <button disabled={!editing}>Delete</button>
+            {/* <button disabled={!editing} >Change photo</button> */}
+            <label
+              htmlFor="profilePicture"
+              className={
+                editing
+                  ? "relative cursor-pointer rounded-md bg-gray-100 font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-400"
+                  : "text-gray-500"
+              }
+            >
+              <span className="">Change photo</span>
+              <input
+                id="profilePicture"
+                name="profilePicture"
+                type="file"
+                className="sr-only"
+                disabled={!editing}
+                onChange={(e) => {
+                  handleChangePhotoButton(e);
+                }}
+              />
+            </label>
           </div>
         </div>
         <div className="sm:w-5/12 sm:h-full space-y-3 sm:space-y-3">
+          {/* FIRST NAME */}
           <div className="space-y-1 sm:space-y-1">
             <label
-              htmlFor="names"
+              htmlFor="first name"
               className="text-xs text-gray-600 font-medium pb-5"
             >
-              First and Last Name*
+              First Name
             </label>
-            {/* FIRST AND LAST NAME INPUT FIELD */}
+            {/* FIRST NAME INPUT FIELD */}
             <input
               type="text"
-              id="names"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+              id="first name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-              placeholder="Enter First and Last Name"
+              placeholder="Enter First Name"
+              disabled={!editing}
+            />
+          </div>
+          {/* LAST NAME */}
+          <div className="space-y-1 sm:space-y-1">
+            <label
+              htmlFor="last name"
+              className="text-xs text-gray-600 font-medium pb-5"
+            >
+              Last Name
+            </label>
+            {/* LAST NAME INPUT FIELD */}
+            <input
+              type="text"
+              id="last name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+              placeholder="Enter Last Name"
               disabled={!editing}
             />
           </div>
@@ -83,7 +151,7 @@ export default function BasicInfosSection({ userInfos }) {
               htmlFor="names"
               className="text-xs text-gray-600 font-medium pb-3"
             >
-              Date of birth*
+              Date of birth
             </label>
             {/* DATE OF BIRTH INPUT FIELD */}
             <input
@@ -100,7 +168,7 @@ export default function BasicInfosSection({ userInfos }) {
         </div>
         <div className="sm:w-5/12">
           <label htmlFor="gender" className="text-xs text-gray-600 font-medium">
-            Gender*
+            Gender
           </label>
           <div className="sm:space-y-6">
             <div className="flex items-center flex-start space-x-9 py-2">
@@ -170,7 +238,7 @@ export default function BasicInfosSection({ userInfos }) {
                 htmlFor="names"
                 className="text-xs text-gray-600 font-medium"
               >
-                Contact Number*
+                Contact Number
               </label>
               {/* FIRST AND LAST NAME INPUT FIELD */}
               <input

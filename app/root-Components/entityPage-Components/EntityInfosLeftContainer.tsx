@@ -20,7 +20,7 @@ export default function EntityPageContainerWithEntityInfos({ entityInfos }) {
             ))}
           </div>
           {/* LEFT RIGHT NAVIGATION BUTTON */}
-          <div className="hidden sm:flex justify-end space-x-1 pr-1">
+          {/* <div className="hidden sm:flex justify-end space-x-1 pr-1">
             <button>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@ export default function EntityPageContainerWithEntityInfos({ entityInfos }) {
                 />
               </svg>
             </button>
-          </div>
+          </div> */}
         </div>
         {/* OPENING HOURS DIV */}
         <div>

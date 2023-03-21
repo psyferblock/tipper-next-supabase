@@ -4,17 +4,26 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSupabase } from "../supabase-provider";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+
 
 // import dynamic from "next/dynamic";
 
 export default function SignInPage() {
   const [email, setEmail] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
+  const [open, setOpen] = useState(false);
+
 
   const router = useRouter();
 
   const handleBackButton = () => {
     router.back();
+  };
+
+   // handle toggle
+   const toggle = () => {
+    setOpen(!open);
   };
 
   async function handleSignInButton() {
@@ -87,23 +96,32 @@ export default function SignInPage() {
             {/* PASSWORD INPUT */}
             <div className="space-y-1">
               <label
-                htmlFor="names"
+                htmlFor="password"
                 className="text-xs text-gray-600 font-medium"
               >
                 Password*
               </label>
-              {/* PASSWORD INPUT FIELD */}
-              <input
-                type="text"
-                id="Password"
-                className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                placeholder="Password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
+              {/* EMAIL ADDRESS INPUT FIELD */}
+              <div className="w-4/5 mx-auto mt-52 relative md:w-2/5">
+                <input
+                  type={open === false ? "password" : "text"}
+                  id="password"
+                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                  placeholder="Enter Password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+                <div className="text-2xl absolute top-4 right-5">
+                  {open === false ? (
+                    <AiFillEye onClick={toggle} />
+                  ) : (
+                    <AiFillEyeInvisible onClick={toggle} />
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+            </div>
           
           {/* SIGN IN BUTTON */}
           <button
@@ -126,4 +144,5 @@ export default function SignInPage() {
     </div>
   );
 }
-// export default dynamic(() => Promise.resolve(SignIn), { ssr: false });
+
+{/* // export default dynamic(() => Promise.resolve(SignIn), { ssr: false }); */}

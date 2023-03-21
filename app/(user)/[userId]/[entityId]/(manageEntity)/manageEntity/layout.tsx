@@ -45,7 +45,7 @@ export default async function ManageEntityLayout({
       {/* PAGE BG COLOR AND PADDING  */}
       <Link
         href={`${params.userId}/${params.entityId}/menu/${firstMenuCategoryId}`}
-        className="hidden sm:flex items-center font-bold text-2xl pt-6 pb-4"
+        className="hidden sm:flex w-fit items-center font-bold text-2xl pt-6 pb-4"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

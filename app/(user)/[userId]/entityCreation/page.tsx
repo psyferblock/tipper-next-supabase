@@ -26,10 +26,10 @@ export default function EntityCreationForm({ params }) {
 
   //Functions
   async function createEntity() {
-    console.log('enterFunction', )
+    console.log("enterFunction");
     try {
-    console.log('entered try block', )
-      
+      console.log("entered try block");
+
       const { data, error } = await supabase
         .from("entity")
         .insert({
@@ -41,13 +41,13 @@ export default function EntityCreationForm({ params }) {
           entity_phone_number: ownerContactNumber,
           owner_gender: ownerGender,
           user_id: userId,
-          is_verified:false,
+          is_verified: false,
         })
         .select();
 
       if (error) throw error;
       const entityId = data[0].id;
-       console.log('entityId', entityId)
+      console.log("entityId", entityId);
       localStorage.setItem("entityId", JSON.stringify(entityId));
       router.push("1/1");
       console.log("response after entity creation", data);
@@ -141,29 +141,29 @@ export default function EntityCreationForm({ params }) {
               </select>
             </div>
             {/* DIVIDOR SEPARATOR */}
-            <div className="divide-y">
-              {/* BUSINESS LOCATION */}
-              <div className="space-y-1 mb-7">
-                <label
-                  htmlFor="names"
-                  className="text-xs text-gray-600 font-medium"
-                >
-                  Business Location*
-                </label>
-                {/* BUSINESS LOCATION FIELD */}
-                <input
-                  type="text"
-                  name="names"
-                  id="names"
-                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                  placeholder="Area, Street Name, Building number"
-                  onChange={(e) => {
-                    setEntityLocation(e.target.value);
-                  }}
-                />
-              </div>
-              {/* BUSINESS OWNER NAME */}
-              {/* <div className="space-y-1 pt-4">
+            {/* <div className="divide-y"> */}
+            {/* BUSINESS LOCATION */}
+            <div className="space-y-1 mb-7">
+              <label
+                htmlFor="names"
+                className="text-xs text-gray-600 font-medium"
+              >
+                Business Location*
+              </label>
+              {/* BUSINESS LOCATION FIELD */}
+              <input
+                type="text"
+                name="names"
+                id="names"
+                className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                placeholder="Area, Street Name, Building number"
+                onChange={(e) => {
+                  setEntityLocation(e.target.value);
+                }}
+              />
+            </div>
+            {/* BUSINESS OWNER NAME */}
+            {/* <div className="space-y-1 pt-4">
                 <label
                   htmlFor="names"
                   className="text-xs text-gray-600 font-medium"
@@ -285,9 +285,8 @@ export default function EntityCreationForm({ params }) {
                   >
                     Other
                   </label> */}
-                {/* </div> */}
-              </div>
-            </div>
+            {/* </div> */}
+            {/* </div> */}
           </div>
           {/* CREATE ENTITY BUTTON */}
           <button
@@ -298,6 +297,7 @@ export default function EntityCreationForm({ params }) {
           </button>
         </div>
       </div>
+    </div>
     // </div>
   );
 }

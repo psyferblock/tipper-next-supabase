@@ -75,16 +75,18 @@ export default function EntityPageContainerWithEntityInfos({ entityInfos }) {
           <div className="sm:px-1">
             <p className="font-normal text-xs">{entityInfos.entity_address}</p>
             {/* GOOGLE MAPS */}
-            <div className="bg-gray-200 h-32 rounded-lg"></div>
+            <div className="bg-gray-200 h-44 rounded-lg"></div>
           </div>
         </div>
 
         {/* CONNECT WITH US DIV */}
         <div>
-          <p className="pb-0.5">Connect With Us</p>
-          <div className="sm:px-1 space-y-2">
+          <div className="flex justify-between items-center">
+            <div className="pb-0.5">Connect With Us</div>
             {/* PHONE BUTTON */}
             <PhoneCallButton phoneNumber={entityInfos.entity_phone_number} />
+          </div>
+          <div className="sm:px-1 space-y-2">
             <div className="flex items-center space-x-2">
               {/* INSTAGRAM BUTTON */}
               <InstagramButton url={entityInfos.instagram_link} />

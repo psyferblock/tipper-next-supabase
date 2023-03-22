@@ -3,8 +3,11 @@
 import addBasicPictures from "@/lib/create/addBasicPictures";
 import updateEntityInfos from "@/lib/update/updateEntityInfos";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
+import { useRouter } from "next/navigation";
 
 export default function StickyBarSaveCancel({ entityId }) {
+  const router = useRouter();
+
   const {
     arrayOfPictureObjects,
     tags,
@@ -37,6 +40,7 @@ export default function StickyBarSaveCancel({ entityId }) {
       contactUsPictureUrl
     );
     await saveNewPictures();
+    router.refresh();
   }
 
   //Function that removes the objects that were added but then user pressed on "Cancel" instead of "Save"

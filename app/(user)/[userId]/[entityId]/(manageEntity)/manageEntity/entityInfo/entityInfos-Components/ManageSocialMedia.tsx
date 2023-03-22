@@ -8,14 +8,31 @@ export default function ManageSocialMedia() {
     phoneNumber,
     emailAddress,
     instagramUrl,
+    isInstagramUrlPublic,
     facebookUrl,
+    isFacebookUrlPublic,
     whatsappNumber,
+    isWhatsappNumberPublic,
     setPhoneNumber,
     setEmailAddress,
     setInstagramUrl,
+    setIsInstagramUrlPublic,
     setFacebookUrl,
+    setIsFacebookUrlPublic,
     setWhatsappNumber,
+    setIsWhatsappNumberPublic,
   } = useManageEntityInfosContext();
+
+  //Changing the state in context of isPublic to the opposite boolean value of current state
+  function handleInstagramToggleButton(boolean) {
+    setIsInstagramUrlPublic(boolean);
+  }
+  function handleFacebookToggleButton(boolean) {
+    setIsFacebookUrlPublic(boolean);
+  }
+  function handleWhatsappToggleButton(boolean) {
+    setIsWhatsappNumberPublic(boolean);
+  }
 
   return (
     <div className=" bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">
@@ -52,12 +69,12 @@ export default function ManageSocialMedia() {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
-          <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
+          {/* <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
               <ToggleButton />
             </div>
             <p className=" sm:text-sm text-gray-500">Show on your page</p>
-          </div>
+          </div> */}
         </div>
         {/* EMAIL ADDRESS ROW */}
         <div className="sm:flex space-y-2 sm:space-y-0 items-center justify-start py-5">
@@ -91,12 +108,12 @@ export default function ManageSocialMedia() {
               onChange={(e) => setEmailAddress(e.target.value)}
             />
           </div>
-          <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
+          {/* <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
               <ToggleButton />
             </div>
             <p className=" sm:text-sm text-gray-500">Show on your page</p>
-          </div>
+          </div> */}
         </div>
         {/* INSTAGRAM ROW */}
         <div className="sm:flex space-y-2 sm:space-y-0 items-center justify-start py-5">
@@ -128,7 +145,10 @@ export default function ManageSocialMedia() {
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
-              <ToggleButton />
+              <ToggleButton
+                handleToggleButton={handleInstagramToggleButton}
+                switchedOn={isInstagramUrlPublic}
+              />
             </div>
             <p className=" sm:text-sm text-gray-500">Show on your page</p>
           </div>
@@ -163,7 +183,10 @@ export default function ManageSocialMedia() {
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
-              <ToggleButton />
+              <ToggleButton
+                handleToggleButton={handleFacebookToggleButton}
+                switchedOn={isFacebookUrlPublic}
+              />
             </div>
             <p className=" sm:text-sm text-gray-500">Show on your page</p>
           </div>
@@ -198,7 +221,10 @@ export default function ManageSocialMedia() {
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
-              <ToggleButton />
+              <ToggleButton
+                handleToggleButton={handleWhatsappToggleButton}
+                switchedOn={isWhatsappNumberPublic}
+              />
             </div>
             <p className="sm:text-sm text-gray-500">Show on your page</p>
           </div>

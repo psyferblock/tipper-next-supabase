@@ -33,7 +33,7 @@ export default function ManageContactUsPage() {
   }
   return (
     <div className="h-fit  bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg space-y-4">
-      <div className="sm:flex items-center sm:space-x-6">
+      <div className="sm:flex sm:justify-between items-center sm:space-x-6">
         <div className="text-lg font-bold mb-1">Contact Us</div>
         <div className="flex items-center pb-0.5 space-x-1 sm:py-0 py-1">
           <div className="pt-0.5">

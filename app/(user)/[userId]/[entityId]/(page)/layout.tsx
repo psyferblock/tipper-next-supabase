@@ -9,6 +9,7 @@ import { getHighlightsServer } from "@/lib/get/getHighlights";
 import { getBasicPicturesServer } from "@/lib/get/getBasicPictures";
 import { createServerClient } from "@/utils/supabase-server";
 import { getEntityInfosServer } from "@/lib/get/getEntityInfos";
+import CopyUrlShareWhatsappButtons from "@/app/root-Components/entityPage-Components/CopyUrlShareWhatsappButtons";
 
 export default async function EntityPageLayout({
   children,
@@ -39,7 +40,10 @@ export default async function EntityPageLayout({
     <>
       {/* MOBILE "MANAGE ENTITY" */}
       <div className="flex items-center justify-between sm:hidden h-14 px-3 bg-gray-300 w-full z-50 fixed text-2xl font-bold">
-        <p>Entity Name</p>
+        <div>
+          <div>Entity Name</div>
+          <CopyUrlShareWhatsappButtons />
+        </div>
         <Link
           href="1/1/manageEntity/entityInfo"
           className="h-fit rounded-3xl mt-1 text-blue-500 text-xs"
@@ -52,8 +56,11 @@ export default async function EntityPageLayout({
 
       {/* DESKTOP "MANAGE ENTITY" */}
       <div className=" sm:h-fit sm:min-h-screen px-3 sm:px-12 py-3 sm:py-8">
-        <div className="hidden sm:flex items-center justify-between pb-5 sm:pb-9">
-          <p className="font-semibold text-2xl ">Entity Name</p>
+        <div className="hidden sm:flex items-center justify-between pb-5 sm:pb-2">
+          <div>
+            <div className="font-semibold text-2xl ">Entity Name</div>
+            <CopyUrlShareWhatsappButtons />
+          </div>
           <ManageEntityButtonDesktop />
         </div>
         {/* TOP OF THE PAGE CONTAINER */}

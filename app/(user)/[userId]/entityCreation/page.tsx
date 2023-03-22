@@ -26,36 +26,11 @@ export default function EntityCreationForm({ params }) {
 
   //Functions
   async function createEntity() {
-    console.log("enterFunction");
-    try {
-      console.log("entered try block");
-
-      const { data, error } = await supabase
-        .from("entity")
-        .insert({
-          entity_name: entityName,
-          entity_type: entityType,
-          entity_address: entityLocation,
-          owner_name: ownerName,
-          entity_email: ownerEmailAddress,
-          entity_phone_number: ownerContactNumber,
-          owner_gender: ownerGender,
-          user_id: userId,
-          is_verified: false,
-        })
-        .select();
-
-      if (error) throw error;
-      const entityId = data[0].id;
-      console.log("entityId", entityId);
-      localStorage.setItem("entityId", JSON.stringify(entityId));
-      router.push("1/1");
-      console.log("response after entity creation", data);
-    } catch (error) {
-      if (error) {
-        throw error;
-      }
-    }
+    //Create the entity
+    // const response = await createEntity();
+    // const entityId = response.id;
+    //Get the Id of the entity and store it in the corresponding user's row
+    //Redirect user to either his entity page or message from tipper
   }
 
   return (
@@ -115,13 +90,13 @@ export default function EntityCreationForm({ params }) {
                 }}
               />
             </div>
-            {/* BUSINESS TYPE */}
+            {/* Entity TYPE */}
             <div className="space-y-1">
               <label
                 htmlFor="names"
                 className="text-xs text-gray-600 font-medium"
               >
-                Business Type*
+                Entity Type*
               </label>
               {/* BUSINESS TYPE FIELD */}
               <select
@@ -188,7 +163,7 @@ export default function EntityCreationForm({ params }) {
                 htmlFor="names"
                 className="text-xs text-gray-600 font-medium"
               >
-                Email Address*
+                Entity's Email Address*
               </label>
               {/* EMAIL ADDRESS INPUT FIELD */}
               <input
@@ -196,19 +171,19 @@ export default function EntityCreationForm({ params }) {
                 name="EMAIL ADDRESS"
                 id="EMAIL ADDRESS"
                 className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                placeholder="Email Address"
+                placeholder="Entity Email Address"
                 onChange={(e) => {
                   setOwnerEmailAddress(e.target.value);
                 }}
               />
             </div>
-            {/* CONTACT NUMBER */}
+            {/* PHONE NUMBER */}
             <div className="space-y-1">
               <label
                 htmlFor="names"
                 className="text-xs text-gray-600 font-medium"
               >
-                Contact Number*
+                Entity's Phone Number*
               </label>
               {/* CONTACT NUMBER INPUT FIELD */}
               <input
@@ -216,7 +191,7 @@ export default function EntityCreationForm({ params }) {
                 name="contact number"
                 id="contact number"
                 className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                placeholder="Contact Number"
+                placeholder="Entity's Phone Number"
                 onChange={(e) => {
                   setOwnerContactNumber(e.target.valueAsNumber);
                 }}

@@ -8,9 +8,12 @@ import { getMyUserInfosServer } from "@/lib/get/getMyUserInfos";
 export default async function Navbar({ session }) {
   // const userId = "5db1fa83-81ca-4642-bc3d-0c4c3efe5e6e"
   // console.log("session", session.user.id);
-  const supabase = createServerClient();
-  const res = await getMyUserInfosServer(supabase, session.user.id);
-  const profilePicture = res.profile_picture_url;
+  let profilePictureUrl = "";
+  if (session) {
+    const supabase = createServerClient();
+    const res = await getMyUserInfosServer(supabase, session.user.id);
+    profilePictureUrl = res.profile_picture_url;
+  }
   return (
     <>
       <div className="bg-gray-500 fixed w-full z-10 flex justify-between sm:justify-between sm:items-center h-16 sm:h-[78px] px-3 sm:px-12">
@@ -46,10 +49,10 @@ export default async function Navbar({ session }) {
               className="hidden sm:flex items-center sm:space-x-2 text-xs text-white pr-9"
             >
               <div className="relative w-6 h-6 inline-block rounded-full sm:ring-2  overflow-hidden">
-                {profilePicture ? (
-                  <Image src={profilePicture} alt="profile picture" fill />
+                {profilePictureUrl ? (
+                  <Image src={profilePictureUrl} alt="profile picture" fill />
                 ) : (
-                  <Image src={ProfilePicture} alt="" fill />
+                  <Image src={profilePictureUrl} alt="" fill />
                 )}
               </div>
               {/* <img

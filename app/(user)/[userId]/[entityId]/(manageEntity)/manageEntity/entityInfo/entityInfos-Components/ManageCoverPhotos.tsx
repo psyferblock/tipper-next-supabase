@@ -174,7 +174,7 @@ export default function ManageCoverPhotos() {
             {arrayOfPictureObjects ? (
               <>
                 {arrayOfPictureObjects.map((pictureObject) => (
-                  <div className="relative w-36 sm:w-36 bg-gray-100 flex justify-center h-56 rounded-lg border-2 border-gray-400 ">
+                  <div className="relative w-36 sm:w-[340px] bg-gray-100 flex justify-center h-56 rounded-lg border-2 border-gray-400 ">
                     <Image
                       src={pictureObject.media_url}
                       alt="cover photo"

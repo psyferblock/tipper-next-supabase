@@ -3,10 +3,9 @@
 import addBasicPictures from "@/lib/create/addBasicPictures";
 import updateEntityInfos from "@/lib/update/updateEntityInfos";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
-import { useRouter } from "next/navigation";
 
-export default function StickyBarSaveCancel({ entityId }) {
-  const router = useRouter();
+export default function StickyBarSaveCancel(props) {
+  const entityId = props.entityId;
 
   const {
     arrayOfPictureObjects,
@@ -14,8 +13,11 @@ export default function StickyBarSaveCancel({ entityId }) {
     phoneNumber,
     emailAddress,
     instagramUrl,
+    isInstagramUrlPublic,
     facebookUrl,
+    isFacebookUrlPublic,
     whatsappNumber,
+    isWhatsappNumberPublic,
     aboutUsDescription,
     aboutUsPictureUrl,
     isContactUsSectionPublic,
@@ -31,8 +33,11 @@ export default function StickyBarSaveCancel({ entityId }) {
       phoneNumber,
       emailAddress,
       instagramUrl,
+      isInstagramUrlPublic,
       facebookUrl,
+      isFacebookUrlPublic,
       whatsappNumber,
+      isWhatsappNumberPublic,
       aboutUsDescription,
       aboutUsPictureUrl,
       isContactUsSectionPublic,
@@ -40,7 +45,9 @@ export default function StickyBarSaveCancel({ entityId }) {
       contactUsPictureUrl
     );
     await saveNewPictures();
-    router.refresh();
+
+    //Refresh page every change is saved
+    props.refreshOnSave;
   }
 
   //Function that removes the objects that were added but then user pressed on "Cancel" instead of "Save"

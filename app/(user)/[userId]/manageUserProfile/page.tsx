@@ -8,8 +8,6 @@ import { createServerClient } from "@/utils/supabase-server";
 import getEntityOfUserServer from "@/lib/get/getEntityOfUser";
 
 export default async function ManageUserProfilePage({ params }) {
-  const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
-
   //Getting the session from the cookies
   const supabase = createServerClient();
   const {
@@ -64,7 +62,7 @@ export default async function ManageUserProfilePage({ params }) {
                 {userOwnsEntity ? (
                   <button className="bg-blue-500 text-white w-fit px-5 sm:w-48 h-10 sm:h-10 rounded-3xl sm:rounded-3xl sm:text-sm sm:hover:bg-blue-600">
                     <Link
-                      href={`${userId}/${entityId}/menu/${firstMenuCategoryId}`}
+                      href={`${userId}/${entityOwnedId}/menu/${firstMenuCategoryId}`}
                     >
                       Access My Entity
                     </Link>

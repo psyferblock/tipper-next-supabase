@@ -172,6 +172,7 @@ export default function ManageMenuCategories(props) {
                     categoryId={category.id}
                     openEditNameModal={handleEditCategoryNameButton}
                     openDeleteMenuCategoryModal={handleDeleteCategoryButton}
+                    entityId={entityId}
                   />
                 ))}
               </div>

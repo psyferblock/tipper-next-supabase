@@ -11,8 +11,13 @@ import EditItemModal from "./menuItems-Components/EditItemModal";
 import deleteMenuItem from "@/lib/delete/deleteMenuItem";
 import { useAuthContext } from "@/app/Store";
 import { useSearchParams } from "next/navigation";
+import DeleteMenuItemModal from "./menuItems-Components/DeleteMenuItemModal";
 
-export default function ManageMenuItems({ menuItems, menuCategoryId }) {
+export default function ManageMenuItems({
+  menuItems,
+  menuCategoryId,
+  entityId,
+}) {
   const { userId, ownedEntityId } = useAuthContext();
 
   const searchParams = useSearchParams();
@@ -20,6 +25,10 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
 
   //Add New Item Modal
   const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
+
+  //DELETE ITEM MODAL
+  const [isDeleteItemModalOpen, setIsDeleteItemModalOpen] = useState(false);
+  const [itemIdToDelete, setItemIdToDelete] = useState();
 
   const handleAddItemButton = (e) => {
     e.preventDefault();
@@ -49,15 +58,20 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
     setIsEditItemModalOpen(true);
   }
 
+  function handleRemoveItemButton(menuItemIdToDelete) {
+    setItemIdToDelete(menuItemIdToDelete);
+    setIsDeleteItemModalOpen(true);
+  }
+
   //Function to close the Edit Modal
   const closeEditItemModal = () => {
     setIsEditItemModalOpen(false);
   };
 
-  //Function to delete a menu item
-  async function handleRemoveItemButton(menuItemId) {
-    await deleteMenuItem(menuItemId);
-  }
+  //Function to close the Edit Modal
+  const closeDeleteItemModal = () => {
+    setIsDeleteItemModalOpen(false);
+  };
 
   return (
     <>
@@ -224,6 +238,15 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
         closeModal={closeEditItemModal}
         item={itemBeingEdited}
         menuItemBeingEditedId={menuItemBeingEditedId}
+      />
+
+      <DeleteMenuItemModal
+        open={isDeleteItemModalOpen}
+        closeModal={closeDeleteItemModal}
+        itemIdToDelete={itemIdToDelete}
+        categoryName={categoryName}
+        menuCategoryId={menuCategoryId}
+        entityId={entityId}
       />
     </>
   );

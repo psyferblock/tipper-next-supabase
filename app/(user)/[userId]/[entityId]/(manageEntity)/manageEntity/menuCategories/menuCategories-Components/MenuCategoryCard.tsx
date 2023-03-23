@@ -1,15 +1,18 @@
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import { useAuthContext } from "@/app/Store";
+import { useSupabase } from "@/app/supabase-provider";
 import Link from "next/link";
 
 export default function MenuCategoryCard(props) {
-  const { userId, ownedEntityId } = useAuthContext();
+  const entityId = props.entityId;
+  const { session } = useSupabase();
+  const userId = session?.user.id;
   return (
     <>
       <div className="h-fit sm:h-[198px] w-full space-y-3 bg-white drop-shadow-lg rounded-md sm:divide-y py-5 px-3 sm:px-4 flex sm:flex-col hover:cursor-pointer">
         {/* UPPER PART OF CARD */}
         <Link
-          href={`${userId}/${ownedEntityId}/manageEntity/menuCategories/${props.categoryId}?categoryName=${props.categoryName}`}
+          href={`${userId}/${entityId}/manageEntity/menuCategories/${props.categoryId}?categoryName=${props.categoryName}`}
         >
           <div className="sm:space-y-2">
             <div className="h-20 w-20 rounded-full mx-auto overflow-hidden">
@@ -29,7 +32,7 @@ export default function MenuCategoryCard(props) {
         <div className="sm:hidden w-full flex justify-between">
           <div className="sm:hidden ml-2 space-y-2">
             <Link
-              href={`${userId}/${ownedEntityId}/manageEntity/menuCategories/${props.categoryId}`}
+              href={`${userId}/${entityId}/manageEntity/menuCategories/${props.categoryId}`}
             >
               <p className="sm:hidden text-start mr-2 font-semibold text-gray-700">
                 {props.categoryName}

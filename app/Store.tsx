@@ -90,8 +90,8 @@ function createAuthTools(): {
     },
     {
       //   token: "",
-      userId:"" , // initial state is an observer
-      ownedEntityId:"" ,
+      userId: "", // initial state is an observer
+      ownedEntityId: "",
     }
   );
 
@@ -134,7 +134,7 @@ function createAuthTools(): {
   //     });
   //   }, []);
 
-  console.log("AuthContext state:", { userId, ownedEntityId });
+  // console.log("AuthContext state:", { userId, ownedEntityId });
 
   return {
     // setToken,

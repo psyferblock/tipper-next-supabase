@@ -5,16 +5,16 @@ import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import updateBasicUserInfos from "@/lib/update/updateBasicUserInfos";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
-import ProfilePicture from "../../../../../public/ProfilePicture.jpg";
+import DefaultProfilePicture from "../../../../../public/DefaultProfilePicture.jpg";
 
 export default function BasicInfosSection({ userInfos }) {
-  const [firstName, setFirstName] = useState(userInfos.first_name);
-  const [lastName, setLastName] = useState(userInfos.last_name);
-  const [dateOfBirth, setDateOfBirth] = useState(userInfos.date_of_birth);
-  const [gender, setGender] = useState(userInfos.gender);
-  const [contactNumber, setContactNumber] = useState(userInfos.phone_number);
+  const [firstName, setFirstName] = useState(userInfos?.first_name);
+  const [lastName, setLastName] = useState(userInfos?.last_name);
+  const [dateOfBirth, setDateOfBirth] = useState(userInfos?.date_of_birth);
+  const [gender, setGender] = useState(userInfos?.gender);
+  const [contactNumber, setContactNumber] = useState(userInfos?.phone_number);
   const [profilePictureUrl, setProfilePictureUrl] = useState(
-    userInfos.profile_picture_url
+    userInfos?.profile_picture_url
   );
 
   //Variable representing if the user is editing the section or not
@@ -76,7 +76,7 @@ export default function BasicInfosSection({ userInfos }) {
             ) : (
               <Image
                 // src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
-                src={ProfilePicture}
+                src={DefaultProfilePicture}
                 alt=""
                 fill
               />

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NavBarSignOutButton from "./NavBarSignOutButton";
-import ProfilePicture from "../../../public/ProfilePicture.jpg";
+import DefaultProfilePicture from "../../../public/DefaultProfilePicture.jpg";
 import Image from "next/image";
 import { createServerClient } from "@/utils/supabase-server";
 import { getMyUserInfosServer } from "@/lib/get/getMyUserInfos";
@@ -9,10 +9,14 @@ export default async function Navbar({ session }) {
   // const userId = "5db1fa83-81ca-4642-bc3d-0c4c3efe5e6e"
   // console.log("session", session.user.id);
   let profilePictureUrl = "";
+  let userId;
   if (session) {
     const supabase = createServerClient();
     const res = await getMyUserInfosServer(supabase, session.user.id);
-    profilePictureUrl = res.profile_picture_url;
+    profilePictureUrl = res?.profile_picture_url;
+
+    //getting the userId
+    userId = session.user.id;
   }
   return (
     <>
@@ -45,14 +49,14 @@ export default async function Navbar({ session }) {
 
             {/* DESKTOP VERSION */}
             <Link
-              href="1/manageUserProfile"
+              href={`${userId}/manageUserProfile`}
               className="hidden sm:flex items-center sm:space-x-2 text-xs text-white pr-9"
             >
               <div className="relative w-6 h-6 inline-block rounded-full sm:ring-2  overflow-hidden">
                 {profilePictureUrl ? (
                   <Image src={profilePictureUrl} alt="profile picture" fill />
                 ) : (
-                  <Image src={profilePictureUrl} alt="" fill />
+                  <Image src={DefaultProfilePicture} alt="" fill />
                 )}
               </div>
               {/* <img
@@ -60,7 +64,9 @@ export default async function Navbar({ session }) {
                 src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                 alt=""
               /> */}
-              <p>My account</p>
+              <div className="hover:text-sky-400 text-white text-sm sm:text-sm pt-1 sm:pt-0 font-light sm:font-normal">
+                My account
+              </div>
             </Link>
 
             {/* MOBILE VERSION */}

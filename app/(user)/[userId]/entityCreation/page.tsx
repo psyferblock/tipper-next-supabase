@@ -1,36 +1,48 @@
 "use client";
 
-import { useAuthContext } from "../../../Store";
 import { supabase } from "@/utils/supabase-browser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import createEntity from "@/lib/create/createEntity";
+import { useSupabase } from "@/app/supabase-provider";
+import createMenuCategory from "@/lib/create/createMenuCategory";
 
 export default function EntityCreationForm({ params }) {
   //States
   const [entityName, setEntityName] = useState<string | undefined>();
   const [entityType, setEntityType] = useState<string | undefined>();
-  const [entityLocation, setEntityLocation] = useState<string | undefined>();
-  const [ownerName, setOwnerName] = useState<string | undefined>();
-  const [ownerEmailAddress, setOwnerEmailAddress] = useState<
+  const [entityAddress, setEntityAddress] = useState<string | undefined>();
+  const [entityEmailAddress, setEntityEmailAddress] = useState<
     string | undefined
   >();
-  const [ownerContactNumber, setOwnerContactNumber] = useState<
+  const [entityPhoneNumber, setEntityPhoneNumber] = useState<
     number | undefined
   >();
-  const [ownerGender, setOwnerGender] = useState<string | undefined>();
 
-  //Imports
   const router = useRouter();
-  const { userId } = useAuthContext();
+
+  const { session } = useSupabase();
+  const userId = session?.user.id;
 
   //Functions
-  async function createEntity() {
+  async function handleCreateNowButton() {
     //Create the entity
-    // const response = await createEntity();
-    // const entityId = response.id;
-    //Get the Id of the entity and store it in the corresponding user's row
+    const response = await createEntity(
+      userId,
+      entityName,
+      entityType,
+      entityAddress,
+      entityEmailAddress,
+      entityPhoneNumber
+    );
+    const entityId = response.id;
+
+    const firstMenuCategoryObject = await createMenuCategory("Main", entityId);
+    console.log("firstMenuCategoryObject", firstMenuCategoryObject);
+    const firstMenuCategoryId = firstMenuCategoryObject.id;
     //Redirect user to either his entity page or message from tipper
+    router.push(`${userId}/${entityId}/menu/${firstMenuCategoryId}`);
   }
 
   return (
@@ -56,17 +68,17 @@ export default function EntityCreationForm({ params }) {
                 d="M15.75 19.5L8.25 12l7.5-7.5"
               />
             </svg>
-            <p className="text-lg">Back</p>
+            <div className="text-lg">Back</div>
           </Link>
         </div>
         {/* //////////////////////////////////////////////////////////////////////////////////// */}
         {/* RIGHT PART OF SCREEN */}
         <div className="bg-white grow sm:py-28 sm:px-40">
           <div className="mb-9 text-center sm:text-start">
-            <p className="text-3xl font-bold ">Create an Entity</p>
-            <p className="italic text-sm font-light">
+            <div className="text-3xl font-bold ">Create an Entity</div>
+            <div className="italic text-sm font-light">
               Welcome to the Tipper network
-            </p>
+            </div>
           </div>
           {/* INPUT FORMS */}
           <div className="space-y-3">
@@ -133,7 +145,7 @@ export default function EntityCreationForm({ params }) {
                 className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
                 placeholder="Area, Street Name, Building number"
                 onChange={(e) => {
-                  setEntityLocation(e.target.value);
+                  setEntityAddress(e.target.value);
                 }}
               />
             </div>
@@ -173,7 +185,7 @@ export default function EntityCreationForm({ params }) {
                 className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
                 placeholder="Entity Email Address"
                 onChange={(e) => {
-                  setOwnerEmailAddress(e.target.value);
+                  setEntityEmailAddress(e.target.value);
                 }}
               />
             </div>
@@ -193,7 +205,7 @@ export default function EntityCreationForm({ params }) {
                 className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
                 placeholder="Entity's Phone Number"
                 onChange={(e) => {
-                  setOwnerContactNumber(e.target.valueAsNumber);
+                  setEntityPhoneNumber(e.target.valueAsNumber);
                 }}
               />
             </div>
@@ -265,7 +277,7 @@ export default function EntityCreationForm({ params }) {
           </div>
           {/* CREATE ENTITY BUTTON */}
           <button
-            onClick={createEntity}
+            onClick={handleCreateNowButton}
             className="w-full h-10 mt-5 sm:mt-10 hover:bg-blue-600 hover:text-lg rounded-3xl bg-blue-500 text-white text-sm"
           >
             Create Now

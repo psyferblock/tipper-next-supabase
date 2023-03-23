@@ -4,7 +4,7 @@ export default async function createEntity(
   userId,
   entityName,
   entityType,
-  businessLocation,
+  entityAddress,
   entityEmailAddress,
   entityPhoneNumber
 ) {
@@ -14,11 +14,12 @@ export default async function createEntity(
       user_id: userId,
       entity_name: entityName,
       entity_type: entityType,
-      //   location_id: businessLocation,
+      entity_address: entityAddress,
       entity_email: entityEmailAddress,
       entity_phone_number: entityPhoneNumber,
       is_verified: false,
     })
+    .select()
     .single();
 
   if (error) throw error;

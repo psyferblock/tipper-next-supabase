@@ -3,6 +3,7 @@
 import { useSupabase } from "@/app/supabase-provider";
 import addBasicPictures from "@/lib/create/addBasicPictures";
 import updateEntityInfos from "@/lib/update/updateEntityInfos";
+import { supabase } from "@/utils/supabase-browser";
 import { useRouter } from "next/navigation";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
 
@@ -72,10 +73,7 @@ export default function StickyBarSaveCancel(props) {
     let arrayOfNewPictureUrls = arrayOfNewPictureObjects.map(
       (pictureObject) => pictureObject.media_url
     );
-    console.log(
-      "arrayOfNewPictureUrls in addBasicPictures:",
-      arrayOfNewPictureUrls
-    );
+
     let mediaCategory = "cover_picture";
     if (arrayOfNewPictureUrls.length > 0) {
       await addBasicPictures(mediaCategory, arrayOfNewPictureUrls, entityId);

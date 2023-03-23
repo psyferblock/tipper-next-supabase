@@ -6,6 +6,8 @@ import createHighlight from "@/lib/create/createHighlight";
 import Image from "next/image";
 import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import insertUrlsToHighlight from "@/lib/create/insertUrlsToHighlight";
+import { useRouter } from "next/navigation";
+import { useSupabase } from "@/app/supabase-provider";
 
 export default function AddNewHighlightModal(props) {
   //State
@@ -16,11 +18,17 @@ export default function AddNewHighlightModal(props) {
 
   const buttonRef = useRef(null);
 
+  const router = useRouter();
+
+  const { session } = useSupabase();
+  const userId = session?.user.id;
+
   async function handleAddButton() {
     const newHighlightId = await createHighlight(highlightName, props.entityId);
     await insertUrlsToHighlight(arrayOfPictureUrls, newHighlightId);
 
     props.closeModal();
+    router.push(`${userId}/${props.entityId}/manageEntity/highlights`);
   }
 
   async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {
@@ -118,8 +126,8 @@ export default function AddNewHighlightModal(props) {
                       </div>
 
                       <div className="flex justify-between text-xs">
-                        <p>Highlight Name</p>
-                        <p className="text-gray-400">150</p>
+                        <div>Highlight Name</div>
+                        <div className="text-gray-400">150</div>
                       </div>
                       {/* HIGHLIGHT NAME INPUT FIELD */}
                       <input
@@ -132,94 +140,108 @@ export default function AddNewHighlightModal(props) {
                         value={highlightName}
                         onChange={(e) => setHighlightName(e.target.value)}
                       />
+                      {/* ADD MEDia BUTTON */}
+                      <div className="flex justify-end">
+                        <label
+                          htmlFor="add slide"
+                          className=" cursor-pointer flex text-blue-500 items-center space-x-1"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={3}
+                            stroke="currentColor"
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M12 4.5v15m7.5-7.5h-15"
+                            />
+                          </svg>
+                          <span className="">Add Media</span>
+                          <input
+                            id="add slide"
+                            name="add slide"
+                            type="file"
+                            className="sr-only"
+                            onChange={(e) => {
+                              handleUploadImageButton(e);
+                            }}
+                          />
+                        </label>
+                      </div>
                       {/* DIV CONTAINING THE ADD HIGHLIGHT CONTAINER AND PICTURES */}
-                      <div className=" space-x-4 sm:space-x-4 grid grid-rows-1 grid-flow-col overflow-x-auto">
+                      <div className="grid grid-rows-1 grid-flow-col overflow-x-auto space-x-4 sm:w-[300px]">
                         {/* ADD HIGHLIGHT CONTAINER */}
-                        <div className="bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6  sm:pt-[52px] ">
-                          <div className="space-y-1 text-center pt-24 sm:pt-0 pb-20 sm:pb-9">
-                            <svg
-                              className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400"
-                              stroke="currentColor"
-                              fill="none"
-                              viewBox="0 0 48 48"
-                              aria-hidden="true"
-                            >
-                              <path
-                                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                                strokeWidth={2}
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                            <div className=" text-xs text-gray-600">
-                              <label
-                                htmlFor="file-upload"
-                                className="relative cursor-pointer rounded-md bg-gray-100 font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-400"
+                        {!arrayOfPictureUrls.length && (
+                          <div className="bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6  sm:pt-[52px] ">
+                            <div className="space-y-1 text-center pt-24 sm:pt-0 pb-20 sm:pb-9">
+                              <svg
+                                className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-gray-400"
+                                stroke="currentColor"
+                                fill="none"
+                                viewBox="0 0 48 48"
+                                aria-hidden="true"
                               >
-                                <span className="underline">
-                                  Upload an image
-                                </span>
-                                <input
-                                  id="file-upload"
-                                  name="file-upload"
-                                  type="file"
-                                  className="sr-only"
-                                  onChange={(e) => {
-                                    handleUploadImageButton(e);
-                                  }}
+                                <path
+                                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                  strokeWidth={2}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
                                 />
-                              </label>
-                              <p className="pl-1">or drag and drop</p>
+                              </svg>
+                              <div className=" text-xs text-gray-600">
+                                <div className="pl-1">
+                                  Click on Add Media to add a media
+                                </div>
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                PNG, JPG, GIF up to 10MB
+                              </div>
                             </div>
-                            <p className="text-xs text-gray-500">
-                              PNG, JPG, GIF up to 10MB
-                            </p>
                           </div>
-                        </div>
+                        )}
                         {/* ADD HIGHLIGHT PLUS SIGN CONTAINER */}
 
                         {arrayOfPictureUrls ? (
                           <>
                             {arrayOfPictureUrls.map((pictureUrl) => (
-                              <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
+                              <div className="relative bg-gray-100 w-44 h-72 flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
                                 <Image
                                   src={pictureUrl}
                                   alt="highlight picture"
                                   fill
                                 />
+
                                 <button
                                   onClick={() =>
                                     handleDeletePictureButton(pictureUrl)
                                   }
-                                  className="text-blue-500 z-10"
+                                  className="bg-white rounded-lg h-fit absolute mr-3 mb-3 bottom-0 right-0 z-10"
                                 >
-                                  Remove
+                                  {/* TRASH ICON */}
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth={1.5}
+                                    stroke="currentColor"
+                                    className="w-6 h-6 z-10 text-blue-500 m-1"
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                    />
+                                  </svg>
                                 </button>
                               </div>
                             ))}
                           </>
                         ) : (
-                          <div className="relative bg-gray-100 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 sm:px-6 pt-[52px] ">
-                            <button className="pb-12">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={3}
-                                stroke="currentColor"
-                                className="w-10 h-10 text-indigo-600 mx-auto"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M12 4.5v15m7.5-7.5h-15"
-                                />
-                              </svg>
-                              <p className="text-xs text-indigo-600 font-semibold">
-                                Add new highlight
-                              </p>
-                            </button>
-                          </div>
+                          <></>
                         )}
                       </div>
                     </div>

@@ -17,16 +17,17 @@ export default async function EntityCard(props) {
   // const userId = props.userId;
   const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
 
-  const displayPictureUrl = await getChosenEntityCardPictureServer(
+  const displayPicture = await getChosenEntityCardPictureServer(
     supabase,
     entityId
   );
+  const displayPictureUrl = displayPicture?.media_url;
   console.log("displayPictureUrl", displayPictureUrl);
   return (
     <>
       <Link
         href={`/${userId}/${entityId}/menu/${firstMenuCategoryId}`}
-        className="relative bg-gray-400 w-60 sm:w-[342px] h-40 sm:h-[162px] drop-shadow-lg rounded-md sm:pb-6 overflow-hidden"
+        className="relative bg-gray-400 w-60 sm:w-[302px] h-40 sm:h-[162px] drop-shadow-lg rounded-md sm:pb-6 overflow-hidden"
       >
         {displayPictureUrl ? (
           <Image src={displayPictureUrl} alt="" fill />

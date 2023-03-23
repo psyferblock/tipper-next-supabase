@@ -3,11 +3,23 @@ import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import deleteHighlight from "@/lib/delete/deleteHighlight";
 import { useState } from "react";
 import AddNewHighlightModal from "./AddNewHighlightModal";
+import DeleteHighlightModal from "./DeleteHighlightModal";
 import EditHighlightModal from "./EditHighlightModal";
 
 export default function ManageHighlights({ listOfHighlights, entityId }) {
   //Add new highlight modal
   const [isAddHighlightModalOpen, setIsAddHighlightModalOpen] = useState(false);
+  const [isEditHighlightModalOpen, setIsEditHighlightModalOpen] =
+    useState(false);
+  const [isDeleteHighlightModalOpen, setIsDeleteHighlightModalOpen] =
+    useState(false);
+  //Storing the Id of the highlight being edited
+  const [highlightBeingEditedId, setHighlightBeingEditedId] = useState();
+  //Storing the item being edited to send it to the modal
+  const [highlightObjectBeingEdited, setHighlightObjectBeingEdited] =
+    useState();
+  //Storing the id of the highlight to be deleted and passing it as props to the delete highlight modal
+  const [highlightIdToDelete, setHighlightIdToDelete] = useState();
 
   const handleAddHighlightButton = (e) => {
     e.preventDefault();
@@ -18,24 +30,16 @@ export default function ManageHighlights({ listOfHighlights, entityId }) {
     setIsAddHighlightModalOpen(false);
   };
 
-  //Edit  highlight modal
-  const [isEditHighlightModalOpen, setIsEditHighlightModalOpen] =
-    useState(false);
-
+  //EDIT HIGHLIGHT MODAL
   const closeEditHighlightModal = () => {
     setIsEditHighlightModalOpen(false);
   };
 
-  //Remove highlight function
-  async function handleRemoveHighlightButton(highlightId) {
-    await deleteHighlight(highlightId);
-  }
+  //DELETE HIGHLIGHT MODAL
+  const closeDeleteHighlightModal = () => {
+    setIsDeleteHighlightModalOpen(false);
+  };
 
-  //Storing the Id of the highlight being edited
-  const [highlightBeingEditedId, setHighlightBeingEditedId] = useState();
-  //Storing the item being edited to send it to the modal
-  const [highlightObjectBeingEdited, setHighlightObjectBeingEdited] =
-    useState();
   //Function used to find the highlight being edited and its Id
   function handleEditHighlightButton(highlightId) {
     setHighlightBeingEditedId(highlightId);
@@ -47,6 +51,10 @@ export default function ManageHighlights({ listOfHighlights, entityId }) {
     setIsEditHighlightModalOpen(true);
   }
 
+  function handleRemoveHighlightButton(highlightId) {
+    setHighlightIdToDelete(highlightId);
+    setIsDeleteHighlightModalOpen(true);
+  }
   return (
     <>
       <div className="bg-gray-300 sm:h-fit min-h-screen sm:min-h-screen sm:px-0 pb-3 sm:py-0">
@@ -186,6 +194,12 @@ export default function ManageHighlights({ listOfHighlights, entityId }) {
         closeModal={closeEditHighlightModal}
         highlight={highlightObjectBeingEdited}
         highlightBeingEditedId={highlightBeingEditedId}
+      />
+      <DeleteHighlightModal
+        open={isDeleteHighlightModalOpen}
+        closeModal={closeDeleteHighlightModal}
+        highlightIdToDelete={highlightIdToDelete}
+        entityId={entityId}
       />
     </>
   );

@@ -1,12 +1,16 @@
 "use client";
 
+import { useSupabase } from "@/app/supabase-provider";
 import addBasicPictures from "@/lib/create/addBasicPictures";
 import updateEntityInfos from "@/lib/update/updateEntityInfos";
+import { useRouter } from "next/navigation";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
 
 export default function StickyBarSaveCancel(props) {
   const entityId = props.entityId;
-
+  const router = useRouter();
+  const { session } = useSupabase();
+  const userId = session?.user.id;
   const {
     arrayOfPictureObjects,
     tags,
@@ -47,7 +51,8 @@ export default function StickyBarSaveCancel(props) {
     await saveNewPictures();
 
     //Refresh page every change is saved
-    props.refreshOnSave;
+    //Im not doing router.refresh because i want to refresh the data fetched and the data fetched is in layout page
+    router.push(`${userId}/${entityId}/manageEntity/entityInfo`);
   }
 
   //Function that removes the objects that were added but then user pressed on "Cancel" instead of "Save"
@@ -60,12 +65,17 @@ export default function StickyBarSaveCancel(props) {
 
   //Function to add new pictures to the DB
   async function saveNewPictures() {
-    let arrayOfNewPictureUrls = arrayOfPictureObjects.map((pictureObject) => {
-      if (pictureObject.id == null) {
-        return pictureObject.media_url;
-      }
-    });
+    let arrayOfNewPictureObjects = arrayOfPictureObjects.filter(
+      (pictureObject) => pictureObject.id == null
+    );
 
+    let arrayOfNewPictureUrls = arrayOfNewPictureObjects.map(
+      (pictureObject) => pictureObject.media_url
+    );
+    console.log(
+      "arrayOfNewPictureUrls in addBasicPictures:",
+      arrayOfNewPictureUrls
+    );
     let mediaCategory = "cover_picture";
     if (arrayOfNewPictureUrls.length > 0) {
       await addBasicPictures(mediaCategory, arrayOfNewPictureUrls, entityId);

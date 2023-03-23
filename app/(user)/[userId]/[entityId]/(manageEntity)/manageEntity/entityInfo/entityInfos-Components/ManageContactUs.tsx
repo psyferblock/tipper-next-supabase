@@ -2,11 +2,12 @@
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import uploadPicture from "@/lib/create/uploadPictureToBucket";
+import { deleteContactUsPicture } from "@/lib/update/deleteContactOrAboutUsPicture";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
 
-export default function ManageContactUsPage() {
+export default function ManageContactUsPage(props) {
   const {
     contactUsDescription,
     isContactUsSectionPublic,
@@ -32,8 +33,11 @@ export default function ManageContactUsPage() {
     setIsContactUsSectionPublic(boolean);
   }
 
+  const entityId = props.entityId;
+
   async function handleDeletePictureButton() {
     //Delete picture from DB
+    await deleteContactUsPicture(entityId);
 
     //Delete picture from state
     setContactUsPictureUrl("");

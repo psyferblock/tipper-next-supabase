@@ -3,7 +3,7 @@
 
 import { supabase } from "@/utils/supabase-browser";
 
-export default async function deleteBasicPicture(pictureId) {
+export default async function deleteBasicPictureWithId(pictureId) {
   const { data, error } = await supabase
     .from("entity_basic_media")
     .delete()

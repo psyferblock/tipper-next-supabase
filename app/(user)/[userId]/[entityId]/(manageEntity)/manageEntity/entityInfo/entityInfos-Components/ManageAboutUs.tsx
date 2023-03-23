@@ -2,11 +2,13 @@
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 import uploadPicture from "@/lib/create/uploadPictureToBucket";
+import { deleteBasicPictureWithUrl } from "@/lib/delete/deleteBasicPictureWithId";
+import { deleteAboutUsPicture } from "@/lib/update/deleteContactOrAboutUsPicture";
 import Image from "next/image";
 import { ChangeEvent } from "react";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
 
-export default function ManageAboutUsPage() {
+export default function ManageAboutUsPage(props) {
   const {
     aboutUsDescription,
     setAboutUsDescription,
@@ -25,8 +27,11 @@ export default function ManageAboutUsPage() {
     setAboutUsPictureUrl(pictureUrl);
   }
 
+  const entityId = props.entityId;
+
   async function handleDeletePictureButton() {
     //Delete picture from DB
+    await deleteAboutUsPicture(entityId);
 
     //Delete picture from state
     setAboutUsPictureUrl("");

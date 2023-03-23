@@ -1,8 +1,5 @@
-import {
-  getBasicPictures,
-  getBasicPicturesServer,
-} from "@/lib/get/getBasicPictures";
-import { getEntityInfos, getEntityInfosServer } from "@/lib/get/getEntityInfos";
+import { getBasicPicturesServer } from "@/lib/get/getBasicPictures";
+import { getEntityInfosServer } from "@/lib/get/getEntityInfos";
 import { createServerClient } from "@/utils/supabase-server";
 import { ManageEntityInfosContextProvider } from "./EntityInfoContext";
 
@@ -21,12 +18,6 @@ export default async function ManageEntityInfosLayout({
     "cover_picture",
     params.entityId
   );
-
-  // const entityInfos = await getEntityInfos(params.entityId);
-  // const coverPictures = await getBasicPictures(
-  //   "cover_picture",
-  //   params.entityId
-  // );
 
   return (
     <ManageEntityInfosContextProvider

@@ -1,4 +1,3 @@
-"use client";
 import ManageAboutUs from "./entityInfos-Components/ManageAboutUs";
 import ManageContactUs from "./entityInfos-Components/ManageContactUs";
 import ManageCoverPhotos from "./entityInfos-Components/ManageCoverPhotos";
@@ -7,15 +6,8 @@ import ManageTags from "./entityInfos-Components/ManageTags";
 import ManageWorkingHours from "./entityInfos-Components/ManageWorkingHours";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import StickyBarSaveCancel from "./entityInfos-Components/StickyBarSaveCancel";
-import { useRouter } from "next/navigation";
 
 export default function ManageEntityInfosPage({ params }) {
-  const router = useRouter();
-
-  function refreshOnSave() {
-    console.log("refreshed");
-    router.refresh();
-  }
   return (
     <>
       <div className="flex flex-col w-full pb-10">
@@ -38,13 +30,10 @@ export default function ManageEntityInfosPage({ params }) {
           <ManageTags />
           <ManageWorkingHours />
           <ManageSocialMedia />
-          <ManageAboutUs />
-          <ManageContactUs />
+          <ManageAboutUs entityId={params.entityId} />
+          <ManageContactUs entityId={params.entityId} />
           {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-          <StickyBarSaveCancel
-            refreshOnSave={refreshOnSave}
-            entityId={params.entityId}
-          />
+          <StickyBarSaveCancel entityId={params.entityId} />
         </div>
       </div>
     </>

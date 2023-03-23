@@ -17,6 +17,8 @@ export default async function addBasicPictures(
         entity_id: entityId,
       })
       .select();
+    console.log("arrived before the error in addBAsic pics");
+
     if (error) throw error;
     console.log("data returned after basic pictures are added:", data);
   }

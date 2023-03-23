@@ -1,7 +1,7 @@
 "use client";
 
 import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
-import deleteBasicPicture from "@/lib/delete/deleteBasicPicture";
+import deleteBasicPictureWithId from "@/lib/delete/deleteBasicPictureWithId";
 import Image from "next/image";
 import { ChangeEvent } from "react";
 import { useManageEntityInfosContext } from "../EntityInfoContext";
@@ -47,7 +47,7 @@ export default function ManageCoverPhotos() {
 
     //If picture alrready exists in database, we delete it from database right away
     if (deletedPicutreObject.id != null) {
-      await deleteBasicPicture(deletedPicutreObject.id);
+      await deleteBasicPictureWithId(deletedPicutreObject.id);
     }
     //Remove the picture from the state variable array
     const newArray = arrayOfPictureObjects.filter(

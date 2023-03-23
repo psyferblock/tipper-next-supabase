@@ -12,7 +12,10 @@ export default function NavBarSignOutButton() {
 
   return (
     <>
-      <button onClick={handleSignOutButton} className="hover:text-sky-400">
+      <button
+        onClick={handleSignOutButton}
+        className="hover:text-sky-400 text-white text-sm sm:text-sm pt-1 sm:pt-0 font-light sm:font-normal"
+      >
         Sign Out
       </button>
     </>

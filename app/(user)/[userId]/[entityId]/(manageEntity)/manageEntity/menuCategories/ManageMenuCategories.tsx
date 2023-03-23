@@ -8,16 +8,15 @@ import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownM
 import EditMenuCategoryNameModal from "./menuCategories-Components/EditMenuCategoryNameModal";
 import AddNewMenuCategoryModal from "./menuCategories-Components/AddNewMenuCategoryModal";
 import { useAuthContext } from "@/app/Store";
+import DeleteMenuCategoryModal from "./menuCategories-Components/DeleteMenuCategoryModal";
 
 export default function ManageMenuCategories(props) {
   //Owner chooses between pdf and manually inputting items
   const [isPdf, setIsPdf] = useState(false);
   const menuCategories = props.menuCategories;
-
   //Edit Category Name Modal
   const [isEditCategoryNameModalOpen, setIsEditCategoryNameModalOpen] =
     useState(false);
-
   //State variable to store the menu category name being edited to send to modal
   const [
     categoryNameInEditCategoryNameModal,
@@ -25,6 +24,12 @@ export default function ManageMenuCategories(props) {
   ] = useState();
   //State to know what is the Id of the menu category name having its name edited
   const [editNameCategoryId, setEditNameCategoryId] = useState();
+  //Add New Category Modal
+  const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
+  //DELETE CATEGORY MODAL
+  const [isDeleteMenuCategoryModalOpen, setIsDeleteMenuCategoryModalOpen] =
+    useState(false);
+  const [menuCategoryIdToDelete, setMenuCategoryIdToDelete] = useState();
 
   function handleEditCategoryNameButton(categoryId) {
     setEditNameCategoryId(categoryId);
@@ -36,12 +41,14 @@ export default function ManageMenuCategories(props) {
     setIsEditCategoryNameModalOpen(true);
   }
 
+  function handleDeleteCategoryButton(categoryIdToDelete) {
+    setMenuCategoryIdToDelete(categoryIdToDelete);
+    setIsDeleteMenuCategoryModalOpen(true);
+  }
+
   const closeEditCategoryNameModal = () => {
     setIsEditCategoryNameModalOpen(false);
   };
-
-  //Add New Category Modal
-  const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
 
   const handleAddCategoryButton = (e) => {
     e.preventDefault();
@@ -52,7 +59,10 @@ export default function ManageMenuCategories(props) {
     setIsAddCategoryModalOpen(false);
   };
 
-  // const { ownedEntityId } = useAuthContext();
+  const closeDeleteCategoryModal = () => {
+    setIsDeleteMenuCategoryModalOpen(false);
+  };
+
   const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
 
   return (
@@ -161,6 +171,7 @@ export default function ManageMenuCategories(props) {
                     categoryName={category.menu_category_name}
                     categoryId={category.id}
                     openEditNameModal={handleEditCategoryNameButton}
+                    openDeleteMenuCategoryModal={handleDeleteCategoryButton}
                   />
                 ))}
               </div>
@@ -182,6 +193,13 @@ export default function ManageMenuCategories(props) {
         open={isAddCategoryModalOpen}
         closeModal={closeAddCategoryModal}
         entityId={entityId}
+      />
+
+      <DeleteMenuCategoryModal
+        open={isDeleteMenuCategoryModalOpen}
+        closeModal={closeDeleteCategoryModal}
+        entityId={entityId}
+        categoryIdToDelete={menuCategoryIdToDelete}
       />
     </>
   );

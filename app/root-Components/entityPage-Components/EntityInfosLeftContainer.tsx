@@ -36,7 +36,7 @@ export default function EntityPageContainerWithEntityInfos({ entityInfos }) {
         </div>
         {/* ADDRESS DIV */}
         <div>
-          <p>Address</p>
+          <div>Address</div>
           <div className="sm:px-1">
             <div className="font-normal text-xs">
               {entityInfos.entity_address}
@@ -56,13 +56,19 @@ export default function EntityPageContainerWithEntityInfos({ entityInfos }) {
           <div className="sm:px-1 space-y-2">
             <div className="flex items-center space-x-2">
               {/* INSTAGRAM BUTTON */}
-              <InstagramButton url={entityInfos.instagram_link} />
+              {entityInfos.is_instagram_url_public && (
+                <InstagramButton url={entityInfos.instagram_link} />
+              )}
               {/* FACEBOOK BUTTON */}
-              <FacebookButton url={entityInfos.facebook_link} />
+              {entityInfos.is_facebook_url_public && (
+                <FacebookButton url={entityInfos.facebook_link} />
+              )}
               {/* WHATSAPP BUTTON */}
-              <TextUsWhatsappButton
-                phoneNumber={entityInfos.whatsapp_phone_number}
-              />
+              {entityInfos.is_whatsapp_number_public && (
+                <TextUsWhatsappButton
+                  phoneNumber={entityInfos.whatsapp_phone_number}
+                />
+              )}
             </div>
           </div>
         </div>

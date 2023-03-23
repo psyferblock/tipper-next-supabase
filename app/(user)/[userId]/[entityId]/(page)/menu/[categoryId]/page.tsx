@@ -10,7 +10,7 @@ export default async function EntityPageMenuItems({ params }) {
   const exchangeRate = await getExchangeRateServer(supabase, params.entityId);
   return (
     <>
-      <div className="grid h-96 sm:h-fit gap-3 overflow-y-auto sm:grid sm:grid-rows-2 sm:grid-flow-col sm:gap-5 sm:pb-5 sm:overflow-x-auto">
+      <div className="grid h-96 gap-3 overflow-y-auto sm:h-96 sm:grid sm:grid-cols-4 sm:gap-5 sm:pb-5 sm:overflow-y-auto">
         {menuItems.map((item) => (
           <MenuItemCard menuItem={item} exchangeRate={exchangeRate} />
         ))}

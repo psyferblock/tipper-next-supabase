@@ -17,7 +17,7 @@ export default function CategoriesNavLink({
   const isActive = categoryRoute == segment;
   return (
     <Link
-      href={`${userId}/${entityId}/manageEntity/${categoryRoute}`}
+      href={`/${userId}/${entityId}/manageEntity/${categoryRoute}`}
       className={
         isActive
           ? "text-blue-600 px-6 py-2 flex justify-start sm:bg-gray-100 "

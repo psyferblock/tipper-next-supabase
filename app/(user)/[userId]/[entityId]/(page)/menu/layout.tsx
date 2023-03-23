@@ -12,7 +12,7 @@ export default async function EntityPageMenuSectionLayout({
   //Fetching from DB
   const supabase = createServerClient();
   const exchangeRate = await getExchangeRateServer(supabase, params.entityId);
-  const exchangeRateFormatted = exchangeRate.toLocaleString();
+  const exchangeRateFormatted = exchangeRate?.toLocaleString();
 
   return (
     <div className="bg-gray-100 py-6 sm:py-8">

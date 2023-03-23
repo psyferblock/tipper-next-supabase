@@ -7,17 +7,20 @@ import MenuCategoryCard from "./menuCategories-Components/MenuCategoryCard";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import EditMenuCategoryNameModal from "./menuCategories-Components/EditMenuCategoryNameModal";
 import AddNewMenuCategoryModal from "./menuCategories-Components/AddNewMenuCategoryModal";
+<<<<<<< HEAD
 import { useAuthContext } from "@/app/context/Store";
+=======
+import { useAuthContext } from "@/app/Store";
+import DeleteMenuCategoryModal from "./menuCategories-Components/DeleteMenuCategoryModal";
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
 
 export default function ManageMenuCategories(props) {
   //Owner chooses between pdf and manually inputting items
   const [isPdf, setIsPdf] = useState(false);
   const menuCategories = props.menuCategories;
-
   //Edit Category Name Modal
   const [isEditCategoryNameModalOpen, setIsEditCategoryNameModalOpen] =
     useState(false);
-
   //State variable to store the menu category name being edited to send to modal
   const [
     categoryNameInEditCategoryNameModal,
@@ -25,6 +28,12 @@ export default function ManageMenuCategories(props) {
   ] = useState();
   //State to know what is the Id of the menu category name having its name edited
   const [editNameCategoryId, setEditNameCategoryId] = useState();
+  //Add New Category Modal
+  const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
+  //DELETE CATEGORY MODAL
+  const [isDeleteMenuCategoryModalOpen, setIsDeleteMenuCategoryModalOpen] =
+    useState(false);
+  const [menuCategoryIdToDelete, setMenuCategoryIdToDelete] = useState();
 
   function handleEditCategoryNameButton(categoryId) {
     setEditNameCategoryId(categoryId);
@@ -36,12 +45,14 @@ export default function ManageMenuCategories(props) {
     setIsEditCategoryNameModalOpen(true);
   }
 
+  function handleDeleteCategoryButton(categoryIdToDelete) {
+    setMenuCategoryIdToDelete(categoryIdToDelete);
+    setIsDeleteMenuCategoryModalOpen(true);
+  }
+
   const closeEditCategoryNameModal = () => {
     setIsEditCategoryNameModalOpen(false);
   };
-
-  //Add New Category Modal
-  const [isAddCategoryModalOpen, setIsAddCategoryModalOpen] = useState(false);
 
   const handleAddCategoryButton = (e) => {
     e.preventDefault();
@@ -52,7 +63,10 @@ export default function ManageMenuCategories(props) {
     setIsAddCategoryModalOpen(false);
   };
 
-  // const { ownedEntityId } = useAuthContext();
+  const closeDeleteCategoryModal = () => {
+    setIsDeleteMenuCategoryModalOpen(false);
+  };
+
   const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
 
   return (
@@ -71,27 +85,24 @@ export default function ManageMenuCategories(props) {
         {/* DIV TO COMPENSATE THE HEADER DIV FIXED */}
         <div className="h-14 sm:h-0"></div>
         {/* MENU HEADER AND ADD CATEGORY BUTTON */}
-        <div className="flex  items-center justify-between">
-          <div className="flex items-center space-x-6">
+        <div className="flex  items-center justify-end">
+          {/* UPLOAD MENU AS PDF */}
+          {/* <div className="flex items-center space-x-6">
             <div className="flex pt-1 space-x-2 sm:flex-row flex-row-reverse">
-              <p className="text-xs mt-0.5 ml-2 sm:ml-0">
+              <div className="text-xs mt-0.5 ml-2 sm:ml-0">
                 Upload your menu as a PDF
-              </p>
+              </div>
               <ToggleButton />
             </div>
-          </div>
+          </div> */}
 
-          {!isPdf && (
-            <>
-              {/* ADD CATEGORY BUTTON */}
-              <button
-                onClick={handleAddCategoryButton}
-                className="hidden sm:block w-32 h-10 hover:bg-blue-600 text-xs rounded-3xl bg-blue-500 text-white -mt-2"
-              >
-                Add New Category
-              </button>
-            </>
-          )}
+          {/* ADD CATEGORY BUTTON */}
+          <button
+            onClick={handleAddCategoryButton}
+            className="hidden sm:block w-32 h-10 hover:bg-blue-600 text-xs rounded-3xl bg-blue-500 text-white -mt-2"
+          >
+            Add New Category
+          </button>
         </div>
 
         {isPdf ? (
@@ -164,6 +175,8 @@ export default function ManageMenuCategories(props) {
                     categoryName={category.menu_category_name}
                     categoryId={category.id}
                     openEditNameModal={handleEditCategoryNameButton}
+                    openDeleteMenuCategoryModal={handleDeleteCategoryButton}
+                    entityId={entityId}
                   />
                 ))}
               </div>
@@ -185,6 +198,13 @@ export default function ManageMenuCategories(props) {
         open={isAddCategoryModalOpen}
         closeModal={closeAddCategoryModal}
         entityId={entityId}
+      />
+
+      <DeleteMenuCategoryModal
+        open={isDeleteMenuCategoryModalOpen}
+        closeModal={closeDeleteCategoryModal}
+        entityId={entityId}
+        categoryIdToDelete={menuCategoryIdToDelete}
       />
     </>
   );

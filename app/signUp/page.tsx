@@ -4,9 +4,26 @@ import { supabase } from "@/utils/supabase-browser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+
 export default function SignUpPage() {
   const [email, setEmail] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
+  const [confirmPassword, setConfirmPassword] = useState<string | undefined>();
+
+  //for the open and close the eye
+  const [open, setOpen] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
+  // handle toggle
+  const toggle = () => {
+    setOpen(!open);
+  };
+   // handle toggle
+   const toggle2 = () => {
+    setConfirmOpen(!confirmOpen);
+  };
+
 
   const router = useRouter();
 
@@ -22,8 +39,14 @@ export default function SignUpPage() {
     if (error) throw error;
     const userId = data.user?.id;
     console.log("userId after sign up", userId);
-    await createUserProfile(userId, email);
-    router.back();
+    if(password!=confirmPassword){
+      alert("passwords are not aligned");
+
+    }
+    if (password === confirmPassword) {
+      await createUserProfile(userId, email);
+      router.back();
+    }
   }
   return (
     <div className=" sm:h-fit sm:min-h-screen px-3 sm:px-0 py-5 sm:py-0">
@@ -89,15 +112,24 @@ export default function SignUpPage() {
                 Password*
               </label>
               {/* EMAIL ADDRESS INPUT FIELD */}
-              <input
-                type="text"
-                id="password"
-                className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                placeholder="Enter Password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
+              <div className="w-4/5 mx-auto mt-52 relative md:w-2/5">
+                <input
+                  type={open === false ? "password" : "text"}
+                  id="password"
+                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                  placeholder="Enter Password"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+                <div className="text-2xl absolute top-4 right-5">
+                  {open === false ? (
+                    <AiFillEye onClick={toggle} />
+                  ) : (
+                    <AiFillEyeInvisible onClick={toggle} />
+                  )}
+                </div>
+              </div>
             </div>
             {/* ///////////////////////////////////////////////////////////////////////////////////////////////// */}
 
@@ -110,15 +142,28 @@ export default function SignUpPage() {
                 Confirm Password*
               </label>
               {/* CONFIRM PASSWORD  INPUT FIELD */}
-              <input
-                type="text"
-                id="CONFIRM PASSWORD"
-                className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                placeholder="Confirm Password"
-              />
+              <div className="w-4/5 mx-auto mt-52 relative md:w-2/5">
+                <input
+                  type={confirmOpen === false ? "password" : "text"}
+                  id="CONFIRM PASSWORD"
+                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                  placeholder="Confirm Password"
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                  }}
+                />
+                <div className="text-2xl absolute top-4 right-5">
+                  {confirmOpen === false ? (
+                    <AiFillEye onClick={toggle2} />
+                  ) : (
+                    <AiFillEyeInvisible onClick={toggle2} />
+                  )}
+                </div>
+              </div>
             </div>
           </div>
           {/* SIGN UP BUTTON */}
+
           <button
             onClick={handleSignUpButton}
             className="w-full h-10 mt-5 sm:mt-10 hover:bg-blue-600 hover:text-lg rounded-3xl bg-blue-500 text-white text-sm"

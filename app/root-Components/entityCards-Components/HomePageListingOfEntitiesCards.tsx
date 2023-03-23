@@ -18,17 +18,16 @@ export default async function HomePageListingOfEntitiesCards(props) {
       name: "Service Industry",
       id: 1,
     },
-    {
-      name: "Non-Profit",
-      id: 2,
-    },
-    {
-      name: "Arts & Entertainment",
-      id: 3,
-    },
+    // {
+    //   name: "Non-Profit",
+    //   id: 2,
+    // },
+    // {
+    //   name: "Arts & Entertainment",
+    //   id: 3,
+    // },
   ];
 
-  // console.log("props list:", props.listOfEntities);
   return (
     <>
       {industries.map((industry) => (

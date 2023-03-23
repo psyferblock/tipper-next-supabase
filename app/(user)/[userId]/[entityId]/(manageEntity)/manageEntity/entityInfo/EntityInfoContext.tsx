@@ -1,11 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React, {
   useEffect,
   createContext,
   useContext,
   useReducer,
   useCallback,
+  useState,
 } from "react";
 
 /**
@@ -19,8 +21,11 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
       phoneNumber,
       emailAddress,
       instagramUrl,
+      isInstagramUrlPublic,
       facebookUrl,
+      isFacebookUrlPublic,
       whatsappNumber,
+      isWhatsappNumberPublic,
       aboutUsDescription,
       aboutUsPictureUrl,
       isContactUsSectionPublic,
@@ -41,10 +46,16 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
           return { ...state, emailAddress: action.payload };
         case "setInstagramUrl":
           return { ...state, instagramUrl: action.payload };
+        case "setIsInstagramUrlPublic":
+          return { ...state, isInstagramUrlPublic: action.payload };
         case "setFacebookUrl":
           return { ...state, facebookUrl: action.payload };
+        case "setIsFacebookUrlPublic":
+          return { ...state, isFacebookUrlPublic: action.payload };
         case "setWhatsappNumber":
           return { ...state, whatsappNumber: action.payload };
+        case "setIsWhatsappNumberPublic":
+          return { ...state, isWhatsappNumberPublic: action.payload };
         case "setAboutUsDescription":
           return { ...state, aboutUsDescription: action.payload };
         case "setAboutUsPictureUrl":
@@ -80,9 +91,15 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
 
     setPhoneNumber(entityInfos?.entity_phone_number);
     setEmailAddress(entityInfos?.entity_email);
+
     setInstagramUrl(entityInfos?.instagram_link);
+    setIsInstagramUrlPublic(entityInfos?.is_instagram_url_public);
+
     setFacebookUrl(entityInfos?.facebook_link);
+    setIsFacebookUrlPublic(entityInfos?.is_facebook_url_public);
+
     setWhatsappNumber(entityInfos?.whatsapp_phone_number);
+    setIsWhatsappNumberPublic(entityInfos?.is_whatsapp_number_public);
 
     setAboutUsDescription(entityInfos?.about_us_description);
     setAboutUsPictureUrl(entityInfos?.about_us_picture_url);
@@ -145,6 +162,16 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
   /**
    * Setter function for tag state variable
    */
+  const setIsInstagramUrlPublic = useCallback((isPublic: boolean) => {
+    dispatch({
+      type: "setIsInstagramUrlPublic",
+      payload: isPublic,
+    });
+  }, []);
+
+  /**
+   * Setter function for tag state variable
+   */
   const setFacebookUrl = useCallback((url: string) => {
     dispatch({
       type: "setFacebookUrl",
@@ -155,10 +182,30 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
   /**
    * Setter function for tag state variable
    */
+  const setIsFacebookUrlPublic = useCallback((isPublic: boolean) => {
+    dispatch({
+      type: "setIsFacebookUrlPublic",
+      payload: isPublic,
+    });
+  }, []);
+
+  /**
+   * Setter function for tag state variable
+   */
   const setWhatsappNumber = useCallback((number: string) => {
     dispatch({
       type: "setWhatsappNumber",
       payload: number,
+    });
+  }, []);
+
+  /**
+   * Setter function for tag state variable
+   */
+  const setIsWhatsappNumberPublic = useCallback((isPublic: boolean) => {
+    dispatch({
+      type: "setIsWhatsappNumberPublic",
+      payload: isPublic,
     });
   }, []);
 
@@ -218,8 +265,11 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
     phoneNumber,
     emailAddress,
     instagramUrl,
+    isInstagramUrlPublic,
     facebookUrl,
+    isFacebookUrlPublic,
     whatsappNumber,
+    isWhatsappNumberPublic,
     aboutUsDescription,
     aboutUsPictureUrl,
     isContactUsSectionPublic,
@@ -230,8 +280,11 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
     setPhoneNumber,
     setEmailAddress,
     setInstagramUrl,
+    setIsInstagramUrlPublic,
     setFacebookUrl,
+    setIsFacebookUrlPublic,
     setWhatsappNumber,
+    setIsWhatsappNumberPublic,
     setAboutUsDescription,
     setAboutUsPictureUrl,
     setIsContactUsSectionPublic,

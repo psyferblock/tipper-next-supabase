@@ -5,22 +5,35 @@ import SecuritySection from "./manageUserProfile-Components/SecuritySection";
 import BasicInfosSection from "./manageUserProfile-Components/BasicInfosSection";
 import { getFirstMenuCategoryIdServer } from "@/lib/get/getFirstMenuCategoryId";
 import { createServerClient } from "@/utils/supabase-server";
+import getEntityOfUserServer from "@/lib/get/getEntityOfUser";
 
 export default async function ManageUserProfilePage({ params }) {
-  const userOwnsEntity = false;
-
-  const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
-  const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
-
+  //Getting the session from the cookies
   const supabase = createServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const userId = session?.user.id;
+
   //Getting a user's profile information
   const userInfos = await getMyUserInfosServer(supabase, userId);
 
-  //Fetching the name of the first menu category to include in URL in case user accesses his entity
-  const firstMenuCategoryId = await getFirstMenuCategoryIdServer(
-    supabase,
-    entityId
-  );
+  let userOwnsEntity;
+  let entityOwnedId;
+  let firstMenuCategoryId;
+  //Checking if user owns entity
+  const response = await getEntityOfUserServer(supabase, userId);
+  if (response) {
+    userOwnsEntity = true;
+    entityOwnedId = response.id;
+
+    //Fetching the name of the first menu category to include in URL in case user accesses his entity
+    firstMenuCategoryId = await getFirstMenuCategoryIdServer(
+      supabase,
+      entityOwnedId
+    );
+  }
 
   return (
     <>
@@ -49,7 +62,7 @@ export default async function ManageUserProfilePage({ params }) {
                 {userOwnsEntity ? (
                   <button className="bg-blue-500 text-white w-fit px-5 sm:w-48 h-10 sm:h-10 rounded-3xl sm:rounded-3xl sm:text-sm sm:hover:bg-blue-600">
                     <Link
-                      href={`${userId}/${entityId}/menu/${firstMenuCategoryId}`}
+                      href={`${userId}/${entityOwnedId}/menu/${firstMenuCategoryId}`}
                     >
                       Access My Entity
                     </Link>

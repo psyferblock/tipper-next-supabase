@@ -12,8 +12,8 @@ export default function HomePageSearchBar() {
           </option>
           <option>All</option>
           <option>Service Industry</option>
-          <option>Arts & Entertainment</option>
-          <option>Non-Profit</option>
+          {/* <option>Arts & Entertainment</option>
+          <option>Non-Profit</option> */}
         </select>
       </div>
       <input

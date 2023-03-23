@@ -11,15 +11,26 @@ import EditItemModal from "./menuItems-Components/EditItemModal";
 import deleteMenuItem from "@/lib/delete/deleteMenuItem";
 import { useAuthContext } from "@/app/context/Store";
 import { useSearchParams } from "next/navigation";
+import DeleteMenuItemModal from "./menuItems-Components/DeleteMenuItemModal";
+import { useSupabase } from "@/app/supabase-provider";
 
-export default function ManageMenuItems({ menuItems, menuCategoryId }) {
-  const { userId, ownedEntityId } = useAuthContext();
-
+export default function ManageMenuItems({
+  menuItems,
+  menuCategoryId,
+  entityId,
+}) {
   const searchParams = useSearchParams();
   const categoryName = searchParams.get("categoryName");
 
   //Add New Item Modal
   const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
+
+  //DELETE ITEM MODAL
+  const [isDeleteItemModalOpen, setIsDeleteItemModalOpen] = useState(false);
+  const [itemIdToDelete, setItemIdToDelete] = useState();
+
+  const { session } = useSupabase();
+  const userId = session?.user.id;
 
   const handleAddItemButton = (e) => {
     e.preventDefault();
@@ -49,15 +60,20 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
     setIsEditItemModalOpen(true);
   }
 
+  function handleRemoveItemButton(menuItemIdToDelete) {
+    setItemIdToDelete(menuItemIdToDelete);
+    setIsDeleteItemModalOpen(true);
+  }
+
   //Function to close the Edit Modal
   const closeEditItemModal = () => {
     setIsEditItemModalOpen(false);
   };
 
-  //Function to delete a menu item
-  async function handleRemoveItemButton(menuItemId) {
-    await deleteMenuItem(menuItemId);
-  }
+  //Function to close the Edit Modal
+  const closeDeleteItemModal = () => {
+    setIsDeleteItemModalOpen(false);
+  };
 
   return (
     <>
@@ -69,7 +85,7 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
               <div className="flex items-center justify-between">
                 {/* CATEGORY NAME HEADER */}
                 <Link
-                  href={`${userId}/${ownedEntityId}/manageEntity/menuCategories`}
+                  href={`${userId}/${entityId}/manageEntity/menuCategories`}
                   className="flex items-center space-x-2"
                 >
                   <svg
@@ -87,7 +103,7 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
                     />
                   </svg>
                   <Link
-                    href={`${userId}/${ownedEntityId}/manageEntity/menuCategories`}
+                    href={`${userId}/${entityId}/manageEntity/menuCategories`}
                     className="font-bold text-3xl"
                   >
                     {categoryName}
@@ -216,7 +232,9 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
       <AddNewItemModal
         open={isAddItemModalOpen}
         closeModal={closeAddCategoryModal}
+        categoryName={categoryName}
         menuCategoryId={menuCategoryId}
+        entityId={entityId}
       />
 
       <EditItemModal
@@ -224,6 +242,15 @@ export default function ManageMenuItems({ menuItems, menuCategoryId }) {
         closeModal={closeEditItemModal}
         item={itemBeingEdited}
         menuItemBeingEditedId={menuItemBeingEditedId}
+      />
+
+      <DeleteMenuItemModal
+        open={isDeleteItemModalOpen}
+        closeModal={closeDeleteItemModal}
+        itemIdToDelete={itemIdToDelete}
+        categoryName={categoryName}
+        menuCategoryId={menuCategoryId}
+        entityId={entityId}
       />
     </>
   );

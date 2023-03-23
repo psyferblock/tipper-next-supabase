@@ -7,7 +7,7 @@ import ManageWorkingHours from "./entityInfos-Components/ManageWorkingHours";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import StickyBarSaveCancel from "./entityInfos-Components/StickyBarSaveCancel";
 
-export default async function ManageEntityInfosPage({ params }) {
+export default function ManageEntityInfosPage({ params }) {
   return (
     <>
       <div className="flex flex-col w-full pb-10">
@@ -30,8 +30,8 @@ export default async function ManageEntityInfosPage({ params }) {
           <ManageTags />
           <ManageWorkingHours />
           <ManageSocialMedia />
-          <ManageAboutUs />
-          <ManageContactUs />
+          <ManageAboutUs entityId={params.entityId} />
+          <ManageContactUs entityId={params.entityId} />
           {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
           <StickyBarSaveCancel entityId={params.entityId} />
         </div>

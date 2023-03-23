@@ -7,8 +7,10 @@ export default async function createMenuCategory(categoryName, entityId) {
       menu_category_name: categoryName,
       entity_id: entityId,
     })
-    .select();
+    .select()
+    .single();
 
   if (error) throw error;
   console.log("data returned after category creation", data);
+  return data;
 }

@@ -8,18 +8,35 @@ export default function ManageSocialMedia() {
     phoneNumber,
     emailAddress,
     instagramUrl,
+    isInstagramUrlPublic,
     facebookUrl,
+    isFacebookUrlPublic,
     whatsappNumber,
+    isWhatsappNumberPublic,
     setPhoneNumber,
     setEmailAddress,
     setInstagramUrl,
+    setIsInstagramUrlPublic,
     setFacebookUrl,
+    setIsFacebookUrlPublic,
     setWhatsappNumber,
+    setIsWhatsappNumberPublic,
   } = useManageEntityInfosContext();
+
+  //Changing the state in context of isPublic to the opposite boolean value of current state
+  function handleInstagramToggleButton(boolean) {
+    setIsInstagramUrlPublic(boolean);
+  }
+  function handleFacebookToggleButton(boolean) {
+    setIsFacebookUrlPublic(boolean);
+  }
+  function handleWhatsappToggleButton(boolean) {
+    setIsWhatsappNumberPublic(boolean);
+  }
 
   return (
     <div className=" bg-white rounded-lg p-3 sm:p-4 drop-shadow-lg">
-      <p className="text-lg font-bold mb-1">Phone Number & Social Media</p>
+      <div className="text-lg font-bold mb-1">Phone Number & Social Media</div>
       <div className="divide-y">
         {/* PHONE NUMBER ROW */}
         <div className="sm:flex space-y-2 sm:space-y-0 items-center justify-start py-5">
@@ -38,26 +55,26 @@ export default function ManageSocialMedia() {
                 d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
               />
             </svg>
-            <p>Phone Number</p>
+            <div>Phone Number</div>
           </div>
           {/* PHONE NUMBER INPUT FIELD */}
           <div className="sm:w-96">
             <input
-              type="text"
-              name="tags"
-              id="price"
+              type="numeric"
+              name="phoneNumber"
+              id="phoneNumber"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="03 456 789"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
-          <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
+          {/* <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
               <ToggleButton />
             </div>
             <p className=" sm:text-sm text-gray-500">Show on your page</p>
-          </div>
+          </div> */}
         </div>
         {/* EMAIL ADDRESS ROW */}
         <div className="sm:flex space-y-2 sm:space-y-0 items-center justify-start py-5">
@@ -77,26 +94,26 @@ export default function ManageSocialMedia() {
               />
             </svg>
 
-            <p>Email Address</p>
+            <div>Email Address</div>
           </div>
           {/* EMAIL ADDRESS INPUT FIELD */}
           <div className=" sm:w-96">
             <input
               type="text"
-              name="tags"
-              id="price"
+              name="emailAddress"
+              id="emailAddress"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Email Address"
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
             />
           </div>
-          <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
+          {/* <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
               <ToggleButton />
             </div>
             <p className=" sm:text-sm text-gray-500">Show on your page</p>
-          </div>
+          </div> */}
         </div>
         {/* INSTAGRAM ROW */}
         <div className="sm:flex space-y-2 sm:space-y-0 items-center justify-start py-5">
@@ -112,14 +129,14 @@ export default function ManageSocialMedia() {
               />
             </svg>
 
-            <p>Instagram</p>
+            <div>Instagram</div>
           </div>
           {/* INSTAGRAM INPUT FIELD */}
           <div className=" sm:w-96">
             <input
               type="text"
-              name="tags"
-              id="price"
+              name="instagramUrl"
+              id="instagramUrl"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Link"
               value={instagramUrl}
@@ -128,7 +145,10 @@ export default function ManageSocialMedia() {
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
-              <ToggleButton />
+              <ToggleButton
+                handleToggleButton={handleInstagramToggleButton}
+                switchedOn={isInstagramUrlPublic}
+              />
             </div>
             <p className=" sm:text-sm text-gray-500">Show on your page</p>
           </div>
@@ -147,14 +167,14 @@ export default function ManageSocialMedia() {
               />
             </svg>
 
-            <p>Facebook</p>
+            <div>Facebook</div>
           </div>
           {/* FACEBOOK INPUT FIELD */}
           <div className=" sm:w-96">
             <input
               type="text"
-              name="tags"
-              id="price"
+              name="facebookUrl"
+              id="facebookUrl"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Link"
               value={facebookUrl}
@@ -163,7 +183,10 @@ export default function ManageSocialMedia() {
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
-              <ToggleButton />
+              <ToggleButton
+                handleToggleButton={handleFacebookToggleButton}
+                switchedOn={isFacebookUrlPublic}
+              />
             </div>
             <p className=" sm:text-sm text-gray-500">Show on your page</p>
           </div>
@@ -182,14 +205,14 @@ export default function ManageSocialMedia() {
               />
             </svg>
 
-            <p>Whatsapp</p>
+            <div>Whatsapp</div>
           </div>
           {/* WHATSAPP INPUT FIELD */}
           <div className=" sm:w-96">
             <input
-              type="text"
-              name="tags"
-              id="price"
+              type="numeric"
+              name="whatsappNumber"
+              id="whatsappNumber"
               className="h-12 block sm:w-3/4 rounded-md border-gray-400 pl-7 pr-12  focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Whatsapp Number"
               value={whatsappNumber}
@@ -198,7 +221,10 @@ export default function ManageSocialMedia() {
           </div>
           <div className="flex space-x-2 sm:space-x-3 grow sm:px-9">
             <div className="mt-0.5">
-              <ToggleButton />
+              <ToggleButton
+                handleToggleButton={handleWhatsappToggleButton}
+                switchedOn={isWhatsappNumberPublic}
+              />
             </div>
             <p className="sm:text-sm text-gray-500">Show on your page</p>
           </div>

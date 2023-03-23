@@ -134,7 +134,7 @@ function createAuthTools(): {
   //     });
   //   }, []);
 
-  console.log("AuthContext state:", { userId, ownedEntityId });
+  // console.log("AuthContext state:", { userId, ownedEntityId });
 
   return {
     // setToken,

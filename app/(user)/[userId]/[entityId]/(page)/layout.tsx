@@ -9,6 +9,8 @@ import { getHighlightsServer } from "@/lib/get/getHighlights";
 import { getBasicPicturesServer } from "@/lib/get/getBasicPictures";
 import { createServerClient } from "@/utils/supabase-server";
 import { getEntityInfosServer } from "@/lib/get/getEntityInfos";
+import CopyUrlShareWhatsappButtons from "@/app/root-Components/entityPage-Components/CopyUrlShareWhatsappButtons";
+import getEntityOfUserServer from "@/lib/get/getEntityOfUser";
 
 export default async function EntityPageLayout({
   children,
@@ -19,6 +21,7 @@ export default async function EntityPageLayout({
 }) {
   //Fetching from DB
   const supabase = createServerClient();
+
   //Fetching entity infos and passing them as props
   const entityInfos = await getEntityInfosServer(supabase, params.entityId);
 
@@ -35,26 +38,65 @@ export default async function EntityPageLayout({
   //Checking if contact_us is set to public or not
   const isContactUsSectionPublic = entityInfos.is_contact_us_public;
 
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const userId = session?.user.id;
+
+  let userOwnsEntity;
+  let entityOwnedId;
+  if (session) {
+    const response = await getEntityOfUserServer(supabase, userId);
+    console.log("RESPONSE", response);
+    if (response) {
+      const ownerOfCurrentEntity = response?.user_id;
+      if (userId == ownerOfCurrentEntity) {
+        userOwnsEntity = true;
+        const currentEntityId = response.id;
+        entityOwnedId = currentEntityId;
+      }
+    }
+  }
+
   return (
     <>
       {/* MOBILE "MANAGE ENTITY" */}
       <div className="flex items-center justify-between sm:hidden h-14 px-3 bg-gray-300 w-full z-50 fixed text-2xl font-bold">
-        <p>Entity Name</p>
-        <Link
-          href="1/1/manageEntity/entityInfo"
-          className="h-fit rounded-3xl mt-1 text-blue-500 text-xs"
-        >
-          Manage Entity
-        </Link>
+        <div>
+          <div>{entityInfos.entity_name}</div>
+          <CopyUrlShareWhatsappButtons />
+        </div>
+        {userOwnsEntity && (
+          <Link
+            href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}
+            className="h-fit rounded-3xl mt-1 text-blue-500 text-xs"
+          >
+            Manage Entity
+          </Link>
+        )}
       </div>
       {/* THIS DIV IS FOR MOBILE VERSION ONLY: EXTRA SPACE TO COMPENSATE FOR NAVBAR HEIGHT */}
       <div className="h-14 sm:h-0"></div>
 
       {/* DESKTOP "MANAGE ENTITY" */}
       <div className=" sm:h-fit sm:min-h-screen px-3 sm:px-12 py-3 sm:py-8">
-        <div className="hidden sm:flex items-center justify-between pb-5 sm:pb-9">
-          <p className="font-semibold text-2xl ">Entity Name</p>
-          <ManageEntityButtonDesktop />
+        <div className="hidden sm:flex items-center justify-between pb-5 sm:pb-2">
+          <div>
+            <div className="font-semibold text-2xl ">Entity Name</div>
+            <CopyUrlShareWhatsappButtons />
+          </div>
+          {
+            userOwnsEntity && (
+              <Link
+                href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}
+                className="sm:w-32 sm:h-9 h-fit rounded-3xl sm:border-2 sm:border-gray-500 text-blue-500 sm:text-gray-500 text-xs"
+              >
+                Manage Entity
+              </Link>
+            )
+            // <ManageEntityButtonDesktop />
+          }
         </div>
         {/* TOP OF THE PAGE CONTAINER */}
         <div className="sm:flex sm:flex-row flex flex-col-reverse sm:space-x-5 sm:h-[496px] sm:mb-8">
@@ -65,7 +107,9 @@ export default async function EntityPageLayout({
             {/*  COVER PHOTOS CONTAINER */}
             <CoverPhotos entityCoverPictures={entityCoverPictures} />
             {/* HIGHLIGHTS CONTAINER */}
+
             <Highlights entityHighlights={entityHighlights} />
+            
           </div>
         </div>
 

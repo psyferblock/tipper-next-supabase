@@ -1,30 +1,36 @@
 "use client";
 
+<<<<<<< HEAD
 import { useAuthContext } from "../../../context/Store";
+=======
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
 import { supabase } from "@/utils/supabase-browser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import createEntity from "@/lib/create/createEntity";
+import { useSupabase } from "@/app/supabase-provider";
+import createMenuCategory from "@/lib/create/createMenuCategory";
 
 export default function EntityCreationForm({ params }) {
   //States
   const [entityName, setEntityName] = useState<string | undefined>();
   const [entityType, setEntityType] = useState<string | undefined>();
-  const [entityLocation, setEntityLocation] = useState<string | undefined>();
-  const [ownerName, setOwnerName] = useState<string | undefined>();
-  const [ownerEmailAddress, setOwnerEmailAddress] = useState<
+  const [entityAddress, setEntityAddress] = useState<string | undefined>();
+  const [entityEmailAddress, setEntityEmailAddress] = useState<
     string | undefined
   >();
-  const [ownerContactNumber, setOwnerContactNumber] = useState<
+  const [entityPhoneNumber, setEntityPhoneNumber] = useState<
     number | undefined
   >();
-  const [ownerGender, setOwnerGender] = useState<string | undefined>();
 
-  //Imports
   const router = useRouter();
-  const { userId } = useAuthContext();
+
+  const { session } = useSupabase();
+  const userId = session?.user.id;
 
   //Functions
+<<<<<<< HEAD
   async function createEntity() {
     console.log("enterFunction");
     try {
@@ -56,6 +62,25 @@ export default function EntityCreationForm({ params }) {
         throw error;
       }
     }
+=======
+  async function handleCreateNowButton() {
+    //Create the entity
+    const response = await createEntity(
+      userId,
+      entityName,
+      entityType,
+      entityAddress,
+      entityEmailAddress,
+      entityPhoneNumber
+    );
+    const entityId = response.id;
+
+    const firstMenuCategoryObject = await createMenuCategory("Main", entityId);
+    console.log("firstMenuCategoryObject", firstMenuCategoryObject);
+    const firstMenuCategoryId = firstMenuCategoryObject.id;
+    //Redirect user to either his entity page or message from tipper
+    router.push(`${userId}/${entityId}/menu/${firstMenuCategoryId}`);
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
   }
 
   return (
@@ -81,17 +106,17 @@ export default function EntityCreationForm({ params }) {
                 d="M15.75 19.5L8.25 12l7.5-7.5"
               />
             </svg>
-            <p className="text-lg">Back</p>
+            <div className="text-lg">Back</div>
           </Link>
         </div>
         {/* //////////////////////////////////////////////////////////////////////////////////// */}
         {/* RIGHT PART OF SCREEN */}
         <div className="bg-white grow sm:py-28 sm:px-40">
           <div className="mb-9 text-center sm:text-start">
-            <p className="text-3xl font-bold ">Create an Entity</p>
-            <p className="italic text-sm font-light">
+            <div className="text-3xl font-bold ">Create an Entity</div>
+            <div className="italic text-sm font-light">
               Welcome to the Tipper network
-            </p>
+            </div>
           </div>
           {/* INPUT FORMS */}
           <div className="space-y-3">
@@ -115,13 +140,13 @@ export default function EntityCreationForm({ params }) {
                 }}
               />
             </div>
-            {/* BUSINESS TYPE */}
+            {/* Entity TYPE */}
             <div className="space-y-1">
               <label
                 htmlFor="names"
                 className="text-xs text-gray-600 font-medium"
               >
-                Business Type*
+                Entity Type*
               </label>
               {/* BUSINESS TYPE FIELD */}
               <select
@@ -141,29 +166,29 @@ export default function EntityCreationForm({ params }) {
               </select>
             </div>
             {/* DIVIDOR SEPARATOR */}
-            <div className="divide-y">
-              {/* BUSINESS LOCATION */}
-              <div className="space-y-1 mb-7">
-                <label
-                  htmlFor="names"
-                  className="text-xs text-gray-600 font-medium"
-                >
-                  Business Location*
-                </label>
-                {/* BUSINESS LOCATION FIELD */}
-                <input
-                  type="text"
-                  name="names"
-                  id="names"
-                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                  placeholder="Area, Street Name, Building number"
-                  onChange={(e) => {
-                    setEntityLocation(e.target.value);
-                  }}
-                />
-              </div>
-              {/* BUSINESS OWNER NAME */}
-              {/* <div className="space-y-1 pt-4">
+            {/* <div className="divide-y"> */}
+            {/* BUSINESS LOCATION */}
+            <div className="space-y-1 mb-7">
+              <label
+                htmlFor="names"
+                className="text-xs text-gray-600 font-medium"
+              >
+                Business Location*
+              </label>
+              {/* BUSINESS LOCATION FIELD */}
+              <input
+                type="text"
+                name="names"
+                id="names"
+                className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                placeholder="Area, Street Name, Building number"
+                onChange={(e) => {
+                  setEntityAddress(e.target.value);
+                }}
+              />
+            </div>
+            {/* BUSINESS OWNER NAME */}
+            {/* <div className="space-y-1 pt-4">
                 <label
                   htmlFor="names"
                   className="text-xs text-gray-600 font-medium"
@@ -182,6 +207,7 @@ export default function EntityCreationForm({ params }) {
                 />
               </div>
             </div> */}
+<<<<<<< HEAD
               {/* EMAIL ADDRESS */}
               <div className="space-y-1">
                 <label
@@ -222,6 +248,48 @@ export default function EntityCreationForm({ params }) {
                   }}
                 />
               </div>
+=======
+            {/* EMAIL ADDRESS */}
+            <div className="space-y-1">
+              <label
+                htmlFor="names"
+                className="text-xs text-gray-600 font-medium"
+              >
+                Entity's Email Address*
+              </label>
+              {/* EMAIL ADDRESS INPUT FIELD */}
+              <input
+                type="text"
+                name="EMAIL ADDRESS"
+                id="EMAIL ADDRESS"
+                className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                placeholder="Entity Email Address"
+                onChange={(e) => {
+                  setEntityEmailAddress(e.target.value);
+                }}
+              />
+            </div>
+            {/* PHONE NUMBER */}
+            <div className="space-y-1">
+              <label
+                htmlFor="names"
+                className="text-xs text-gray-600 font-medium"
+              >
+                Entity's Phone Number*
+              </label>
+              {/* CONTACT NUMBER INPUT FIELD */}
+              <input
+                type="number"
+                name="contact number"
+                id="contact number"
+                className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                placeholder="Entity's Phone Number"
+                onChange={(e) => {
+                  setEntityPhoneNumber(e.target.valueAsNumber);
+                }}
+              />
+            </div>
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
 
               {/* GENDER RADIO BUTTON */}
               {/* <div>
@@ -285,9 +353,22 @@ export default function EntityCreationForm({ params }) {
                   >
                     Other
                   </label> */}
+<<<<<<< HEAD
               {/* </div> */}
             </div>
           </div>
+=======
+            {/* </div> */}
+            {/* </div> */}
+          </div>
+          {/* CREATE ENTITY BUTTON */}
+          <button
+            onClick={handleCreateNowButton}
+            className="w-full h-10 mt-5 sm:mt-10 hover:bg-blue-600 hover:text-lg rounded-3xl bg-blue-500 text-white text-sm"
+          >
+            Create Now
+          </button>
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
         </div>
         {/* CREATE ENTITY BUTTON */}
         <button

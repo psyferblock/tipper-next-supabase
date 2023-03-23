@@ -36,7 +36,12 @@ export default function ManageTags() {
         />
         <button
           onClick={() => handleAddButton()}
-          className="text-sm text-blue-500 mb-3 font-medium"
+          className={
+            tag.length
+              ? "text-sm text-blue-600 mb-3 font-medium"
+              : "text-sm text-gray-600 mb-3 font-medium"
+          }
+          disabled={!tag.length}
         >
           Add
         </button>

@@ -7,6 +7,10 @@ export default async function ManageMenuCategoriesPage({ params }) {
   const supabase = createServerClient();
   const menuItems = await getMenuItemsServer(supabase, params.categoryId);
   return (
-    <ManageMenuItems menuItems={menuItems} menuCategoryId={params.categoryId} />
+    <ManageMenuItems
+      entityId={params.entityId}
+      menuItems={menuItems}
+      menuCategoryId={params.categoryId}
+    />
   );
 }

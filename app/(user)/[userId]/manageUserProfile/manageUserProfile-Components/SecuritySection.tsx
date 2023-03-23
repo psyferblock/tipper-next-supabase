@@ -1,6 +1,16 @@
+import { useSupabase } from "@/app/supabase-provider";
+import { getUserPassword } from "@/lib/get/getUserPassword";
+import { createServerClient } from "@/utils/supabase-server";
 import React from "react";
 
-export default function SecuritySection() {
+export default async function SecuritySection() {
+  // const supabase = createServerClient();
+
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
+  // const password = await getUserPassword(supabase, session.user.id);
+  // console.log("password", password);
   return (
     <div className="h-fit bg-white rounded-lg sm:rounded-lg pt-2 pb-3 sm:py-4 drop-shadow-lg px-4 sm:px-6">
       <div className="font-bold sm:font-semibold text-lg sm:text-lg sm:pb-2">

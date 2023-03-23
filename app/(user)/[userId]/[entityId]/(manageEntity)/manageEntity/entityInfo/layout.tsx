@@ -10,7 +10,7 @@ export default async function ManageEntityInfosLayout({
   children: React.ReactNode;
   params: { entityId: number };
 }) {
-  //Fetching from DB
+  // Fetching from DB
   const supabase = createServerClient();
   const entityInfos = await getEntityInfosServer(supabase, params.entityId);
   const coverPictures = await getBasicPicturesServer(

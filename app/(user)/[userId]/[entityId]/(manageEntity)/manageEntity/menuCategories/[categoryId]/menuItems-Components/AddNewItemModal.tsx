@@ -5,6 +5,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import createMenuItem from "@/lib/create/createMenuItem";
 import uploadPicture from "@/lib/create/uploadPictureToBucket";
 import Image from "next/image";
+import { useSupabase } from "@/app/supabase-provider";
+import { useRouter } from "next/navigation";
 
 export default function AddNewItemModal(props) {
   //State
@@ -14,6 +16,13 @@ export default function AddNewItemModal(props) {
   const [itemPictureUrl, setItemPictureUrl] = useState<string | undefined>();
 
   const buttonRef = useRef(null);
+
+  const router = useRouter();
+
+  const { session } = useSupabase();
+  const userId = session?.user.id;
+
+  const entityId = props.entityId;
 
   async function handlePublishButton(
     itemName: string,
@@ -30,6 +39,13 @@ export default function AddNewItemModal(props) {
     );
 
     props.closeModal();
+
+    const categoryName = props.categoryName;
+    const categoryId = props.menuCategoryId;
+    //refresh page by rerouting since we cant use router.refresh since calls to DB are in page.tsx (server component)
+    router.push(
+      `${userId}/${entityId}/manageEntity/menuCategories/${categoryId}?categoryName=${categoryName}`
+    );
   }
 
   async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {

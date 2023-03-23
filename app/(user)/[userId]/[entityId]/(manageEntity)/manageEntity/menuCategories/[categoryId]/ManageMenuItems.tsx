@@ -12,14 +12,13 @@ import deleteMenuItem from "@/lib/delete/deleteMenuItem";
 import { useAuthContext } from "@/app/Store";
 import { useSearchParams } from "next/navigation";
 import DeleteMenuItemModal from "./menuItems-Components/DeleteMenuItemModal";
+import { useSupabase } from "@/app/supabase-provider";
 
 export default function ManageMenuItems({
   menuItems,
   menuCategoryId,
   entityId,
 }) {
-  const { userId, ownedEntityId } = useAuthContext();
-
   const searchParams = useSearchParams();
   const categoryName = searchParams.get("categoryName");
 
@@ -29,6 +28,9 @@ export default function ManageMenuItems({
   //DELETE ITEM MODAL
   const [isDeleteItemModalOpen, setIsDeleteItemModalOpen] = useState(false);
   const [itemIdToDelete, setItemIdToDelete] = useState();
+
+  const { session } = useSupabase();
+  const userId = session?.user.id;
 
   const handleAddItemButton = (e) => {
     e.preventDefault();
@@ -83,7 +85,7 @@ export default function ManageMenuItems({
               <div className="flex items-center justify-between">
                 {/* CATEGORY NAME HEADER */}
                 <Link
-                  href={`${userId}/${ownedEntityId}/manageEntity/menuCategories`}
+                  href={`${userId}/${entityId}/manageEntity/menuCategories`}
                   className="flex items-center space-x-2"
                 >
                   <svg
@@ -101,7 +103,7 @@ export default function ManageMenuItems({
                     />
                   </svg>
                   <Link
-                    href={`${userId}/${ownedEntityId}/manageEntity/menuCategories`}
+                    href={`${userId}/${entityId}/manageEntity/menuCategories`}
                     className="font-bold text-3xl"
                   >
                     {categoryName}
@@ -230,7 +232,9 @@ export default function ManageMenuItems({
       <AddNewItemModal
         open={isAddItemModalOpen}
         closeModal={closeAddCategoryModal}
+        categoryName={categoryName}
         menuCategoryId={menuCategoryId}
+        entityId={entityId}
       />
 
       <EditItemModal

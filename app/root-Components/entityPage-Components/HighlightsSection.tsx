@@ -1,5 +1,5 @@
 "use client";
-import { useAuthContext } from "@/app/Store";
+import { useAuthContext } from "@/app/context/Store";
 import { useRouter } from "next/navigation";
 
 export default function EntityPageHighlightsSection({ entityHighlights }) {

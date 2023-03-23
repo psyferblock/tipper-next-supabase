@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthContext } from "../../../Store";
+import { useAuthContext } from "../../../context/Store";
 import { supabase } from "@/utils/supabase-browser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -26,10 +26,10 @@ export default function EntityCreationForm({ params }) {
 
   //Functions
   async function createEntity() {
-    console.log('enterFunction', )
+    console.log("enterFunction");
     try {
-    console.log('entered try block', )
-      
+      console.log("entered try block");
+
       const { data, error } = await supabase
         .from("entity")
         .insert({
@@ -41,13 +41,13 @@ export default function EntityCreationForm({ params }) {
           entity_phone_number: ownerContactNumber,
           owner_gender: ownerGender,
           user_id: userId,
-          is_verified:false,
+          is_verified: false,
         })
         .select();
 
       if (error) throw error;
       const entityId = data[0].id;
-       console.log('entityId', entityId)
+      console.log("entityId", entityId);
       localStorage.setItem("entityId", JSON.stringify(entityId));
       router.push("1/1");
       console.log("response after entity creation", data);
@@ -182,49 +182,49 @@ export default function EntityCreationForm({ params }) {
                 />
               </div>
             </div> */}
-            {/* EMAIL ADDRESS */}
-            <div className="space-y-1">
-              <label
-                htmlFor="names"
-                className="text-xs text-gray-600 font-medium"
-              >
-                Email Address*
-              </label>
-              {/* EMAIL ADDRESS INPUT FIELD */}
-              <input
-                type="text"
-                name="EMAIL ADDRESS"
-                id="EMAIL ADDRESS"
-                className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                placeholder="Email Address"
-                onChange={(e) => {
-                  setOwnerEmailAddress(e.target.value);
-                }}
-              />
-            </div>
-            {/* CONTACT NUMBER */}
-            <div className="space-y-1">
-              <label
-                htmlFor="names"
-                className="text-xs text-gray-600 font-medium"
-              >
-                Contact Number*
-              </label>
-              {/* CONTACT NUMBER INPUT FIELD */}
-              <input
-                type="number"
-                name="contact number"
-                id="contact number"
-                className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                placeholder="Contact Number"
-                onChange={(e) => {
-                  setOwnerContactNumber(e.target.valueAsNumber);
-                }}
-              />
-            </div>
+              {/* EMAIL ADDRESS */}
+              <div className="space-y-1">
+                <label
+                  htmlFor="names"
+                  className="text-xs text-gray-600 font-medium"
+                >
+                  Email Address*
+                </label>
+                {/* EMAIL ADDRESS INPUT FIELD */}
+                <input
+                  type="text"
+                  name="EMAIL ADDRESS"
+                  id="EMAIL ADDRESS"
+                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                  placeholder="Email Address"
+                  onChange={(e) => {
+                    setOwnerEmailAddress(e.target.value);
+                  }}
+                />
+              </div>
+              {/* CONTACT NUMBER */}
+              <div className="space-y-1">
+                <label
+                  htmlFor="names"
+                  className="text-xs text-gray-600 font-medium"
+                >
+                  Contact Number*
+                </label>
+                {/* CONTACT NUMBER INPUT FIELD */}
+                <input
+                  type="number"
+                  name="contact number"
+                  id="contact number"
+                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                  placeholder="Contact Number"
+                  onChange={(e) => {
+                    setOwnerContactNumber(e.target.valueAsNumber);
+                  }}
+                />
+              </div>
 
-            {/* GENDER RADIO BUTTON */}
-            {/* <div>
+              {/* GENDER RADIO BUTTON */}
+              {/* <div>
               <label
                 htmlFor="gender"
                 className="text-xs text-gray-600 font-medium"
@@ -285,19 +285,19 @@ export default function EntityCreationForm({ params }) {
                   >
                     Other
                   </label> */}
-                {/* </div> */}
-              </div>
+              {/* </div> */}
             </div>
           </div>
-          {/* CREATE ENTITY BUTTON */}
-          <button
-            onClick={createEntity}
-            className="w-full h-10 mt-5 sm:mt-10 hover:bg-blue-600 hover:text-lg rounded-3xl bg-blue-500 text-white text-sm"
-          >
-            Create Now
-          </button>
         </div>
+        {/* CREATE ENTITY BUTTON */}
+        <button
+          onClick={createEntity}
+          className="w-full h-10 mt-5 sm:mt-10 hover:bg-blue-600 hover:text-lg rounded-3xl bg-blue-500 text-white text-sm"
+        >
+          Create Now
+        </button>
       </div>
+    </div>
     // </div>
   );
 }

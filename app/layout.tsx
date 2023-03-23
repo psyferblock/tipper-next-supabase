@@ -2,7 +2,7 @@ import { createServerClient } from "@/utils/supabase-server";
 
 import "./globals.css";
 import Navbar from "./root-Components/tools-Components/NavBar";
-import { AuthContextProvider } from "./Store";
+import { AuthContextProvider } from "./context/Store";
 import SupabaseListener from "./supabase-listener";
 import SupabaseProvider from "./supabase-provider";
 

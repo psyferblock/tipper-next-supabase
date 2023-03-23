@@ -90,8 +90,8 @@ function createAuthTools(): {
     },
     {
       //   token: "",
-      userId:"" , // initial state is an observer
-      ownedEntityId:"" ,
+      userId: "", // initial state is an observer
+      ownedEntityId: "",
     }
   );
 

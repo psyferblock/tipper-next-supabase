@@ -170,6 +170,7 @@ export default function ManageMenuCategories(props) {
                   <MenuCategoryCard
                     categoryName={category.menu_category_name}
                     categoryId={category.id}
+                    isMenuCategoryPublic={category.is_menu_category_public}
                     openEditNameModal={handleEditCategoryNameButton}
                     openDeleteMenuCategoryModal={handleDeleteCategoryButton}
                     entityId={entityId}

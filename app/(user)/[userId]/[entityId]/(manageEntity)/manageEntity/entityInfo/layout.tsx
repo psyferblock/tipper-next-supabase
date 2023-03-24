@@ -13,16 +13,25 @@ export default async function ManageEntityInfosLayout({
   // Fetching from DB
   const supabase = createServerClient();
   const entityInfos = await getEntityInfosServer(supabase, params.entityId);
-  const coverPictures = await getBasicPicturesServer(
-    supabase,
-    "cover_picture",
-    params.entityId
+  const basicPictures = await getBasicPicturesServer(supabase, params.entityId);
+
+  const arrayOfCoverPictureObjects = basicPictures.filter(
+    (pictureObject) => pictureObject.media_category == "cover_picture"
   );
+
+  //Getting the logo url and passing to context
+  const arrayOfLogoPictureObject = basicPictures.filter(
+    (pictureObject) => pictureObject.media_category == "logo_picture"
+  );
+  const logoPictureObject = arrayOfLogoPictureObject[0];
+
+  console.log("logoPictureObject::", logoPictureObject);
 
   return (
     <ManageEntityInfosContextProvider
       entityInfos={entityInfos}
-      coverPictures={coverPictures}
+      coverPictures={arrayOfCoverPictureObjects}
+      logoPictureObject={logoPictureObject}
     >
       {children}
     </ManageEntityInfosContextProvider>

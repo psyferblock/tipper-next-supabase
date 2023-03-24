@@ -1,22 +1,43 @@
+"use client";
+
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
 <<<<<<< HEAD
 import { useAuthContext } from "@/app/context/Store";
 =======
 import { useAuthContext } from "@/app/Store";
 import { useSupabase } from "@/app/supabase-provider";
+<<<<<<< HEAD
 >>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
+=======
+import updateIsMenuCategoryPublic from "@/lib/update/updateIsMenuCategoryPublic";
+>>>>>>> f999dd064c1fe0f2c51fc2ee3166bafec05eea1a
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function MenuCategoryCard(props) {
   const entityId = props.entityId;
   const { session } = useSupabase();
   const userId = session?.user.id;
+
+  const categoryId = props.categoryId;
+
+  const categoryName = props.categoryName;
+
+  const [isMenuCategoryPublic, setIsMenuCategoryPublic] = useState(
+    props.isMenuCategoryPublic
+  );
+
+  async function handleToggleButton(boolean) {
+    setIsMenuCategoryPublic(boolean);
+    await updateIsMenuCategoryPublic(categoryId, boolean);
+  }
+
   return (
     <>
       <div className="h-fit sm:h-[198px] w-full space-y-3 bg-white drop-shadow-lg rounded-md sm:divide-y py-5 px-3 sm:px-4 flex sm:flex-col hover:cursor-pointer">
         {/* UPPER PART OF CARD */}
         <Link
-          href={`${userId}/${entityId}/manageEntity/menuCategories/${props.categoryId}?categoryName=${props.categoryName}`}
+          href={`${userId}/${entityId}/manageEntity/menuCategories/${categoryId}?categoryName=${categoryName}`}
         >
           <div className="sm:space-y-2">
             <div className="h-20 w-20 rounded-full mx-auto overflow-hidden">
@@ -43,7 +64,10 @@ export default function MenuCategoryCard(props) {
               </p>
             </Link>
             <div className="text-sm flex text-start space-x-2 ">
-              <ToggleButton />
+              <ToggleButton
+                switchedOn={isMenuCategoryPublic}
+                handleToggleButton={handleToggleButton}
+              />
               <p>Publish</p>
             </div>
           </div>
@@ -83,7 +107,10 @@ export default function MenuCategoryCard(props) {
         <div className="hidden sm:flex text-xs items-center justify-between sm:pt-4">
           <div>
             <div className="flex space-x-1">
-              <ToggleButton />
+              <ToggleButton
+                switchedOn={isMenuCategoryPublic}
+                handleToggleButton={handleToggleButton}
+              />
               <p className="pt-0.5">Publish</p>
             </div>
           </div>

@@ -11,15 +11,10 @@ export async function getBasicPictures(mediaCategory, entityId) {
   return data;
 }
 
-export async function getBasicPicturesServer(
-  supabaseServerClient,
-  mediaCategory,
-  entityId
-) {
+export async function getBasicPicturesServer(supabaseServerClient, entityId) {
   const { data, error } = await supabaseServerClient
     .from("entity_basic_media")
     .select()
-    .eq("media_category", mediaCategory)
     .eq("entity_id", entityId);
   //   can replace here with the functions used in this example:
   //   const { data, error } = await supabase

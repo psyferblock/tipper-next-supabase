@@ -28,16 +28,23 @@ export default async function HomePageListingOfEntitiesCards(props) {
     // },
   ];
 
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userId = session?.user.id;
+
   return (
     <>
       {industries.map((industry) => (
         <div>
           {/* MOBILE VERSION WITH FLEX */}
           <div className="sm:hidden flex items-center justify-between  pb-2 sm:pb-2">
-            <p className="font-bold text-lg sm:text-center">{industry.name}</p>
+            <div className="font-bold text-lg sm:text-center">
+              {industry.name}
+            </div>
             <Link
               className="text-sm text-blue-500 justify-end flex items-center sm:space-x-1"
-              href="/verticalEntities"
+              href={`${userId}/entitiesBySector`}
             >
               View All
               <svg
@@ -56,12 +63,15 @@ export default async function HomePageListingOfEntitiesCards(props) {
               </svg>
             </Link>
           </div>
+
           {/* DESKTOP VERSION WITHOUT FLEX */}
           <div className="hidden sm:block pb-2">
-            <p className="font-bold text-lg sm:text-center">{industry.name}</p>
+            <div className="font-bold text-lg sm:text-center">
+              {industry.name}
+            </div>
             <Link
               className="text-sm text-blue-500 justify-end flex items-center sm:space-x-1"
-              href={`${props.userId}/entitiesBySector`}
+              href={`${userId}/entitiesBySector`}
             >
               View All
               <svg

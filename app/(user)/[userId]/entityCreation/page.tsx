@@ -11,6 +11,7 @@ import Link from "next/link";
 import createEntity from "@/lib/create/createEntity";
 import { useSupabase } from "@/app/supabase-provider";
 import createMenuCategory from "@/lib/create/createMenuCategory";
+import createExchangeRate from "@/lib/create/createExchangeRate";
 
 export default function EntityCreationForm({ params }) {
   //States
@@ -73,7 +74,11 @@ export default function EntityCreationForm({ params }) {
       entityEmailAddress,
       entityPhoneNumber
     );
+
     const entityId = response.id;
+
+    //Creating an exchange rate row in DB referring to the newly created entity
+    await createExchangeRate(entityId, "1500");
 
     const firstMenuCategoryObject = await createMenuCategory("Main", entityId);
     console.log("firstMenuCategoryObject", firstMenuCategoryObject);

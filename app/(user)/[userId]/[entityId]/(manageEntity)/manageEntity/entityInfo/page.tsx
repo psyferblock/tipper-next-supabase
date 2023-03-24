@@ -6,6 +6,7 @@ import ManageTags from "./entityInfos-Components/ManageTags";
 import ManageWorkingHours from "./entityInfos-Components/ManageWorkingHours";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import StickyBarSaveCancel from "./entityInfos-Components/StickyBarSaveCancel";
+import ManageLogo from "./entityInfos-Components/ManageLogo";
 
 export default function ManageEntityInfosPage({ params }) {
   return (
@@ -26,6 +27,7 @@ export default function ManageEntityInfosPage({ params }) {
 
         <div className="space-y-5">
           {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
+          <ManageLogo />
           <ManageCoverPhotos />
           <ManageTags />
           <ManageWorkingHours />

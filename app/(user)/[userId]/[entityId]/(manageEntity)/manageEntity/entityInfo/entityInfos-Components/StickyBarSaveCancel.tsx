@@ -13,6 +13,7 @@ export default function StickyBarSaveCancel(props) {
   const { session } = useSupabase();
   const userId = session?.user.id;
   const {
+    logoObject,
     arrayOfPictureObjects,
     tags,
     phoneNumber,
@@ -70,13 +71,15 @@ export default function StickyBarSaveCancel(props) {
       (pictureObject) => pictureObject.id == null
     );
 
-    let arrayOfNewPictureUrls = arrayOfNewPictureObjects.map(
-      (pictureObject) => pictureObject.media_url
+    if (logoObject.id == null) {
+      arrayOfNewPictureObjects.push(logoObject);
+    }
+    console.log(
+      "arrayOfNewPictureObjects after loggo adding",
+      arrayOfNewPictureObjects
     );
-
-    let mediaCategory = "cover_picture";
-    if (arrayOfNewPictureUrls.length > 0) {
-      await addBasicPictures(mediaCategory, arrayOfNewPictureUrls, entityId);
+    if (arrayOfNewPictureObjects.length > 0) {
+      await addBasicPictures(arrayOfNewPictureObjects, entityId);
     }
   }
 

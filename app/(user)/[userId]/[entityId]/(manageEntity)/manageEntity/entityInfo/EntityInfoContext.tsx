@@ -13,9 +13,14 @@ import React, {
 /**
  * Function returning all the tools that children component will inherit when using the context.
  */
-function createManageEntityInfosTools(entityInfos, coverPictures) {
+function createManageEntityInfosTools(
+  entityInfos,
+  coverPictures,
+  logoPictureObject
+) {
   const [
     {
+      logoObject,
       arrayOfPictureObjects,
       tags,
       phoneNumber,
@@ -36,6 +41,8 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
   ] = useReducer(
     (state, action) => {
       switch (action.type) {
+        case "setLogoObject":
+          return { ...state, logoObject: action.payload };
         case "setArrayOfPictureObjects":
           return { ...state, arrayOfPictureObjects: action.payload };
         case "setTags":
@@ -69,6 +76,7 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
       }
     },
     {
+      logoObject: "",
       arrayOfPictureObjects: [],
       tags: [],
       phoneNumber: "",
@@ -85,6 +93,8 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
   );
 
   useEffect(() => {
+    setLogoObject(logoPictureObject);
+
     setArrayOfPictureObjects(coverPictures);
 
     setTags(entityInfos?.entity_tags);
@@ -107,6 +117,16 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
     setIsContactUsSectionPublic(entityInfos?.is_contact_us_public);
     setContactUsDescription(entityInfos?.contact_us_description);
     setContactUsPictureUrl(entityInfos?.contact_us_picture_url);
+  }, []);
+
+  /**
+   * Setter function for arrayOfObjectPictures state variable
+   */
+  const setLogoObject = useCallback((newObject: string) => {
+    dispatch({
+      type: "setLogoObject",
+      payload: newObject,
+    });
   }, []);
 
   /**
@@ -260,6 +280,7 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
   }, []);
 
   return {
+    logoObject,
     arrayOfPictureObjects,
     tags,
     phoneNumber,
@@ -275,6 +296,7 @@ function createManageEntityInfosTools(entityInfos, coverPictures) {
     isContactUsSectionPublic,
     contactUsDescription,
     contactUsPictureUrl,
+    setLogoObject,
     setArrayOfPictureObjects,
     setTags,
     setPhoneNumber,
@@ -317,14 +339,19 @@ export function ManageEntityInfosContextProvider({
   children,
   entityInfos,
   coverPictures,
+  logoPictureObject,
 }: {
   children: React.ReactNode;
   entityInfos: any;
 }) {
-  createManageEntityInfosTools(entityInfos, coverPictures);
+  // createManageEntityInfosTools(entityInfos, coverPictures, logoPictureObject);
   return (
     <ManageEntityInfosContext.Provider
-      value={createManageEntityInfosTools(entityInfos, coverPictures)}
+      value={createManageEntityInfosTools(
+        entityInfos,
+        coverPictures,
+        logoPictureObject
+      )}
     >
       {children}
     </ManageEntityInfosContext.Provider>

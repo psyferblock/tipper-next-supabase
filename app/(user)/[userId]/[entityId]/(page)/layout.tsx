@@ -47,15 +47,10 @@ export default async function EntityPageLayout({
   let userOwnsEntity;
   let entityOwnedId;
   if (session) {
-    const response = await getEntityOfUserServer(supabase, userId);
-    console.log("RESPONSE", response);
-    if (response) {
-      const ownerOfCurrentEntity = response?.user_id;
-      if (userId == ownerOfCurrentEntity) {
-        userOwnsEntity = true;
-        const currentEntityId = response.id;
-        entityOwnedId = currentEntityId;
-      }
+    const ownerOfCurrentEntity = entityInfos.user_id;
+    if (userId == ownerOfCurrentEntity) {
+      userOwnsEntity = true;
+      entityOwnedId = entityInfos.id;
     }
   }
 
@@ -88,11 +83,10 @@ export default async function EntityPageLayout({
           </div>
           {
             userOwnsEntity && (
-              <Link
-                href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}
-                className="sm:w-32 sm:h-9 h-fit rounded-3xl sm:border-2 sm:border-gray-500 text-blue-500 sm:text-gray-500 text-xs"
-              >
-                Manage Entity
+              <Link href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}>
+                <div className="sm:w-32 sm:h-9 h-fit rounded-3xl sm:border-2 sm:border-gray-500 text-blue-500 sm:text-blue-500 text-xs">
+                  <div className="sm:text-center sm:pt-2">Manage Entity</div>
+                </div>
               </Link>
             )
             // <ManageEntityButtonDesktop />

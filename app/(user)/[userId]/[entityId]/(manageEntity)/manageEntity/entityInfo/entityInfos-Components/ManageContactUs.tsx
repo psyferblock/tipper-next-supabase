@@ -53,9 +53,9 @@ export default function ManageContactUsPage(props) {
               switchedOn={isContactUsSectionPublic}
             />
           </div>
-          <p className="text-xs sm:mt-0">
+          <div className="text-xs sm:mt-0">
             Show "Contact Us" section on your entity's public page
-          </p>
+          </div>
         </div>
       </div>
       <div>
@@ -139,11 +139,11 @@ export default function ManageContactUsPage(props) {
                       }}
                     />
                   </label>
-                  <p className="pl-1">or drag and drop</p>
+                  <div className="pl-1">or drag and drop</div>
                 </div>
-                <p className="text-xs text-gray-500">
+                <div className="text-xs text-gray-500">
                   PNG, JPG, GIF up to 10MB
-                </p>
+                </div>
               </div>
             </div>
           )}

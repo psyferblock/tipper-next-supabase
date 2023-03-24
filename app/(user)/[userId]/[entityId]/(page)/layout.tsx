@@ -47,15 +47,10 @@ export default async function EntityPageLayout({
   let userOwnsEntity;
   let entityOwnedId;
   if (session) {
-    const response = await getEntityOfUserServer(supabase, userId);
-    console.log("RESPONSE", response);
-    if (response) {
-      const ownerOfCurrentEntity = response?.user_id;
-      if (userId == ownerOfCurrentEntity) {
-        userOwnsEntity = true;
-        const currentEntityId = response.id;
-        entityOwnedId = currentEntityId;
-      }
+    const ownerOfCurrentEntity = entityInfos.user_id;
+    if (userId == ownerOfCurrentEntity) {
+      userOwnsEntity = true;
+      entityOwnedId = entityInfos.id;
     }
   }
 

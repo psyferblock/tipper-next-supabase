@@ -35,6 +35,7 @@ export default function ManageCoverPhotos() {
     let newArray = arrayOfPictureObjects.concat({
       id: null,
       media_url: pictureUrl,
+      media_category: "cover_picture",
     });
     setArrayOfPictureObjects(newArray);
   }

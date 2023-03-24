@@ -88,11 +88,10 @@ export default async function EntityPageLayout({
           </div>
           {
             userOwnsEntity && (
-              <Link
-                href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}
-                className="sm:w-32 sm:h-9 h-fit rounded-3xl sm:border-2 sm:border-gray-500 text-blue-500 sm:text-gray-500 text-xs"
-              >
-                Manage Entity
+              <Link href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}>
+                <div className="sm:w-32 sm:h-9 h-fit rounded-3xl sm:border-2 sm:border-gray-500 text-blue-500 sm:text-blue-500 text-xs">
+                  <div className="sm:text-center sm:pt-2">Manage Entity</div>
+                </div>
               </Link>
             )
             // <ManageEntityButtonDesktop />

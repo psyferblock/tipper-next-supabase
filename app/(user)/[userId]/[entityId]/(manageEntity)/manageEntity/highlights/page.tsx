@@ -10,8 +10,9 @@ export default async function ManageHighlightsPage({ params }) {
 
   return (
     <>
+      {/* MOBILE DIVS */}
       <div className="sm:hidden px-3 flex items-center justify-between py-2 bg-gray-300 w-full z-50  fixed  text-2xl font-bold">
-        <p>Manage Highlights</p>
+        <div>Manage Highlights</div>
         <div className="sm:hidden">
           <MobileDropdownManagement />
         </div>

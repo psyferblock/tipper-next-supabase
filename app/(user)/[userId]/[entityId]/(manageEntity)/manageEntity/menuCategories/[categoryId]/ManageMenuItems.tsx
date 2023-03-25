@@ -84,8 +84,8 @@ export default function ManageMenuItems({
   return (
     <>
       {/* DESKTOP VERSION */}
-      <div className="hidden sm:block w-full sm:h-fit sm:min-h-screen">
-        <div className="hidden sm:flex flex-col space-y-3 w-full">
+      <div className=" block w-full sm:h-fit sm:min-h-screen">
+        <div className=" sm:flex flex-col space-y-3 w-full">
           <div className="h-fit bg-white rounded-lg p-4 drop-shadow-lg flex flex-col">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
@@ -115,11 +115,33 @@ export default function ManageMenuItems({
                     {categoryName}
                   </Link>
                 </Link>
-                {/* ADD CATEGORY BUTTON */}
+                {/* ADD Menu Item BUTTON */}
+                {/* DESKTOP */}
                 <button
                   onClick={handleAddItemButton}
-                  className="w-32 h-10 hover:bg-blue-600 text-xs rounded-3xl bg-blue-500 text-white -mt-2"
+                  className=" hidden sm:block w-32 h-10 hover:bg-blue-600 text-xs rounded-3xl bg-blue-500 text-white -mt-2"
                 >
+                  Add Item
+                </button>
+                {/* MOBILE */}
+                <button
+                  onClick={handleAddItemButton}
+                  className="sm:hidden mt-1 text-sm text-blue-500 flex items-center justify-end space-x-1"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={3}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 4.5v15m7.5-7.5h-15"
+                    />
+                  </svg>
                   Add Item
                 </button>
               </div>
@@ -141,7 +163,7 @@ export default function ManageMenuItems({
                           <div className="my-3">
                             <td>
                               <img
-                                className="inline-block w-14 h-14 mr-3 rounded-full ring-2 ring-white"
+                                className="inline-block w-10 h-10 mr-3 rounded-full ring-2 ring-white"
                                 src={item.item_picture_url}
                                 alt=""
                               />
@@ -149,11 +171,8 @@ export default function ManageMenuItems({
                             <td>{item.item_name}</td>
                           </div>
                         </td>
-                        {/* <td id="three" className="italic">
-                          {item.published ? "Public" : "Private"}
-                        </td> */}
-                        <td className="flex items-center justify-between mt-4">
-                          <div className="flex items-center space-x-2 py-3">
+                        <td className="flex items-center justify-between pt-0 sm:pt-1 my-3 sm:my-3">
+                          <div className="flex items-center space-x-1 sm:space-x-2 pt-2">
                             <ToggleButton
                               switchedOn={item.is_menu_item_public}
                               handleToggleButton={(booleanProp) => {
@@ -165,8 +184,9 @@ export default function ManageMenuItems({
                               {item.is_menu_item_public ? "Yes" : "No"}
                             </div>
                           </div>
-                          <div className="flex items-center space-x-10 text-blue-600">
+                          <div className="flex items-center space-x-1 sm:space-x-10 text-blue-600">
                             <button
+                              className="hidden sm:block"
                               onClick={() => {
                                 handleEditItemButton(item.id);
                               }}
@@ -174,11 +194,58 @@ export default function ManageMenuItems({
                               Edit
                             </button>
                             <button
+                              className="hidden sm:block"
                               onClick={() => {
                                 handleRemoveItemButton(item.id);
                               }}
                             >
                               Remove
+                            </button>
+
+                            {/* EDIT ICON */}
+                            <button
+                              className="sm:hidden pt-1"
+                              onClick={() => {
+                                handleEditItemButton(item.id);
+                              }}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                                />
+                              </svg>
+                            </button>
+
+                            {/* TRASH ICON */}
+                            <button
+                              className="sm:hidden pt-1"
+                              onClick={() => {
+                                handleRemoveItemButton(item.id);
+                              }}
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6 text-blue-500 m-1"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                />
+                              </svg>
                             </button>
                           </div>
                         </td>
@@ -192,53 +259,6 @@ export default function ManageMenuItems({
         </div>
       </div>
       {/* //////////////////////////////////////////////////////////////////////////// */}
-      {/* MOBILE VERSION */}
-      <div className="sm:hidden w-full flex items-center px-3 py-3 justify-between bg-gray-300 z-50 fixed">
-        <button className=" flex items-center space-x-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
-          </svg>
-          <p className="font-bold text-3xl ">{categoryName}</p>
-        </button>
-        <button
-          onClick={handleAddItemButton}
-          className="mt-1 text-sm text-blue-500 flex items-center justify-end space-x-1"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={3}
-            stroke="currentColor"
-            className="w-4 h-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-          Add Item
-        </button>
-      </div>
-      <div className="sm:hidden  ">
-        <div className="h-16 sm:h-0"></div>
-        <div className="px-3 space-y-3">
-          <SearchBar placeHolder="Search for item" />
-          <ManageMenuItemsMobile />
-        </div>
-      </div>
 
       {/* //THOSE 2 MODALS ARE AVAILABLE ON DESKTOP, FOR MOBILE VERSION THE EDIT ITEM MODAL IS IN THE "MANAGE MENU ITEMS MOBILE COMPONENT" */}
 

@@ -29,10 +29,13 @@ export default async function EntityPageLayout({
   const entityHighlights = await getHighlightsServer(supabase, params.entityId);
 
   //Fetching cover pictures and passing them as props
-  const entityCoverPictures = await getBasicPicturesServer(
+  const allBasicPictures = await getBasicPicturesServer(
     supabase,
-    "cover_picture",
     params.entityId
+  );
+
+  const entityCoverPictures = allBasicPictures.filter(
+    (pictureObject) => pictureObject.media_category == "cover_picture"
   );
 
   //Checking if contact_us is set to public or not
@@ -103,7 +106,6 @@ export default async function EntityPageLayout({
             {/* HIGHLIGHTS CONTAINER */}
 
             <Highlights entityHighlights={entityHighlights} />
-            
           </div>
         </div>
 

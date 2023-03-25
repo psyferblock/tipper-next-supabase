@@ -13,6 +13,7 @@ import { useAuthContext } from "@/app/context/Store";
 import { useSearchParams } from "next/navigation";
 import DeleteMenuItemModal from "./menuItems-Components/DeleteMenuItemModal";
 import { useSupabase } from "@/app/supabase-provider";
+import updateIsMenuItemPublic from "@/lib/update/updateIsMenuItemPublic";
 
 export default function ManageMenuItems({
   menuItems,
@@ -74,6 +75,11 @@ export default function ManageMenuItems({
   const closeDeleteItemModal = () => {
     setIsDeleteItemModalOpen(false);
   };
+
+  let menuItemIdToggled;
+  async function handleToggleButton(boolean) {
+    await updateIsMenuItemPublic(boolean, menuItemIdToggled);
+  }
 
   return (
     <>
@@ -148,10 +154,16 @@ export default function ManageMenuItems({
                         </td> */}
                         <td className="flex items-center justify-between mt-4">
                           <div className="flex items-center space-x-2 py-3">
-                            <ToggleButton switchedOn={item.published} />
-                            <p id="four" className="pb-1">
-                              {item.published ? "Yes" : "No"}
-                            </p>
+                            <ToggleButton
+                              switchedOn={item.is_menu_item_public}
+                              handleToggleButton={(booleanProp) => {
+                                menuItemIdToggled = item.id;
+                                handleToggleButton(booleanProp);
+                              }}
+                            />
+                            <div id="four" className="pb-1">
+                              {item.is_menu_item_public ? "Yes" : "No"}
+                            </div>
                           </div>
                           <div className="flex items-center space-x-10 text-blue-600">
                             <button

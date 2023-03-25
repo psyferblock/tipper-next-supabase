@@ -6,12 +6,17 @@ import { createServerClient } from "@/utils/supabase-server";
 export default async function EntityPageMenuItems({ params }) {
   //Fetching from DB
   const supabase = createServerClient();
-  const menuItems = await getMenuItemsServer(supabase, params.categoryId);
+
+  const allMenuItems = await getMenuItemsServer(supabase, params.categoryId);
+  const publicMenuItems = allMenuItems.filter(
+    (menuItem) => menuItem.is_menu_item_public == true
+  );
+
   const exchangeRate = await getExchangeRateServer(supabase, params.entityId);
   return (
     <>
       <div className="grid h-96 gap-3 overflow-y-auto sm:h-96 sm:grid sm:grid-cols-4 sm:gap-5 sm:pb-5 sm:overflow-y-auto">
-        {menuItems.map((item) => (
+        {publicMenuItems.map((item) => (
           <MenuItemCard menuItem={item} exchangeRate={exchangeRate} />
         ))}
       </div>

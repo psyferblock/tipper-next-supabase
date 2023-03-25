@@ -1,10 +1,10 @@
 import { supabase } from "@/utils/supabase-browser";
 
 export default async function updateMenuItem(
-  itemName: string,
-  itemDescription: string,
-  itemPrice: string,
-  itemPictureUrl: string,
+  itemName,
+  itemDescription,
+  itemPrice,
+  itemPictureUrl,
   menuItemId
 ) {
   const { data, error } = await supabase

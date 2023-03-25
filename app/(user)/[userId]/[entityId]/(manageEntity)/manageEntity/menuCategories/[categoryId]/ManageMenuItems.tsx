@@ -125,27 +125,28 @@ export default function ManageMenuItems({
                   <thead>
                     <tr>
                       <th className="pr-96 pb-4">Item</th>
-                      <th className="pr-96 pb-4">Status</th>
                       <th className="pr-96 pb-4">Publish</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-300 text-gray-500">
                     {menuItems.map((item) => (
                       <tr>
-                        <div className="my-3">
-                          <td>
-                            <img
-                              className="inline-block w-14 h-14 mr-3 rounded-full ring-2 ring-white"
-                              src={item.item_picture_url}
-                              alt=""
-                            />
-                          </td>
-                          <td>{item.item_name}</td>
-                        </div>
-                        <td id="three" className="italic">
-                          {item.published ? "Public" : "Private"}
+                        <td>
+                          <div className="my-3">
+                            <td>
+                              <img
+                                className="inline-block w-14 h-14 mr-3 rounded-full ring-2 ring-white"
+                                src={item.item_picture_url}
+                                alt=""
+                              />
+                            </td>
+                            <td>{item.item_name}</td>
+                          </div>
                         </td>
-                        <td className="flex items-center justify-between">
+                        {/* <td id="three" className="italic">
+                          {item.published ? "Public" : "Private"}
+                        </td> */}
+                        <td className="flex items-center justify-between mt-4">
                           <div className="flex items-center space-x-2 py-3">
                             <ToggleButton switchedOn={item.published} />
                             <p id="four" className="pb-1">
@@ -242,6 +243,9 @@ export default function ManageMenuItems({
         closeModal={closeEditItemModal}
         item={itemBeingEdited}
         menuItemBeingEditedId={menuItemBeingEditedId}
+        categoryName={categoryName}
+        menuCategoryId={menuCategoryId}
+        entityId={entityId}
       />
 
       <DeleteMenuItemModal

@@ -6,5 +6,5 @@ export default async function deleteHighlight(highlightId) {
     .delete()
     .eq("id", highlightId);
   if (error) throw error;
-  console.log(data);
+  console.log("data returned after deleting highlight", data);
 }

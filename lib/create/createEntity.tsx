@@ -3,20 +3,22 @@ import { supabase } from "@/utils/supabase-browser";
 export default async function createEntity(
   userId,
   entityName,
-  entityType,
+  entityTypeId,
   entityAddress,
   entityEmailAddress,
-  entityPhoneNumber
+  entityPhoneNumber,
+  tagsArray
 ) {
   const { data, error } = await supabase
     .from("entity")
     .insert({
       user_id: userId,
       entity_name: entityName,
-      entity_type: entityType,
+      entity_type_id: entityTypeId,
       entity_address: entityAddress,
       entity_email: entityEmailAddress,
       entity_phone_number: entityPhoneNumber,
+      entity_tags: tagsArray,
       is_verified: false,
     })
     .select()

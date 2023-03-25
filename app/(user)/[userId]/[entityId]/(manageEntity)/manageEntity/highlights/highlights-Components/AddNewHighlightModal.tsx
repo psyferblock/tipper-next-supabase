@@ -109,7 +109,12 @@ export default function AddNewHighlightModal(props) {
                         >
                           Add New Highlight
                         </Dialog.Title>
-                        <button className="sm:hidden">
+
+                        {/* X ICON TO CLOSE MODAL */}
+                        <button
+                          className="sm:hidden"
+                          onClick={props.closeModal}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -134,9 +139,9 @@ export default function AddNewHighlightModal(props) {
                       {/* HIGHLIGHT NAME INPUT FIELD */}
                       <input
                         type="text"
-                        name="tags"
-                        id="price"
-                        className="h-14 w-full sm:h-12 block rounded-md border-gray-300 sm:pl-4 sm:pr-[235px] mt-2 mb-6 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        name="highlight name"
+                        id="highlight name"
+                        className="h-14 w-full sm:h-12 block rounded-md border-gray-300 sm:pl-4  mt-2 mb-6 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Type highlight name"
                         ref={buttonRef}
                         value={highlightName}

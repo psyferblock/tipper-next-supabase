@@ -1,9 +1,14 @@
 import HomePageListingOfEntitiesCards from "@/app/root-Components/entityCards-Components/HomePageListingOfEntitiesCards";
 import HomePageSearchBar from "@/app/root-Components/tools-Components/HomePageSearchBar";
+import { getHighlightAndMediasServer } from "@/lib/get/getHiglightAndMedias";
 import { createServerClient } from "@/utils/supabase-server";
 
 export default async function TipperHomePage({ params }) {
   const supabase = createServerClient();
+
+  // const testId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
+  // //Testing
+  // await getHighlightAndMediasServer(supabase, testId);
 
   const {
     data: { session },

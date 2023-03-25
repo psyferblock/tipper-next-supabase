@@ -7,6 +7,9 @@ import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import insertUrlsToHighlight from "@/lib/create/insertUrlsToHighlight";
 import { getPicturesOfHighlight } from "@/lib/get/getPicturesOfHighlight";
 import deletePictureFromHighlight from "@/lib/delete/deletePictureFromHighlight";
+import updateHighlightName from "@/lib/update/updateHighlightName";
+import { useSupabase } from "@/app/supabase-provider";
+import { useRouter } from "next/navigation";
 
 export default function EditHighlightModal(props) {
   const [highlightName, setHighlightName] = useState<string | undefined>();
@@ -24,6 +27,12 @@ export default function EditHighlightModal(props) {
   const buttonRef = useRef(null);
 
   const highlight = props.highlight;
+
+  const { session } = useSupabase();
+  const userId = session?.user.id;
+  const entityId = props.entityId;
+
+  const router = useRouter();
 
   useEffect(() => {
     setHighlightName(highlight?.highlight_name);
@@ -48,6 +57,13 @@ export default function EditHighlightModal(props) {
     if (arrayOfNewPictureUrls.length > 0) {
       await insertUrlsToHighlight(arrayOfNewPictureUrls, highlight.id);
     }
+
+    //Updating the highlight name if it changed
+    if (highlight.highlight_name != highlightName) {
+      await updateHighlightName(highlightName, highlight?.id);
+    }
+
+    router.push(`${userId}/${entityId}/manageEntity/highlights`);
 
     props.closeModal();
   }
@@ -142,7 +158,11 @@ export default function EditHighlightModal(props) {
                         >
                           Edit Highlight
                         </Dialog.Title>
-                        <button className="sm:hidden">
+                        {/* X ICON TO CLOSE MODAL */}
+                        <button
+                          className="sm:hidden"
+                          onClick={props.closeModal}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -161,15 +181,15 @@ export default function EditHighlightModal(props) {
                       </div>
 
                       <div className="flex justify-between text-xs">
-                        <p>Highlight Name</p>
-                        <p className="text-gray-400">150</p>
+                        <div>Highlight Name</div>
+                        <div className="text-gray-400">150</div>
                       </div>
                       {/* HIGHLIGHT NAME INPUT FIELD */}
                       <input
                         type="text"
-                        name="tags"
-                        id="price"
-                        className="h-14 w-full sm:h-12 block rounded-md border-gray-300 sm:pl-4 sm:pr-[235px] mt-2 mb-6 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        name="highlight name"
+                        id="highlight name"
+                        className="h-14 w-full sm:h-12 block rounded-md border-gray-300 sm:pl-4  mt-2 mb-6 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Type highlight name"
                         ref={buttonRef}
                         value={highlightName}

@@ -1,3 +1,4 @@
+import { getHighlightAndMediasServer } from "@/lib/get/getHiglightAndMedias";
 import getPicturesOfHighlight, {
   getPicturesOfHighlightServer,
 } from "@/lib/get/getPicturesOfHighlight";
@@ -10,12 +11,12 @@ export default async function layout({
   children: React.ReactNode;
 }) {
   const supabase = createServerClient();
-  const picturesInHighlight = await getPicturesOfHighlightServer(supabase, 9);
+  // const picturesInHighlight = await getPicturesOfHighlightServer(supabase, 9);
 
   return (
     <>
-      <div>{picturesInHighlight.map((pic) => pic.media_url)}</div>
-      {children}
+      {/* <div>{picturesInHighlight.map((pic) => pic.media_url)}</div>
+      {children} */}
     </>
   );
 }

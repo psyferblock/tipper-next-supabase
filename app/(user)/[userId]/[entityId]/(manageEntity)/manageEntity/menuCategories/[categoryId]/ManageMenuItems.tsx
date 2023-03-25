@@ -9,7 +9,7 @@ import Image from "next/image";
 import AddNewItemModal from "./menuItems-Components/AddNewItemModal";
 import EditItemModal from "./menuItems-Components/EditItemModal";
 import deleteMenuItem from "@/lib/delete/deleteMenuItem";
-import { useAuthContext } from "@/app/Store";
+import { useAuthContext } from "@/app/context/Store";
 import { useSearchParams } from "next/navigation";
 import DeleteMenuItemModal from "./menuItems-Components/DeleteMenuItemModal";
 import { useSupabase } from "@/app/supabase-provider";

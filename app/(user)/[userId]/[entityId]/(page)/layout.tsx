@@ -101,7 +101,9 @@ export default async function EntityPageLayout({
             {/*  COVER PHOTOS CONTAINER */}
             <CoverPhotos entityCoverPictures={entityCoverPictures} />
             {/* HIGHLIGHTS CONTAINER */}
+
             <Highlights entityHighlights={entityHighlights} />
+            
           </div>
         </div>
 

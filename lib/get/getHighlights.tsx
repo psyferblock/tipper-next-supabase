@@ -1,6 +1,6 @@
 import { supabase } from "@/utils/supabase-browser";
 
-export async function getHighlights(entityId: number) {
+export async function getHighlights(entityId: string) {
   const { data, error } = await supabase
     .from("entity_highlight")
     .select()

@@ -1,9 +1,16 @@
 "use client";
 
 import ToggleButton from "@/app/root-Components/tools-Components/ToggleButton";
+<<<<<<< HEAD
+import { useAuthContext } from "@/app/context/Store";
+=======
 import { useAuthContext } from "@/app/Store";
 import { useSupabase } from "@/app/supabase-provider";
+<<<<<<< HEAD
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
+=======
 import updateIsMenuCategoryPublic from "@/lib/update/updateIsMenuCategoryPublic";
+>>>>>>> f999dd064c1fe0f2c51fc2ee3166bafec05eea1a
 import Link from "next/link";
 import { useEffect, useState } from "react";
 

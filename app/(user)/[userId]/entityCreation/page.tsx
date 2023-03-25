@@ -1,5 +1,9 @@
 "use client";
 
+<<<<<<< HEAD
+import { useAuthContext } from "../../../context/Store";
+=======
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
 import { supabase } from "@/utils/supabase-browser";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -27,6 +31,39 @@ export default function EntityCreationForm({ params }) {
   const userId = session?.user.id;
 
   //Functions
+<<<<<<< HEAD
+  async function createEntity() {
+    console.log("enterFunction");
+    try {
+      console.log("entered try block");
+
+      const { data, error } = await supabase
+        .from("entity")
+        .insert({
+          entity_name: entityName,
+          entity_type: entityType,
+          entity_address: entityLocation,
+          owner_name: ownerName,
+          entity_email: ownerEmailAddress,
+          entity_phone_number: ownerContactNumber,
+          owner_gender: ownerGender,
+          user_id: userId,
+          is_verified: false,
+        })
+        .select();
+
+      if (error) throw error;
+      const entityId = data[0].id;
+      console.log("entityId", entityId);
+      localStorage.setItem("entityId", JSON.stringify(entityId));
+      router.push("1/1");
+      console.log("response after entity creation", data);
+    } catch (error) {
+      if (error) {
+        throw error;
+      }
+    }
+=======
   async function handleCreateNowButton() {
     //Create the entity
     const response = await createEntity(
@@ -48,6 +85,7 @@ export default function EntityCreationForm({ params }) {
     const firstMenuCategoryId = firstMenuCategoryObject.id;
     //Redirect user to either his entity page or message from tipper
     router.push(`${userId}/${entityId}/menu/${firstMenuCategoryId}`);
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
   }
 
   return (
@@ -174,6 +212,48 @@ export default function EntityCreationForm({ params }) {
                 />
               </div>
             </div> */}
+<<<<<<< HEAD
+              {/* EMAIL ADDRESS */}
+              <div className="space-y-1">
+                <label
+                  htmlFor="names"
+                  className="text-xs text-gray-600 font-medium"
+                >
+                  Email Address*
+                </label>
+                {/* EMAIL ADDRESS INPUT FIELD */}
+                <input
+                  type="text"
+                  name="EMAIL ADDRESS"
+                  id="EMAIL ADDRESS"
+                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                  placeholder="Email Address"
+                  onChange={(e) => {
+                    setOwnerEmailAddress(e.target.value);
+                  }}
+                />
+              </div>
+              {/* CONTACT NUMBER */}
+              <div className="space-y-1">
+                <label
+                  htmlFor="names"
+                  className="text-xs text-gray-600 font-medium"
+                >
+                  Contact Number*
+                </label>
+                {/* CONTACT NUMBER INPUT FIELD */}
+                <input
+                  type="number"
+                  name="contact number"
+                  id="contact number"
+                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+                  placeholder="Contact Number"
+                  onChange={(e) => {
+                    setOwnerContactNumber(e.target.valueAsNumber);
+                  }}
+                />
+              </div>
+=======
             {/* EMAIL ADDRESS */}
             <div className="space-y-1">
               <label
@@ -214,9 +294,10 @@ export default function EntityCreationForm({ params }) {
                 }}
               />
             </div>
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
 
-            {/* GENDER RADIO BUTTON */}
-            {/* <div>
+              {/* GENDER RADIO BUTTON */}
+              {/* <div>
               <label
                 htmlFor="gender"
                 className="text-xs text-gray-600 font-medium"
@@ -277,6 +358,11 @@ export default function EntityCreationForm({ params }) {
                   >
                     Other
                   </label> */}
+<<<<<<< HEAD
+              {/* </div> */}
+            </div>
+          </div>
+=======
             {/* </div> */}
             {/* </div> */}
           </div>
@@ -287,7 +373,15 @@ export default function EntityCreationForm({ params }) {
           >
             Create Now
           </button>
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
         </div>
+        {/* CREATE ENTITY BUTTON */}
+        <button
+          onClick={createEntity}
+          className="w-full h-10 mt-5 sm:mt-10 hover:bg-blue-600 hover:text-lg rounded-3xl bg-blue-500 text-white text-sm"
+        >
+          Create Now
+        </button>
       </div>
     </div>
     // </div>

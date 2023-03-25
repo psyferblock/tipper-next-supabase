@@ -1,19 +1,20 @@
 "use client";
-import { useAuthContext } from "@/app/Store";
+import { useAuthContext } from "@/app/context/Store";
 import { useRouter } from "next/navigation";
 
 export default function EntityPageHighlightsSection({ entityHighlights }) {
   // BOOLEAN TO DETERMINE WHETHER IT IS ADD HIGHLIGHT OR SHARE BUTTON NEXT TO HIGHLIGHTS
   const userIsOwner = true;
-  const listOfHighlights = [
-    "Events",
-    "Discounts",
-    "Our Cookies",
-    "Our Customers",
-    "Our Customers",
-    "Our Customers",
-    "Our Customers",
-  ];
+  // const listOfHighlights = [
+  //   "Events",
+  //   "Discounts",
+  //   "Our Cookies",
+  //   "Our Customers",
+  //   "Our Customers",
+  //   "Our Customers",
+  //   "Our Customers",
+  // ];
+  
   const router = useRouter();
 
   const { userId, ownedEntityId } = useAuthContext();

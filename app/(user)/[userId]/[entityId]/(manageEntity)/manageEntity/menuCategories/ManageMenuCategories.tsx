@@ -7,8 +7,12 @@ import MenuCategoryCard from "./menuCategories-Components/MenuCategoryCard";
 import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import EditMenuCategoryNameModal from "./menuCategories-Components/EditMenuCategoryNameModal";
 import AddNewMenuCategoryModal from "./menuCategories-Components/AddNewMenuCategoryModal";
+<<<<<<< HEAD
+import { useAuthContext } from "@/app/context/Store";
+=======
 import { useAuthContext } from "@/app/Store";
 import DeleteMenuCategoryModal from "./menuCategories-Components/DeleteMenuCategoryModal";
+>>>>>>> f6fa4aaaf0f9f85cae5f257035fea6f563841eb4
 
 export default function ManageMenuCategories(props) {
   //Owner chooses between pdf and manually inputting items

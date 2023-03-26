@@ -31,6 +31,32 @@ export default function AddNewItemModal(props) {
   ) {
     //when "Save" in modal is clicked:
     await createMenuItem(
+      true,
+      itemName,
+      itemDescription,
+      itemPrice,
+      itemPictureUrl,
+      props.menuCategoryId
+    );
+
+    props.closeModal();
+
+    const categoryName = props.categoryName;
+    const categoryId = props.menuCategoryId;
+    //refresh page by rerouting since we cant use router.refresh since calls to DB are in page.tsx (server component)
+    router.push(
+      `${userId}/${entityId}/manageEntity/menuCategories/${categoryId}?categoryName=${categoryName}`
+    );
+  }
+
+  async function handleSaveAsDraftButton(
+    itemName: string,
+    itemDescription: string,
+    itemPrice: string
+  ) {
+    //when "Save As draft" in modal is clicked:
+    await createMenuItem(
+      false,
       itemName,
       itemDescription,
       itemPrice,
@@ -267,7 +293,13 @@ export default function AddNewItemModal(props) {
                     <button
                       type="button"
                       className="mt-3 inline-flex justify-center rounded-3xl border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={props.saveAsDraftButtonInModalIsClicked}
+                      onClick={() => {
+                        handleSaveAsDraftButton(
+                          itemName,
+                          itemDescription,
+                          itemPrice
+                        );
+                      }}
                     >
                       Save as Draft
                     </button>

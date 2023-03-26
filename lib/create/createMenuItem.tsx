@@ -1,6 +1,7 @@
 import { supabase } from "@/utils/supabase-browser";
 
 export default async function createMenuItem(
+  isPublic: boolean,
   itemName: string,
   itemDescription: string,
   itemPrice: string,
@@ -10,6 +11,7 @@ export default async function createMenuItem(
   const { data, error } = await supabase
     .from("menu_item")
     .insert({
+      is_menu_item_public: isPublic,
       item_name: itemName,
       item_price: itemPrice,
       item_description: itemDescription,

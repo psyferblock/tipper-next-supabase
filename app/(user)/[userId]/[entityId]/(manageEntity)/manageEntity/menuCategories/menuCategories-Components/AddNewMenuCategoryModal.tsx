@@ -22,7 +22,7 @@ export default function AddNewMenuCategoryModal(props) {
 
   async function handlePublishButton() {
     //After published button in modal is clicked:
-    await createMenuCategory(categoryName, entityId);
+    await createMenuCategory(categoryName, true, entityId);
 
     props.closeModal();
 
@@ -30,10 +30,15 @@ export default function AddNewMenuCategoryModal(props) {
     router.push(`${userId}/${entityId}/manageEntity/menuCategories`);
   }
 
-  // const saveAsDraftButtonInModalIsClicked = () => {
-  //   //write code to when "Save" is clicked
-  //   setIsAddCategoryModalOpen(false);
-  // };
+  async function handleSaveAsDraftButton() {
+    //After published button in modal is clicked:
+    await createMenuCategory(categoryName, false, entityId);
+
+    props.closeModal();
+
+    //refresh page by rerouting since we cant use router.refresh since calls to DB are in page.tsx (server component)
+    router.push(`${userId}/${entityId}/manageEntity/menuCategories`);
+  }
 
   return (
     <Transition.Root show={props.open} as={Fragment}>
@@ -124,7 +129,7 @@ export default function AddNewMenuCategoryModal(props) {
                     <button
                       type="button"
                       className="mt-3 inline-flex justify-center rounded-3xl border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                      onClick={props.saveAsDraftButtonInModalIsClicked}
+                      onClick={() => handleSaveAsDraftButton(categoryName)}
                     >
                       Save as Draft
                     </button>

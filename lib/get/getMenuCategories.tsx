@@ -16,7 +16,8 @@ export async function getMenuCategoriesServer(
   const { data, error } = await supabaseServerClient
     .from("menu_category")
     .select()
-    .eq("entity_id", entityId);
+    .eq("entity_id", entityId)
+    .order("id", { ascending: true });
   if (error) throw error;
   return data;
 }

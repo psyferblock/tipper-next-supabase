@@ -3,6 +3,8 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import updateMenuCategoryName from "@/lib/update/updateMenuCategoryName";
+import { useRouter } from "next/navigation";
+import { useSupabase } from "@/app/supabase-provider";
 
 export default function EditMenuCategoryNameModal(props) {
   const [categoryName, setCategoryName] = useState();
@@ -11,14 +13,23 @@ export default function EditMenuCategoryNameModal(props) {
 
   const buttonRef = useRef(null);
 
+  const router = useRouter();
+
   const currentName = props.currentName;
   useEffect(() => {
     setCategoryName(currentName);
   }, [currentName]);
 
+  const { session } = useSupabase();
+  const userId = session?.user.id;
+  const entityId = props.entityId;
+
   async function handleSaveButton() {
     //After save button in modal is clicked:
     await updateMenuCategoryName(categoryName, categoryId);
+
+    //refresh page by rerouting since we cant use router.refresh since calls to DB are in page.tsx (server component)
+    router.push(`${userId}/${entityId}/manageEntity/menuCategories`);
 
     //Close the modal
     props.closeModal();

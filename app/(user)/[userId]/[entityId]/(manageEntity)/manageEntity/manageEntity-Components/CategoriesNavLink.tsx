@@ -1,17 +1,20 @@
 "use client";
 
+import { useSupabase } from "@/app/supabase-provider";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 
 export default function CategoriesNavLink({
   categoryRoute,
   children,
+  entityId,
 }: {
   categoryRoute: string;
   children: React.ReactNode;
+  entityId: any;
 }) {
-  const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
-  const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
+  const { session } = useSupabase();
+  const userId = session?.user.id;
 
   const segment = useSelectedLayoutSegment();
   const isActive = categoryRoute == segment;

@@ -1,5 +1,6 @@
 import { getChosenEntityCardPictureServer } from "@/lib/get/getChosenEntityCardPicture";
 import { getFirstMenuCategoryIdServer } from "@/lib/get/getFirstMenuCategoryId";
+import { getMenuCategoriesServer } from "@/lib/get/getMenuCategories";
 import { createServerClient } from "@/utils/supabase-server";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,10 +11,9 @@ export default async function EntityCard(props) {
   console.log("entity id:", entityId);
   //Fetching from DB
   const supabase = createServerClient();
-  const firstMenuCategoryId = await getFirstMenuCategoryIdServer(
-    supabase,
-    entityId
-  );
+  const menuCategories = await getMenuCategoriesServer(supabase, entityId);
+
+  const firstMenuCategoryId = menuCategories[0]?.id;
   // const userId = props.userId;
   const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
 

@@ -1,4 +1,5 @@
 import { getFirstMenuCategoryIdServer } from "@/lib/get/getFirstMenuCategoryId";
+import { getMenuCategoriesServer } from "@/lib/get/getMenuCategories";
 import { createServerClient } from "@/utils/supabase-server";
 import Link from "next/link";
 import CategoriesNavLink from "./manageEntity-Components/CategoriesNavLink";
@@ -12,10 +13,12 @@ export default async function ManageEntityLayout({
 }) {
   //Fetching from DB
   const supabase = createServerClient();
-  const firstMenuCategoryId = await getFirstMenuCategoryIdServer(
+  const menuCategoryIds = await getMenuCategoriesServer(
     supabase,
     params.entityId
   );
+
+  const firstMenuCategoryId = menuCategoryIds[0]?.id;
 
   const managementCategories = [
     {
@@ -69,7 +72,10 @@ export default async function ManageEntityLayout({
         <div className="hidden sm:block sm:flex-none sm:w-80 h-fit">
           <div className="rounded-lg bg-white mr-4 py-6 flex flex-col drop-shadow-lg">
             {managementCategories.map((category) => (
-              <CategoriesNavLink categoryRoute={category.route}>
+              <CategoriesNavLink
+                entityId={params.entityId}
+                categoryRoute={category.route}
+              >
                 {category.name}
               </CategoriesNavLink>
             ))}

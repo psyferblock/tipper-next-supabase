@@ -9,6 +9,14 @@ export default async function ManageMenuCategoriesPage({ params }) {
     supabase,
     params.entityId
   );
+
+  const firstMenuCategoryId = menuCategories[0].id;
   // console.log("menu categgg", menuCategories);
-  return <ManageMenuCategories menuCategories={menuCategories} />;
+  return (
+    <ManageMenuCategories
+      entityId={params.entityId}
+      menuCategories={menuCategories}
+      firstMenuCategoryIdOfEntity={firstMenuCategoryId}
+    />
+  );
 }

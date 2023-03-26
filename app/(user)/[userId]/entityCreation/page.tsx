@@ -23,10 +23,8 @@ export default function EntityCreationForm({ params }) {
   >();
 
   const [listOfEntityTypes, setListOfEntityTypes] = useState([]);
-  const [entityTypeObjectSelected, setEntityTypeObjectSelected] = useState();
+  const [entityTypeNameSelected, setEntityTypeNameSelected] = useState();
 
-  console.log("entityTypeObjectSelected", entityTypeObjectSelected);
-  console.log("listOfEntityTypes", listOfEntityTypes);
   useEffect(() => {
     async function getTypes() {
       const response = await getEntityTypes();
@@ -42,9 +40,16 @@ export default function EntityCreationForm({ params }) {
 
   //Functions
   async function handleCreateNowButton() {
-    const entityTypeId = entityTypeObjectSelected?.id;
-    const tagsArray = [];
-    tagsArray.concat(entityTypeObjectSelected?.entity_type_name);
+    //Finding the entity type's id
+    let entityTypeId;
+    listOfEntityTypes.map((entityTypeObject) => {
+      if (entityTypeObject.entity_type_name == entityTypeNameSelected) {
+        entityTypeId = entityTypeObject.id;
+      }
+    });
+
+    const arrOfTags = [entityTypeNameSelected];
+
     //Create the entity
     const response = await createEntity(
       userId,
@@ -53,7 +58,7 @@ export default function EntityCreationForm({ params }) {
       entityAddress,
       entityEmailAddress,
       entityPhoneNumber,
-      tagsArray
+      arrOfTags
     );
 
     const entityId = response.id;
@@ -140,7 +145,7 @@ export default function EntityCreationForm({ params }) {
                 className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
                 placeholder="Select a type"
                 onChange={(e) => {
-                  setEntityTypeObjectSelected(e.target.value);
+                  setEntityTypeNameSelected(e.target.value);
                 }}
               >
                 {listOfEntityTypes.map((entityTypeObject) => (

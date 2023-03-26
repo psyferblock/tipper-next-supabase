@@ -6,6 +6,7 @@ import BasicInfosSection from "./manageUserProfile-Components/BasicInfosSection"
 import { getFirstMenuCategoryIdServer } from "@/lib/get/getFirstMenuCategoryId";
 import { createServerClient } from "@/utils/supabase-server";
 import getEntityOfUserServer from "@/lib/get/getEntityOfUser";
+import { getMenuCategoriesServer } from "@/lib/get/getMenuCategories";
 
 export default async function ManageUserProfilePage({ params }) {
   //Getting the session from the cookies
@@ -29,10 +30,12 @@ export default async function ManageUserProfilePage({ params }) {
     entityOwnedId = response.id;
 
     //Fetching the name of the first menu category to include in URL in case user accesses his entity
-    firstMenuCategoryId = await getFirstMenuCategoryIdServer(
+    const menuCategories = await getMenuCategoriesServer(
       supabase,
       entityOwnedId
     );
+
+    firstMenuCategoryId = menuCategories[0]?.id;
   }
 
   return (

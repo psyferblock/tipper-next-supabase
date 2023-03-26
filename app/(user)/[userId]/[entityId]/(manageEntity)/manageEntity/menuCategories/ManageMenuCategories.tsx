@@ -30,6 +30,8 @@ export default function ManageMenuCategories(props) {
     useState(false);
   const [menuCategoryIdToDelete, setMenuCategoryIdToDelete] = useState();
 
+  const firstMenuCategoryIdOfEntity = props.firstMenuCategoryIdOfEntity;
+
   function handleEditCategoryNameButton(categoryId) {
     setEditNameCategoryId(categoryId);
     menuCategories.map((category) => {
@@ -62,7 +64,7 @@ export default function ManageMenuCategories(props) {
     setIsDeleteMenuCategoryModalOpen(false);
   };
 
-  const entityId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
+  const entityId = props.entityId;
 
   return (
     <>
@@ -169,6 +171,7 @@ export default function ManageMenuCategories(props) {
                   <MenuCategoryCard
                     categoryName={category.menu_category_name}
                     categoryId={category.id}
+                    firstMenuCategoryIdOfEntity={firstMenuCategoryIdOfEntity}
                     isMenuCategoryPublic={category.is_menu_category_public}
                     openEditNameModal={handleEditCategoryNameButton}
                     openDeleteMenuCategoryModal={handleDeleteCategoryButton}
@@ -189,6 +192,7 @@ export default function ManageMenuCategories(props) {
         closeModal={closeEditCategoryNameModal}
         currentName={categoryNameInEditCategoryNameModal}
         categoryId={editNameCategoryId}
+        entityId={entityId}
       />
       <AddNewMenuCategoryModal
         open={isAddCategoryModalOpen}

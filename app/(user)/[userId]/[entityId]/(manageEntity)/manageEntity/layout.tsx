@@ -1,8 +1,9 @@
-import { getFirstMenuCategoryIdServer } from "@/lib/get/getFirstMenuCategoryId";
 import { getMenuCategoriesServer } from "@/lib/get/getMenuCategories";
 import { createServerClient } from "@/utils/supabase-server";
 import Link from "next/link";
 import CategoriesNavLink from "./manageEntity-Components/CategoriesNavLink";
+import { managementCategories } from "./manageEntity-Components/ManagementCategories";
+import MobileDropdownManagement from "./manageEntity-Components/MobileDropdownManagement";
 
 export default async function ManageEntityLayout({
   children,
@@ -20,32 +21,20 @@ export default async function ManageEntityLayout({
 
   const firstMenuCategoryId = menuCategoryIds[0]?.id;
 
-  const managementCategories = [
-    {
-      name: "Menu",
-      route: "menuCategories",
-    },
-    {
-      name: "Exchange Rate",
-      route: "exchangeRate",
-    },
-    {
-      name: "General Information",
-      route: "entityInfo",
-    },
-    {
-      name: "Highlight",
-      route: "highlights",
-    },
-    {
-      name: "QR Code",
-      route: "qrCode",
-    },
-  ];
-
   return (
     <div className="bg-gray-300 sm:h-fit sm:min-h-screen px-3 sm:px-12 pt-0 pb-7 sm:py-8">
-      {/* PAGE BG COLOR AND PADDING  */}
+      {/* //////////////////////////////////////////////////////////////////// */}
+      {/* MOBILEEEEEE */}
+      <div className="px-3 flex items-center justify-between sm:hidden h-14 sm:pl-16 sm:h-fit py-3 sm:pt-6 sm:mt-0 sm:pb-5 bg-gray-300 w-full z-50 sm:z-0 fixed sm:relative sm:mb-0 text-2xl sm:text-2xl font-bold sm:font-bold">
+        <div>Manage Menu</div>
+        <div className="sm:hidden">
+          <MobileDropdownManagement />
+        </div>
+      </div>
+      <div className="h-14 sm:h-0"></div>
+      {/* //////////////////////////////////////////////////////////////////// */}
+
+      {/* DESKTOPPPPPPP */}
       <Link
         href={`${params.userId}/${params.entityId}/menu/${firstMenuCategoryId}`}
         className="hidden sm:flex w-fit items-center font-bold text-2xl pt-6 pb-4"

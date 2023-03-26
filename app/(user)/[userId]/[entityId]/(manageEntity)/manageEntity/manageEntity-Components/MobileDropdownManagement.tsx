@@ -2,12 +2,19 @@
 
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import Link from "next/link";
+import { useSupabase } from "@/app/supabase-provider";
+import { managementCategories } from "./ManagementCategories";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function ManagementNavigationDropdownMobile() {
+export default function ManagementNavigationDropdownMobile(props) {
+  const { session } = useSupabase();
+  const userId = session?.user.id;
+
+  const entityId = "51b7fa04-ef39-41ca-97a2-6d73a1ed413f";
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -42,86 +49,21 @@ export default function ManagementNavigationDropdownMobile() {
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-[170px] origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/management/menu"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Menu
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/management/exchangeRate"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Exchange Rate
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/management/entityInfo"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  General Information
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/management/highlightReels"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Highlight Reels
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/management/inventory"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm"
-                  )}
-                >
-                  Inventory
-                </a>
-              )}
-            </Menu.Item>
-            {/* <form method="POST" action="#"> */}
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="/management/qrCode"
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block w-full px-4 py-2 text-left text-sm"
-                  )}
-                >
-                  QR Code
-                </a>
-              )}
-            </Menu.Item>
-            {/* </form> */}
+            {managementCategories.map((categoryObject) => (
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    href={`${userId}/${entityId}/manageEntity/${categoryObject.route}`}
+                    className={classNames(
+                      active ? "bg-gray-100 text-blue-600" : "text-gray-700",
+                      "block px-4 py-2 text-sm"
+                    )}
+                  >
+                    {categoryObject.name}
+                  </Link>
+                )}
+              </Menu.Item>
+            ))}
           </div>
         </Menu.Items>
       </Transition>

@@ -43,9 +43,9 @@ export default function MenuCategoryCard(props) {
                 alt=""
               />
             </div>
-            <p className="hidden sm:block text-center font-semibold text-gray-700">
+            <div className="hidden sm:block text-center font-semibold text-gray-700">
               {props.categoryName}
-            </p>
+            </div>
           </div>
         </Link>
 
@@ -53,18 +53,18 @@ export default function MenuCategoryCard(props) {
         <div className="sm:hidden w-full flex justify-between">
           <div className="sm:hidden ml-2 space-y-2">
             <Link
-              href={`${userId}/${entityId}/manageEntity/menuCategories/${props.categoryId}`}
+              href={`${userId}/${entityId}/manageEntity/menuCategories/${categoryId}?categoryName=${categoryName}`}
             >
-              <p className="sm:hidden text-start mr-2 font-semibold text-gray-700">
+              <div className="sm:hidden text-start mr-2 font-semibold text-gray-700">
                 {props.categoryName}
-              </p>
+              </div>
             </Link>
             <div className="text-sm flex text-start space-x-2 ">
               <ToggleButton
                 switchedOn={isMenuCategoryPublic}
                 handleToggleButton={handleToggleButton}
               />
-              <p>Publish</p>
+              <div>Publish</div>
             </div>
           </div>
           <button

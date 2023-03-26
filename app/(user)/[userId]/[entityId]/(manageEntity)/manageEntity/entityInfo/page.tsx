@@ -12,19 +12,6 @@ export default function ManageEntityInfosPage({ params }) {
   return (
     <>
       <div className="flex flex-col w-full pb-10">
-        {/* DROPDOWN MENU FOR MANAGEMENT FOR MOBILE VERSION */}
-        <div className="sm:hidden w-full fixed py-3 z-50 bg-gray-300 flex items-center justify-between">
-          <div className="sm:hidden font-bold text-2xl ">
-            Manage General Info
-          </div>
-          <div className="sm:hidden">
-            <MobileDropdownManagement />
-          </div>
-        </div>
-
-        {/* DIV USED TO COMPENSATE FOR NAVBAR HEIGHT */}
-        <div className="h-24 sm:h-0"></div>
-
         <div className="space-y-5">
           {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
           <ManageLogo />

@@ -10,14 +10,6 @@ export default async function ManageExchangeRatePage({ params }) {
   return (
     <>
       <div className="flex flex-col space-y-5 sm:space-y-0 w-full">
-        <div className="flex items-center justify-between">
-          <div className="sm:hidden font-bold text-2xl ">
-            Manage Exchange Rate
-          </div>
-          <div className="sm:hidden">
-            <MobileDropdownManagement />
-          </div>
-        </div>
         {/* ANNOUNCEMENT BANNERS CONTAINER */}
         <div className="h-fit  bg-white rounded-lg p-4 drop-shadow-lg">
           <div className="hidden sm:block text-lg font-bold grow">
@@ -27,7 +19,7 @@ export default async function ManageExchangeRatePage({ params }) {
 
           {/* "Caption Goes here" */}
           <div className="text-xs">
-            Input the exchange rate at which your restaurant operates today
+            Input the exchange rate at which your entity operates today
           </div>
           <div className="sm:flex items-center sm:space-x-6 pt-5">
             {/* PRICE INPUT FIELD */}

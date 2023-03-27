@@ -16,8 +16,8 @@ export default function CategoriesNavLink({
   const { session } = useSupabase();
   const userId = session?.user.id;
 
-  const segment = useSelectedLayoutSegment();
-  const isActive = categoryRoute == segment;
+  const currentSegment = useSelectedLayoutSegment();
+  const isActive = categoryRoute == currentSegment;
   return (
     <Link
       href={`/${userId}/${entityId}/manageEntity/${categoryRoute}`}

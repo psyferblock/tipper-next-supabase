@@ -5,6 +5,7 @@ import { Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { useSupabase } from "@/app/supabase-provider";
 import { managementCategories } from "./ManagementCategories";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -13,6 +14,8 @@ function classNames(...classes) {
 export default function ManagementNavigationDropdownMobile(props) {
   const { session } = useSupabase();
   const userId = session?.user.id;
+
+  const currentSegment = useSelectedLayoutSegment();
 
   const entityId = "51b7fa04-ef39-41ca-97a2-6d73a1ed413f";
   return (
@@ -51,17 +54,21 @@ export default function ManagementNavigationDropdownMobile(props) {
           <div className="py-1">
             {managementCategories.map((categoryObject) => (
               <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    href={`${userId}/${entityId}/manageEntity/${categoryObject.route}`}
-                    className={classNames(
-                      active ? "bg-gray-100 text-blue-600" : "text-gray-700",
-                      "block px-4 py-2 text-sm"
-                    )}
-                  >
-                    {categoryObject.name}
-                  </Link>
-                )}
+                {() => {
+                  const isActive = categoryObject.route == currentSegment;
+                  return (
+                    <Link
+                      href={`${userId}/${entityId}/manageEntity/${categoryObject.route}`}
+                      className={
+                        isActive
+                          ? "text-sm text-blue-600 px-6 py-2 flex justify-start bg-gray-100 "
+                          : "text-sm text-black px-6 py-2 flex justify-start focus:text-blue-600 focus:bg-gray-100 hover:text-blue-600 hover:bg-gray-100"
+                      }
+                    >
+                      {categoryObject.name}
+                    </Link>
+                  );
+                }}
               </Menu.Item>
             ))}
           </div>

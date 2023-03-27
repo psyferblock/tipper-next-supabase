@@ -8,8 +8,6 @@ import Link from "next/link";
 import Image from "next/image";
 import AddNewItemModal from "./menuItems-Components/AddNewItemModal";
 import EditItemModal from "./menuItems-Components/EditItemModal";
-import deleteMenuItem from "@/lib/delete/deleteMenuItem";
-import { useAuthContext } from "@/app/context/Store";
 import { useSearchParams } from "next/navigation";
 import DeleteMenuItemModal from "./menuItems-Components/DeleteMenuItemModal";
 import { useSupabase } from "@/app/supabase-provider";
@@ -160,13 +158,19 @@ export default function ManageMenuItems({
                     {menuItems.map((item) => (
                       <tr>
                         <td>
-                          <div className="my-3">
+                          <div className="my-3 flex items-center">
                             <td>
-                              <img
-                                className="inline-block w-10 h-10 mr-3 rounded-full ring-2 ring-white"
-                                src={item.item_picture_url}
-                                alt=""
-                              />
+                              <div className="relative w-10 h-10 mr-3 rounded-full ring-2 ring-white overflow-hidden">
+                                <Image
+                                  src={
+                                    item.item_picture_url
+                                      ? item.item_picture_url
+                                      : ""
+                                  }
+                                  alt=""
+                                  fill
+                                />
+                              </div>
                             </td>
                             <td>{item.item_name}</td>
                           </div>

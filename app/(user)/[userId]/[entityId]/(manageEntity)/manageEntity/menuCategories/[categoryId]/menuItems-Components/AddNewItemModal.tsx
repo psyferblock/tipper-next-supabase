@@ -157,8 +157,8 @@ export default function AddNewItemModal(props) {
                       </div>
                       {/* ITEM NAME */}
                       <div className="flex justify-between text-xs">
-                        <p>Item Name</p>
-                        <p className="text-gray-400">150</p>
+                        <div>Item Name</div>
+                        <div className="text-gray-400">150</div>
                       </div>
                       {/* ITEM NAME INPUT FIELD */}
                       <input
@@ -173,8 +173,8 @@ export default function AddNewItemModal(props) {
                       />
                       {/* ITEM DESCRIPTION */}
                       <div className="flex justify-between text-xs">
-                        <p>Item Description</p>
-                        <p className="text-gray-400">150</p>
+                        <div>Item Description</div>
+                        <div className="text-gray-400">150</div>
                       </div>
                       {/* DESCRIPTION INPUT FIELD */}
                       <input
@@ -188,14 +188,14 @@ export default function AddNewItemModal(props) {
                       />
                       {/* PRICE */}
                       <div className="flex justify-between text-xs pb-1">
-                        <p>Price</p>
-                        <p className="text-gray-400">150</p>
+                        <div>Price</div>
+                        <div className="text-gray-400">150</div>
                       </div>
                       {/* PRICE INPUT FIELD */}
                       <div className="flex py-4 items-center border border-gray-300 hover:border-indigo-500 hover:border-2 rounded-lg h-12 pl-4 mb-4">
-                        <p className="h-12 pt-3 text-gray-500 pr-4 border-r border-gray-300">
+                        <div className="h-12 pt-3 text-gray-500 pr-4 border-r border-gray-300">
                           USD
-                        </p>
+                        </div>
                         <input
                           type="number"
                           id="price"
@@ -208,7 +208,7 @@ export default function AddNewItemModal(props) {
                       </div>
                       {/* IMAGE */}
                       <div className="w-full">
-                        <p className="text-xs text-start">Image</p>
+                        <div className="text-xs text-start">Image</div>
                         {/* IMAGE CONTAINER */}
                         <div className="relative bg-gray-100 mt-1 h-36 sm:h-56 w-full flex justify-center rounded-md border-2 border-dashed border-gray-400 px-6 pt-5 sm:pt-[52px] ">
                           {itemPictureUrl ? (
@@ -273,11 +273,11 @@ export default function AddNewItemModal(props) {
                                     }}
                                   />
                                 </label>
-                                <p className="pl-1">or drag and drop</p>
+                                <div className="pl-1">or drag and drop</div>
                               </div>
-                              <p className="text-xs text-gray-500">
+                              <div className="text-xs text-gray-500">
                                 PNG, JPG, GIF up to 10MB
-                              </p>
+                              </div>
                             </div>
                           )}
                         </div>

@@ -23,14 +23,31 @@ export default function ExchangeRateInputField({ exchangeRate, entityId }) {
           id="price"
           value={newExchangeRate}
           onChange={(e) => setNewExchangeRate(e.target.value)}
-          className="h-6 block w-full border-0 pl-4 pr-12 my-0.5 py-0 focus:border-0 focus:ring-0 sm:text-sm"
+          className="h-6 block w-3/5 border-0 pl-4 pr-12 my-0.5 py-0 focus:border-0 focus:ring-0 sm:text-sm"
           placeholder="1506.00"
           disabled={!editing}
         />
+        <div className="pt-4 sm:hidden ">
+          {editing ? (
+            <button
+              onClick={() => handleApplyButton()}
+              className=" h-fit block text-blue-500 pb-4"
+            >
+              Apply
+            </button>
+          ) : (
+            <button
+              onClick={() => setEditing(true)}
+              className=" h-fit block text-blue-500 pb-4"
+            >
+              Edit
+            </button>
+          )}
+        </div>
       </div>
 
       {/* "EQUIVALENT" ICON FOR MOBILE SCREENS */}
-      <div className="sm:hidden">
+      <div className="sm:hidden pr-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

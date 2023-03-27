@@ -4,7 +4,7 @@ import React from "react";
 
 export default function CopyUrlShareWhatsappButtons() {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center">
       <Link
         href="whatsapp://send?text=This is WhatsApp sharing example using link"
         className="flex items-center space-x-1 text-[#128c7e] hover:text-green-500"

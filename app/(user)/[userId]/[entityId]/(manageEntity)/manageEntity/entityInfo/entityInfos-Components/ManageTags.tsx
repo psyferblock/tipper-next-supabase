@@ -49,8 +49,8 @@ export default function ManageTags() {
       {/* TAGS ROW */}
       <div className=" grid grid-flow-col gap-3 pb-3 sm:pb-2 px-1 sm:px-2 sm:py-1 overflow-x-auto sm:space-x-3">
         {tags?.map((tag) => (
-          <div className=" px-2 py-1 flex w-fit items-center space-x-3 justify-between bg-gray-100 rounded-lg text-black text-xs  drop-shadow-md">
-            <div>{tag}</div>
+          <div className="px-2 py-1 w-fit flex items-center justify-between bg-gray-100 rounded-lg text-black text-xs  drop-shadow-md">
+            <div className="w-fit mr-3">{tag}</div>
             <button onClick={() => handleDeleteTagButton(tag)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

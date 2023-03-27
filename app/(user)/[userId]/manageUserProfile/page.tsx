@@ -40,9 +40,9 @@ export default async function ManageUserProfilePage({ params }) {
 
   return (
     <>
-      <p className="h-14 pl-3 sm:pl-16 sm:h-fit pt-3 sm:pt-6 sm:mt-0 sm:pb-5 bg-gray-300 w-full z-50 sm:z-0 fixed sm:relative sm:mb-0 text-2xl sm:text-2xl font-bold sm:font-bold">
+      <div className="h-14 pl-3 sm:pl-16 sm:h-fit pt-3 sm:pt-6 sm:mt-0 sm:pb-5 bg-gray-300 w-full z-50 sm:z-0 fixed sm:relative sm:mb-0 text-2xl sm:text-2xl font-bold sm:font-bold">
         Profile
-      </p>
+      </div>
       <div className="h-14 sm:h-0"></div>
       <div className=" sm:h-fit sm:min-h-screen px-3 sm:px-12 py-2 sm:py-8">
         <div className="space-y-8 ">
@@ -51,14 +51,29 @@ export default async function ManageUserProfilePage({ params }) {
             <div className="bg-white drop-shadow-lg rounded-lg sm:rounded-lg sm:h-fit sm:w-fit pt-2  pb-3  sm:py-5 px-4 sm:px-6">
               <div className="sm:flex sm:items-center sm:justify-between">
                 <div className="sm:flex sm:flex-col pb-3 sm:pb-0">
-                  <div className=" sm:pb-2 sm:font-semibold text-xl sm:text-xl sm:grow">
-                    Create an Entity
-                  </div>
-                  <p className="sm:font-normal text-sm sm:text-xs sm:w-8/12">
-                    Lorem ipsum blablabla however you would like to create your
-                    entiy you can for the best of your ability to tule the world
-                    and the heavens and then all the kingdom.
-                  </p>
+                  {userOwnsEntity ? (
+                    <>
+                      <div className=" sm:pb-2 sm:font-semibold text-xl sm:text-xl sm:grow">
+                        Access Your Entity
+                      </div>
+                      <div className="sm:font-normal text-sm sm:text-xs sm:w-8/12">
+                        Lorem ipsum blablabla however you would like to create
+                        your entiy you can for the best of your ability to tule
+                        the world and the heavens and then all the kingdom.
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className=" sm:pb-2 sm:font-semibold text-xl sm:text-xl sm:grow">
+                        Create an Entity
+                      </div>
+                      <div className="sm:font-normal text-sm sm:text-xs sm:w-8/12">
+                        Lorem ipsum blablabla however you would like to create
+                        your entiy you can for the best of your ability to tule
+                        the world and the heavens and then all the kingdom.
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 {/* ACCESS OR CREATE ENTITY BUTTON */}

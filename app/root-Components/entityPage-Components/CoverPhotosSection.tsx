@@ -13,7 +13,7 @@ export default function EntityPageCoverPhotosSection({ entityCoverPictures }) {
     //   }}
     // ></div>
 
-    <div className="h-40 sm:h-[360px] sm:w-full bg-gray-300 rounded-lg drop-shadow-lg sm:px-6">
+    <div className="h-40 sm:h-[360px] sm:w-full bg-gray-300 rounded-lg overflow-hidden drop-shadow-lg sm:px-6">
       <Carousel autoSlide={true} autoSlideInterval={3000}>
         {slides.map((slide) => (
           <img alt="cover-photo" src={slide} />

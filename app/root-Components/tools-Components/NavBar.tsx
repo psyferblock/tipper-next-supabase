@@ -30,6 +30,7 @@ export default async function Navbar({ session }) {
 
         {session ? (
           <div className="flex items-center space-x-4 sm:space-x-2 ">
+            {/* SEARCH ICON */}
             <button className="sm:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -59,23 +60,28 @@ export default async function Navbar({ session }) {
                   <Image src={DefaultProfilePicture} alt="" fill />
                 )}
               </div>
-              {/* <img
-                className="w-6 h-6 inline-block rounded-full sm:ring-2 "
-                src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
-              /> */}
               <div className="hover:text-sky-400 text-white text-sm sm:text-sm pt-1 sm:pt-0 font-light sm:font-normal">
                 My account
               </div>
             </Link>
 
             {/* MOBILE VERSION */}
-            <Link href="userProfile" className="sm:hidden">
-              <img
+            <Link
+              href={`${userId}/manageUserProfile`}
+              className="pt-2 sm:hidden"
+            >
+              <div className="relative w-6 h-6 inline-block rounded-full ring-2 overflow-hidden">
+                {profilePictureUrl ? (
+                  <Image src={profilePictureUrl} alt="profile picture" fill />
+                ) : (
+                  <Image src={DefaultProfilePicture} alt="" fill />
+                )}
+              </div>
+              {/* <img
                 className="w-6 h-6 inline-block rounded-full sm:ring-2 "
                 src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                 alt=""
-              />
+              /> */}
             </Link>
             <NavBarSignOutButton />
           </div>

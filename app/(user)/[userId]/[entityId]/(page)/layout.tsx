@@ -60,7 +60,7 @@ export default async function EntityPageLayout({
   return (
     <>
       {/* MOBILE "MANAGE ENTITY" */}
-      <div className="flex items-center justify-between sm:hidden h-14 px-3 bg-gray-300 w-full z-50 fixed text-2xl font-bold">
+      {/* <div className="flex items-center justify-between sm:hidden h-16 px-3 bg-gray-300 w-full z-50 fixed text-2xl font-bold">
         <div>
           <div>{entityInfos.entity_name}</div>
           <CopyUrlShareWhatsappButtons />
@@ -68,14 +68,30 @@ export default async function EntityPageLayout({
         {userOwnsEntity && (
           <Link
             href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}
-            className="h-fit rounded-3xl mt-1 text-blue-500 text-xs"
+            className="h-fit rounded-3xl text-blue-500 pb-2 text-sm "
           >
-            Manage Entity
+            Manage
           </Link>
         )}
+      </div> */}
+
+      <div className=" sm:hidden h-16 px-3 bg-gray-300 w-full z-50 fixed text-2xl font-bold">
+        <div className="flex items-center justify-between">
+          <div>{entityInfos.entity_name}</div>
+          {userOwnsEntity && (
+            <Link
+              href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}
+              className="h-fit rounded-3xl text-blue-500 pt-3 text-sm "
+            >
+              Manage Entity
+            </Link>
+          )}
+        </div>
+        <CopyUrlShareWhatsappButtons />
       </div>
+
       {/* THIS DIV IS FOR MOBILE VERSION ONLY: EXTRA SPACE TO COMPENSATE FOR NAVBAR HEIGHT */}
-      <div className="h-14 sm:h-0"></div>
+      <div className="h-16 sm:h-0"></div>
 
       {/* DESKTOP "MANAGE ENTITY" */}
       <div className=" sm:h-fit sm:min-h-screen px-3 sm:px-12 py-3 sm:py-8">

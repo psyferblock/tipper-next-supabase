@@ -14,7 +14,7 @@ export default function EntityPageHighlightsSection({ entityHighlights }) {
   //   "Our Customers",
   //   "Our Customers",
   // ];
-  
+
   const router = useRouter();
 
   const { userId, ownedEntityId } = useAuthContext();
@@ -26,7 +26,7 @@ export default function EntityPageHighlightsSection({ entityHighlights }) {
     <div className="flex sm:space-x-3">
       <div className="h-fit rounded-lg py-2 sm:drop-shadow-lg text-xs grid grid-rows-1 grid-flow-col gap-2 sm:gap-6 overflow-x-auto">
         {entityHighlights.map((highlight) => (
-          <button className="drop-shadow-lg sm:drop-shadow-none h-[68px] sm:h-[116px] w-[68px] sm:w-[116px] rounded-full bg-white font-semibold ">
+          <button className="truncate drop-shadow-lg sm:drop-shadow-none h-[68px] sm:h-[116px] w-[68px] sm:w-[116px] rounded-full bg-white font-semibold ">
             {highlight.highlight_name}
           </button>
         ))}

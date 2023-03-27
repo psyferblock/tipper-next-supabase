@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useSupabase } from "../supabase-provider";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
-
 // import dynamic from "next/dynamic";
 
 export default function SignInPage() {
@@ -14,15 +13,14 @@ export default function SignInPage() {
   const [password, setPassword] = useState<string | undefined>();
   const [open, setOpen] = useState(false);
 
-
   const router = useRouter();
 
   const handleBackButton = () => {
     router.back();
   };
 
-   // handle toggle
-   const toggle = () => {
+  // handle toggle
+  const toggle = () => {
     setOpen(!open);
   };
 
@@ -65,7 +63,7 @@ export default function SignInPage() {
         </div>
         {/* //////////////////////////////////////////////////////////////////////////////////// */}
         {/* RIGHT PART OF SCREEN */}
-        <div className="bg-white grow sm:py-28 sm:px-40">
+        <div className="bg-white grow sm:py-28 sm:px-40 sm:h-screen h-fit">
           <div className="mb-9 text-center sm:text-start">
             <div className="text-3xl font-bold ">Sign In</div>
             <div className="italic text-sm font-light">
@@ -101,8 +99,8 @@ export default function SignInPage() {
               >
                 Password*
               </label>
-              {/* EMAIL ADDRESS INPUT FIELD */}
-              <div className="w-4/5 mx-auto mt-52 relative md:w-2/5">
+              {/* PASSWORD INPUT FIELD */}
+              <div className="w-full relative">
                 <input
                   type={open === false ? "password" : "text"}
                   id="password"
@@ -121,8 +119,8 @@ export default function SignInPage() {
                 </div>
               </div>
             </div>
-            </div>
-          
+          </div>
+
           {/* SIGN IN BUTTON */}
           <button
             className="w-full h-10 mt-8 hover:bg-blue-600 hover:text-lg rounded-3xl bg-blue-500 text-white text-sm"
@@ -145,4 +143,6 @@ export default function SignInPage() {
   );
 }
 
-{/* // export default dynamic(() => Promise.resolve(SignIn), { ssr: false }); */}
+{
+  /* // export default dynamic(() => Promise.resolve(SignIn), { ssr: false }); */
+}

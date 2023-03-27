@@ -17,8 +17,10 @@ export default async function ManageUserProfilePage({ params }) {
 
   const userId = session?.user.id;
 
+  console.log("FINALLLYYYY", session);
   //Getting a user's profile information
   const userInfos = await getMyUserInfosServer(supabase, userId);
+  console.log("userInfos", userInfos);
 
   let userOwnsEntity;
   let entityOwnedId;

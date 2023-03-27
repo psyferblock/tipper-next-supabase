@@ -19,10 +19,10 @@ export default async function EntitiesBySectorPage({ userId }) {
   return (
     <div>
       <div className="flex items-center justify-between pb-2 sm:pb-4">
-        <p className="font-bold text-lg sm:mx-auto">Popular Entities</p>
+        <div className="font-bold text-lg sm:mx-auto">Popular Entities</div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 ml-7">
         {verifiedEntities.map((entity) => (
           <EntityCard entity={entity} />
         ))}

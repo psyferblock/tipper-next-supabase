@@ -19,11 +19,10 @@ export default function SignUpPage() {
   const toggle = () => {
     setOpen(!open);
   };
-   // handle toggle
-   const toggle2 = () => {
+  // handle toggle
+  const toggle2 = () => {
     setConfirmOpen(!confirmOpen);
   };
-
 
   const router = useRouter();
 
@@ -32,6 +31,12 @@ export default function SignUpPage() {
   };
 
   async function handleSignUpButton() {
+    //CHECKING if passwords match
+    if (password != confirmPassword) {
+      alert("passwords are not aligned");
+    }
+
+    //Signing up the user
     const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
@@ -39,10 +44,7 @@ export default function SignUpPage() {
     if (error) throw error;
     const userId = data.user?.id;
     console.log("userId after sign up", userId);
-    if(password!=confirmPassword){
-      alert("passwords are not aligned");
 
-    }
     if (password === confirmPassword) {
       await createUserProfile(userId, email);
       router.back();

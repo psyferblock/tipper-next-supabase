@@ -39,7 +39,7 @@ export default function ManageCoverPhotos() {
     });
     setArrayOfPictureObjects(newArray);
   }
-  console.log("array of pics:", arrayOfPictureObjects);
+  console.log("array of pics in manage cover photos:", arrayOfPictureObjects);
 
   async function handleDeletePictureButton(deletedPicutreObject) {
     //Locating which picture should be deleted is based on the URL of the picture (could be done with
@@ -93,37 +93,20 @@ export default function ManageCoverPhotos() {
             }}
           />
         </label>
-
-        {/* <button
-          className="hidden sm:flex text-blue-500 items-center space-x-1"
-          onChange={(e) => {
-            handleUploadImageButton(e);
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={3}
-            stroke="currentColor"
-            className="w-4 h-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-          Add Slide
-        </button> */}
       </div>
       {/* "Caption Goes here" */}
       <div className="text-xs">
         These pictures will appear as a slideshow at the top of your entity's
         page. (Supported formats: PNG, JPG, GIF, JPEG)
       </div>
+
+      {/* ///////////////////////////////////////////////////////////////// */}
       {/* MOBILE BUTTON */}
-      <button className="sm:hidden flex text-blue-500 items-center space-x-1">
+
+      <label
+        htmlFor="add slide mobile"
+        className="sm:hidden w-fit cursor-pointer flex text-blue-500 items-center space-x-1"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -138,12 +121,23 @@ export default function ManageCoverPhotos() {
             d="M12 4.5v15m7.5-7.5h-15"
           />
         </svg>
-        Add Slide
-      </button>
+        <span>Add Slide</span>
+        <input
+          id="add slide mobile"
+          name="add slide mobile"
+          type="file"
+          className="sr-only"
+          onChange={(e) => {
+            handleUploadImageButton(e);
+          }}
+        />
+      </label>
+      {/* ///////////////////////////////////////////////////////////////// */}
+
       {/* UPLOAD PICTURE FIELD */}
       <div className=" space-x-4 sm:space-x-4 grid grid-rows-1 grid-flow-col overflow-x-auto">
         {/* CONTAINER TO UPLOAD PICTURE */}
-        <div className="bg-gray-100 flex  h-56 rounded-lg border-2 border-dashed border-gray-400 my-4">
+        <div className="bg-gray-100 flex  sm:h-56 h-40 rounded-lg border-2 border-dashed border-gray-400 my-4">
           {!arrayOfPictureObjects.length && (
             <div className=" mx-auto rounded-md  pt-[52px] ">
               <div className="space-y-1 text-center">
@@ -175,7 +169,7 @@ export default function ManageCoverPhotos() {
             {arrayOfPictureObjects ? (
               <>
                 {arrayOfPictureObjects.map((pictureObject) => (
-                  <div className="relative w-36 sm:w-[340px] bg-gray-100 flex justify-center h-56 rounded-lg border-2 border-gray-400 ">
+                  <div className="relative w-[268px] sm:w-[340px] bg-gray-100 flex justify-center sm:h-56 h-40 rounded-lg border-2 border-gray-400 ">
                     <Image
                       src={pictureObject.media_url}
                       alt="cover photo"

@@ -66,7 +66,7 @@ export default function ManageLogo() {
               d="M12 4.5v15m7.5-7.5h-15"
             />
           </svg>
-          <span className="">Add Logo</span>
+          <span>Add Logo</span>
           <input
             id="add logo"
             name="add logo"
@@ -83,8 +83,14 @@ export default function ManageLogo() {
         This is the logo of your entity. (Supported formats: PNG, JPG, GIF,
         JPEG)
       </div>
+
+      {/* //////////////////////////////////////////////////////////////////////// */}
+
       {/* MOBILE BUTTON */}
-      <button className="sm:hidden flex text-blue-500 items-center space-x-1">
+      <label
+        htmlFor="add logo mobile"
+        className="flex w-fit cursor-pointer sm:hidden text-blue-500 items-center space-x-1"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -99,14 +105,24 @@ export default function ManageLogo() {
             d="M12 4.5v15m7.5-7.5h-15"
           />
         </svg>
-        Add Logo
-      </button>
+        <span>Add Logo</span>
+        <input
+          id="add logo mobile"
+          name="add logo mobile"
+          type="file"
+          className="sr-only"
+          onChange={(e) => {
+            handleAddLogoButton(e);
+          }}
+        />
+      </label>
+      {/* //////////////////////////////////////////////////////////////////////// */}
       {/* UPLOAD PICTURE FIELD */}
       <div className=" space-x-4 sm:space-x-4 grid grid-rows-1 grid-flow-col overflow-x-auto">
         {/* CONTAINER TO UPLOAD PICTURE */}
-        <div className="bg-gray-100 flex sm:w-64 sm:mx-auto h-56 rounded-lg border-2 border-dashed border-gray-400 my-4">
+        <div className="bg-gray-100 flex w-52 mx-auto sm:w-64 sm:mx-auto h-40 sm:h-56 rounded-lg border-2 border-dashed border-gray-400 my-4">
           {logoObject?.media_url ? (
-            <div className="relative bg-gray-100 sm:w-full flex justify-center rounded-lg border-2 border-gray-400 ">
+            <div className="relative bg-gray-100 w-full sm:w-full flex justify-center rounded-lg border-2 border-gray-400 ">
               <Image src={logoObject.media_url} alt="cover photo" fill />
               <button
                 onClick={() => handleDeletePictureButton()}

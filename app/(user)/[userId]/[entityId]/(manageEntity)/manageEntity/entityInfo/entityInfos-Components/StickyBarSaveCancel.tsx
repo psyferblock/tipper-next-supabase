@@ -71,24 +71,26 @@ export default function StickyBarSaveCancel(props) {
       (pictureObject) => pictureObject.id == null
     );
 
-    if (logoObject.id == null) {
+    if (logoObject?.id == null) {
+      console.log("logoObject in if", logoObject);
       arrayOfNewPictureObjects.push(logoObject);
+      console.log(
+        "arrayOfNewPictureObjects after loggo adding",
+        arrayOfNewPictureObjects
+      );
     }
-    console.log(
-      "arrayOfNewPictureObjects after loggo adding",
-      arrayOfNewPictureObjects
-    );
+
     if (arrayOfNewPictureObjects.length > 0) {
       await addBasicPictures(arrayOfNewPictureObjects, entityId);
     }
   }
 
   return (
-    <div
-      className="bg-gray-500 opacity-95 h-14 fixed bottom-0 left-0 right-0 py-2 px-12 flex justify-end space-x-5"
-      onClick={() => handleCancelButton()}
-    >
-      <button className="w-28 h-10 rounded-3xl bg-white border hover:bg-gray-200 border-gray-600 text-black text-sm ">
+    <div className="bg-gray-500 opacity-95 h-14 fixed bottom-0 left-0 right-0 py-2 px-12 flex justify-end space-x-5">
+      <button
+        className="w-28 h-10 rounded-3xl bg-white border hover:bg-gray-200 border-gray-600 text-black text-sm "
+        onClick={() => handleCancelButton()}
+      >
         Cancel
       </button>
       <button

@@ -53,11 +53,11 @@ export default function ManageAboutUsPage(props) {
           Brief Description
         </label>
         {/* ABOUT US INPUT FIELD */}
-        <input
-          type="text"
+        <textarea
+          wrap="soft"
           name="about us"
           id="about us"
-          className="h-32 block w-full rounded-md border-gray-300 pb-24 pl-4 pr-12 mt-1 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
+          className="wrap h-8 pt-4 px-4 sm:h-32 block w-full rounded-md border-gray-300 pb-24 sm:pl-4 sm:pr-12 sm:mt-1 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
           placeholder="Enter a description of your wonderful business and people operating it!"
           value={aboutUsDescription}
           onChange={(e) => setAboutUsDescription(e.target.value)}
@@ -66,7 +66,7 @@ export default function ManageAboutUsPage(props) {
       <div>
         {/* UPLOAD PICTURE FIELD */}
         <label className="text-xs text-gray-600 font-medium ">Image</label>
-        <div className="relative bg-gray-100  h-72 rounded-lg border-2 border-dashed border-gray-400 mt-1">
+        <div className="relative bg-gray-100 sm:h-56 h-40 rounded-lg border-2 border-dashed border-gray-400 mt-1">
           {aboutUsPictureUrl ? (
             <>
               <Image
@@ -96,7 +96,7 @@ export default function ManageAboutUsPage(props) {
               </button>
             </>
           ) : (
-            <div className=" flex justify-center rounded-md px-6 pt-[52px] ">
+            <div className=" flex justify-center rounded-md px-6 pt-7 ">
               <div className="space-y-1 text-center">
                 <svg
                   className="mx-auto h-12 w-12 text-gray-400"

@@ -26,13 +26,13 @@ export default async function ManageEntityLayout({
     <div className="bg-gray-300 sm:h-fit sm:min-h-screen px-3 sm:px-12 pt-0 pb-7 sm:py-8">
       {/* //////////////////////////////////////////////////////////////////// */}
       {/* MOBILEEEEEE */}
-      <div className="px-3 flex items-center justify-between sm:hidden h-14 sm:pl-16 sm:h-fit py-3 sm:pt-6 sm:mt-0 sm:pb-5 bg-gray-300 w-full z-50 sm:z-0 fixed sm:relative sm:mb-0 text-2xl sm:text-2xl font-bold sm:font-bold">
+      <div className="px-3 flex items-center justify-between sm:hidden h-20 sm:pl-16 sm:h-fit py-3 sm:pt-6 sm:mt-0 sm:pb-5 bg-gray-300 w-full z-50 sm:z-0 fixed sm:relative sm:mb-0 text-2xl sm:text-2xl font-bold sm:font-bold">
         <MobileHeaderOfCurrentManagementPage />
         <div className="sm:hidden">
           <MobileDropdownManagement />
         </div>
       </div>
-      <div className="h-14 sm:h-0"></div>
+      <div className="h-20 sm:h-0"></div>
       {/* //////////////////////////////////////////////////////////////////// */}
 
       {/* DESKTOPPPPPPP */}

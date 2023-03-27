@@ -13,8 +13,8 @@ export default async function addBasicPictures(
     const { data, error } = await supabase
       .from("entity_basic_media")
       .insert({
-        media_category: arrayOfPictureObjects[i].media_category,
-        media_url: arrayOfPictureObjects[i].media_url,
+        media_category: arrayOfPictureObjects[i]?.media_category,
+        media_url: arrayOfPictureObjects[i]?.media_url,
         entity_id: entityId,
       })
       .select();

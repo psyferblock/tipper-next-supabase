@@ -15,9 +15,9 @@ export default function ExchangeRateInputField({ exchangeRate, entityId }) {
   return (
     <>
       <div className="flex py-4 items-center border border-gray-300 hover:border-indigo-500 rounded-lg h-12 pl-4 mb-4">
-        <p className="h-12 pt-3 text-gray-500 pr-4 border-r border-gray-300">
+        <div className="h-12 pt-3 text-gray-500 pr-4 border-r border-gray-300">
           LBP
-        </p>
+        </div>
         <input
           type="number"
           id="price"
@@ -65,15 +65,15 @@ export default function ExchangeRateInputField({ exchangeRate, entityId }) {
       </div>
       {/* PRICE INPUT FIELD */}
       <div className="flex py-4 items-center border border-gray-300 rounded-lg h-12 pl-4 mb-4">
-        <p className="h-12 pt-3 text-gray-500 pr-4 border-r border-gray-300">
+        <div className="h-12 pt-3 text-gray-500 pr-4 border-r border-gray-300">
           USD
-        </p>
-        <p
+        </div>
+        <div
           id="price"
           className="h-6 block w-60 text-gray-500 border-0 pl-4 pr-12 pt-0.5 focus:border-0 focus:ring-0 sm:text-sm"
         >
           1.00
-        </p>
+        </div>
       </div>
       {editing ? (
         <button

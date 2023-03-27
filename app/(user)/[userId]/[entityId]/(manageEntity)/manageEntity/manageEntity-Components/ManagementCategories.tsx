@@ -12,7 +12,7 @@ export const managementCategories = [
     route: "entityInfo",
   },
   {
-    name: "Highlight",
+    name: "Highlights",
     route: "highlights",
   },
   {

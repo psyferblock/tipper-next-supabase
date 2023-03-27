@@ -4,6 +4,7 @@ import Link from "next/link";
 import CategoriesNavLink from "./manageEntity-Components/CategoriesNavLink";
 import { managementCategories } from "./manageEntity-Components/ManagementCategories";
 import MobileDropdownManagement from "./manageEntity-Components/MobileDropdownManagement";
+import MobileHeaderOfCurrentManagementPage from "./manageEntity-Components/MobileHeaderOfCurrentManagementPage";
 
 export default async function ManageEntityLayout({
   children,
@@ -26,7 +27,7 @@ export default async function ManageEntityLayout({
       {/* //////////////////////////////////////////////////////////////////// */}
       {/* MOBILEEEEEE */}
       <div className="px-3 flex items-center justify-between sm:hidden h-14 sm:pl-16 sm:h-fit py-3 sm:pt-6 sm:mt-0 sm:pb-5 bg-gray-300 w-full z-50 sm:z-0 fixed sm:relative sm:mb-0 text-2xl sm:text-2xl font-bold sm:font-bold">
-        <div>Manage Menu</div>
+        <MobileHeaderOfCurrentManagementPage />
         <div className="sm:hidden">
           <MobileDropdownManagement />
         </div>

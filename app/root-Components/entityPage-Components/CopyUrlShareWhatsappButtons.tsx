@@ -1,8 +1,11 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 export default function CopyUrlShareWhatsappButtons() {
+  const pathname = usePathname();
+
   return (
     <div className="flex items-center">
       <Link
@@ -24,7 +27,7 @@ export default function CopyUrlShareWhatsappButtons() {
       </Link>
       <button
         onClick={() => {
-          navigator.clipboard.writeText("hello");
+          navigator.clipboard.writeText(`${pathname}`);
         }}
         className="flex items-center text-blue-600 hover:text-purple-500"
       >

@@ -13,7 +13,6 @@ import { getEntityTypes } from "@/lib/get/getEntityTypes";
 export default function EntityCreationForm({ params }) {
   //States
   const [entityName, setEntityName] = useState<string | undefined>();
-  const [entityType, setEntityType] = useState<string | undefined>();
   const [entityAddress, setEntityAddress] = useState<string | undefined>();
   const [entityEmailAddress, setEntityEmailAddress] = useState<
     string | undefined
@@ -24,6 +23,24 @@ export default function EntityCreationForm({ params }) {
 
   const [listOfEntityTypes, setListOfEntityTypes] = useState([]);
   const [entityTypeNameSelected, setEntityTypeNameSelected] = useState();
+
+  //Error states
+  const [entityNameIsNullError, setEntityNameIsNullError] = useState(false);
+  const [entityAddressIsNullError, setEntityAddressIsNullError] =
+    useState(false);
+  const [entityEmailAddressIsNullError, setEntityEmailAddressIsNullError] =
+    useState(false);
+  const [entityPhoneNumberIsNullError, setEntityPhoneNumberIsNullError] =
+    useState(false);
+
+  useEffect(() => {
+    setEntityNameIsNullError(false);
+    setEntityAddressIsNullError(false);
+    setEntityEmailAddressIsNullError(false);
+    setEntityPhoneNumberIsNullError(false);
+  }, [entityName, entityAddress, entityEmailAddress, entityPhoneNumber]);
+
+  console.log("entityPhoneNumber", entityPhoneNumber);
 
   useEffect(() => {
     async function getTypes() {
@@ -40,37 +57,54 @@ export default function EntityCreationForm({ params }) {
 
   //Functions
   async function handleCreateNowButton() {
-    //Finding the entity type's id
-    let entityTypeId;
-    listOfEntityTypes.map((entityTypeObject) => {
-      if (entityTypeObject.entity_type_name == entityTypeNameSelected) {
-        entityTypeId = entityTypeObject.id;
-      }
-    });
+    // Checking for Errors
+    if (!entityName?.length) {
+      setEntityNameIsNullError(true);
+    } else if (!entityAddress?.length) {
+      setEntityAddressIsNullError(true);
+    } else if (!entityEmailAddress?.length) {
+      setEntityEmailAddressIsNullError(true);
+    } else if (!entityPhoneNumber) {
+      setEntityPhoneNumberIsNullError(true);
+    } else {
+      // Creating the entity
 
-    const arrOfTags = [entityTypeNameSelected];
+      //Finding the entity type's id
+      let entityTypeId;
+      listOfEntityTypes.map((entityTypeObject) => {
+        if (entityTypeObject.entity_type_name == entityTypeNameSelected) {
+          entityTypeId = entityTypeObject.id;
+        }
+      });
 
-    //Create the entity
-    const response = await createEntity(
-      userId,
-      entityName,
-      entityTypeId,
-      entityAddress,
-      entityEmailAddress,
-      entityPhoneNumber,
-      arrOfTags
-    );
+      const arrOfTags = [entityTypeNameSelected];
 
-    const entityId = response.id;
+      //Create the entity
+      const response = await createEntity(
+        userId,
+        entityName,
+        entityTypeId,
+        entityAddress,
+        entityEmailAddress,
+        entityPhoneNumber,
+        arrOfTags
+      );
 
-    //Creating an exchange rate row in DB referring to the newly created entity
-    await createExchangeRate(entityId, "1500");
+      const entityId = response.id;
 
-    const firstMenuCategoryObject = await createMenuCategory("Main", entityId);
-    console.log("firstMenuCategoryObject", firstMenuCategoryObject);
-    const firstMenuCategoryId = firstMenuCategoryObject.id;
-    //Redirect user to either his entity page or message from tipper
-    router.push(`${userId}/${entityId}/menu/${firstMenuCategoryId}`);
+      //Creating an exchange rate row in DB referring to the newly created entity
+      await createExchangeRate(entityId, "1500");
+
+      const firstMenuCategoryObject = await createMenuCategory(
+        "Main",
+        true,
+        entityId
+      );
+      console.log("firstMenuCategoryObject", firstMenuCategoryObject);
+      const firstMenuCategoryId = firstMenuCategoryObject.id;
+      //Redirect user to either his entity page or message from tipper
+      router.push(`${userId}/${entityId}/menu/${firstMenuCategoryId}`);
+    }
   }
 
   return (
@@ -130,6 +164,12 @@ export default function EntityCreationForm({ params }) {
                 }}
               />
             </div>
+            {/* CONDITIONAL ERROR MESSAGE */}
+            {entityNameIsNullError && (
+              <div className="text-red-500 text-xs sm:text-sm">
+                Please enter a name.
+              </div>
+            )}
             {/* Entity TYPE */}
             <div className="space-y-1">
               <label
@@ -155,15 +195,15 @@ export default function EntityCreationForm({ params }) {
             </div>
             {/* DIVIDOR SEPARATOR */}
             {/* <div className="divide-y"> */}
-            {/* BUSINESS LOCATION */}
+            {/* ENTITY ADDRESS */}
             <div className="space-y-1 mb-7">
               <label
                 htmlFor="names"
                 className="text-xs text-gray-600 font-medium"
               >
-                Business Location*
+                Entity Address*
               </label>
-              {/* BUSINESS LOCATION FIELD */}
+              {/* ENTITY ADDRESS FIELD */}
               <input
                 type="text"
                 name="names"
@@ -175,26 +215,12 @@ export default function EntityCreationForm({ params }) {
                 }}
               />
             </div>
-            {/* BUSINESS OWNER NAME */}
-            {/* <div className="space-y-1 pt-4">
-                <label
-                  htmlFor="names"
-                  className="text-xs text-gray-600 font-medium"
-                >
-                  Business Owner*
-                </label>
-                <input
-                  type="text"
-                  name="names"
-                  id="names"
-                  className="h-12 block w-full rounded-md border-gray-300 pl-4 pr-12 mb-3 focus:border-indigo-500 focus:ring-indigo-500 text-xs sm:text-sm"
-                  placeholder="First and Last Name"
-                  onChange={(e) => {
-                    setOwnerName(e.target.value);
-                  }}
-                />
+            {/* CONDITIONAL ERROR MESSAGE */}
+            {entityAddressIsNullError && (
+              <div className="text-red-500 text-xs sm:text-sm">
+                Please enter an address.
               </div>
-            </div> */}
+            )}
             {/* EMAIL ADDRESS */}
             <div className="space-y-1">
               <label
@@ -215,6 +241,12 @@ export default function EntityCreationForm({ params }) {
                 }}
               />
             </div>
+            {/* CONDITIONAL ERROR MESSAGE */}
+            {entityEmailAddressIsNullError && (
+              <div className="text-red-500 text-xs sm:text-sm">
+                Please enter an e-mail address.
+              </div>
+            )}
             {/* PHONE NUMBER */}
             <div className="space-y-1">
               <label
@@ -235,7 +267,12 @@ export default function EntityCreationForm({ params }) {
                 }}
               />
             </div>
-
+            {/* CONDITIONAL ERROR MESSAGE */}
+            {entityPhoneNumberIsNullError && (
+              <div className="text-red-500 text-xs sm:text-sm">
+                Please enter a phone number.
+              </div>
+            )}
             {/* GENDER RADIO BUTTON */}
             {/* <div>
               <label

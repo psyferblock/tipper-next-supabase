@@ -1,6 +1,6 @@
 "use client";
 import { supabase } from "@/utils/supabase-browser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSupabase } from "../supabase-provider";
@@ -13,6 +13,8 @@ export default function SignInPage() {
   const [password, setPassword] = useState<string | undefined>();
   const [open, setOpen] = useState(false);
 
+  const [signInFailedError, setSignInFailedError] = useState(false);
+
   const router = useRouter();
 
   const handleBackButton = () => {
@@ -24,15 +26,23 @@ export default function SignInPage() {
     setOpen(!open);
   };
 
+  useEffect(() => {
+    setSignInFailedError(false);
+  }, [email, password]);
+
   async function handleSignInButton() {
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
-    if (error) throw error;
-    const userId = data;
-    console.log("data after sign in", userId);
-    router.back();
+    //Check if sign in was successful
+    if (error) {
+      setSignInFailedError(true);
+    } else {
+      const userId = data;
+      console.log("data after sign in", userId);
+      router.back();
+    }
   }
 
   // const { session } = useSupabase();
@@ -72,6 +82,11 @@ export default function SignInPage() {
           </div>
           {/* INPUT FORMS */}
           <div className="space-y-3">
+            {signInFailedError && (
+              <div className="text-red-500 text-xs sm:text-sm">
+                The e-mail and password you entered do not match.
+              </div>
+            )}
             {/* EMAIL ADDRESS */}
             <div className="space-y-1">
               <label

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NavBarSignOutButton from "./NavBarSignOutButton";
-import DefaultProfilePicture from "../../../public/DefaultProfilePicture.jpg";
+import DefaultProfilePicture from "@/public/DefaultProfilePicture.jpg";
 import Image from "next/image";
 import { createServerClient } from "@/utils/supabase-server";
 import { getMyUserInfosServer } from "@/lib/get/getMyUserInfos";

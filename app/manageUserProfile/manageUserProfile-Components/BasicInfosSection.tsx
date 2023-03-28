@@ -5,7 +5,7 @@ import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import updateBasicUserInfos from "@/lib/update/updateBasicUserInfos";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
-import DefaultProfilePicture from "../../../../../public/DefaultProfilePicture.jpg";
+import DefaultProfilePicture from "@/public/DefaultProfilePicture.jpg";
 
 export default function BasicInfosSection({ userInfos }) {
   const [firstName, setFirstName] = useState(userInfos?.first_name);

@@ -89,9 +89,7 @@ export default async function ManageUserProfilePage({ params }) {
                   </button>
                 ) : (
                   <button className="bg-blue-500 text-white w-fit px-5  sm:w-40 h-10 sm:h-10 rounded-3xl sm:rounded-3xl sm:text-sm sm:hover:text-base">
-                    <Link href={`${params.userId}/entityCreation`}>
-                      Create Now
-                    </Link>
+                    <Link href={`${userId}/entityCreation`}>Create Now</Link>
                   </button>
                 )}
               </div>

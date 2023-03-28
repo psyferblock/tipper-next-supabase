@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/(user)/[userId]/[entityId]/(manageEntity)/manageEntity/highlights/highlights-Components"
+    "app/[entityId]/(manageEntity)/manageEntity/highlights/highlights-Components"
   ],
   "exclude": ["node_modules"]
 }

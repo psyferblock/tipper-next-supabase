@@ -2,7 +2,7 @@ import AboutUsSection from "@/app/root-Components/entityPage-Components/AboutUsS
 import ContactUsSection from "@/app/root-Components/entityPage-Components/ContactUsSection";
 import CoverPhotos from "@/app/root-Components/entityPage-Components/CoverPhotosSection";
 import EntityInfosLeftContainer from "@/app/root-Components/entityPage-Components/EntityInfosLeftContainer";
-import Highlights from "@/app/root-Components/entityPage-Components/HighlightsSection";
+import HighlightsSection from "@/app/root-Components/entityPage-Components/HighlightsSection";
 import Link from "next/link";
 import ManageEntityButtonDesktop from "@/app/root-Components/entityPage-Components/ManageEntityDesktopButton";
 import { getHighlightsServer } from "@/lib/get/getHighlights";
@@ -121,7 +121,12 @@ export default async function EntityPageLayout({
             <CoverPhotos entityCoverPictures={entityCoverPictures} />
             {/* HIGHLIGHTS CONTAINER */}
 
-            <Highlights entityHighlights={entityHighlights} />
+            <HighlightsSection
+              userId={userId}
+              entityHighlights={entityHighlights}
+              userOwnsEntity={userOwnsEntity}
+              entityOwnedId={entityOwnedId}
+            />
           </div>
         </div>
 

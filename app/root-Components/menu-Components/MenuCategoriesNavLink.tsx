@@ -4,16 +4,16 @@ import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 
 export default function MenuCategoriesNavLink({
+  userId,
   categoryId,
   children,
   entityId,
 }: {
+  userId: any;
   categoryId: number;
   children: React.ReactNode;
   entityId: number;
 }) {
-  const userId = "506c2ec0-c45d-4105-b27e-f321e81eed32";
-
   const segment = useSelectedLayoutSegment();
   const isActive = `${categoryId}` == segment;
   return (

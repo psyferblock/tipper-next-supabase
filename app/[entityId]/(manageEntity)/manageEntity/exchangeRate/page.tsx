@@ -1,6 +1,5 @@
 import { getExchangeRateServer } from "@/lib/get/getExchangeRate";
 import { createServerClient } from "@/utils/supabase-server";
-import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
 import ExchangeRateInputField from "./exchangeRate-Components/ExchangeRateInputField";
 
 export default async function ManageExchangeRatePage({ params }) {

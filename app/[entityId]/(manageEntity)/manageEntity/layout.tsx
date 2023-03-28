@@ -13,12 +13,16 @@ export default async function ManageEntityLayout({
   children: React.ReactNode;
   params: any;
 }) {
-  //Fetching from DB
   const supabase = createServerClient();
-  const menuCategoryIds = await getMenuCategoriesServer(
-    supabase,
-    params.entityId
-  );
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userId = session?.user.id;
+  const entityId = params.entityId;
+  //Fetching from DB
+
+  const menuCategoryIds = await getMenuCategoriesServer(supabase, entityId);
 
   const firstMenuCategoryId = menuCategoryIds[0]?.id;
 
@@ -26,10 +30,29 @@ export default async function ManageEntityLayout({
     <div className="bg-gray-300 sm:h-fit sm:min-h-screen px-3 sm:px-12 pt-0 pb-7 sm:py-8">
       {/* //////////////////////////////////////////////////////////////////// */}
       {/* MOBILEEEEEE */}
-      <div className="px-3 flex items-center justify-between sm:hidden h-20 sm:pl-16 sm:h-fit py-3 sm:pt-6 sm:mt-0 sm:pb-5 bg-gray-300 w-full z-50 sm:z-0 fixed sm:relative sm:mb-0 text-2xl sm:text-2xl font-bold sm:font-bold">
+      <div className="sm:hidden pr-3 flex items-center justify-between h-20 sm:mt-0 bg-gray-300 w-full z-50 fixed text-xl font-bold">
+        <Link
+          href={`${userId}/${entityId}/menu/${firstMenuCategoryId}`}
+          className="flex -ml-2 mr-1 w-fit items-center font-bold text-2xl"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
+          </svg>
+        </Link>
         <MobileHeaderOfCurrentManagementPage />
         <div className="sm:hidden">
-          <MobileDropdownManagement />
+          <MobileDropdownManagement entityId={entityId} />
         </div>
       </div>
       <div className="h-20 sm:h-0"></div>
@@ -37,7 +60,7 @@ export default async function ManageEntityLayout({
 
       {/* DESKTOPPPPPPP */}
       <Link
-        href={`${params.userId}/${params.entityId}/menu/${firstMenuCategoryId}`}
+        href={`${userId}/${params.entityId}/menu/${firstMenuCategoryId}`}
         className="hidden sm:flex w-fit items-center font-bold text-2xl pt-6 pb-4"
       >
         <svg

@@ -6,8 +6,6 @@ import { createServerClient } from "@/utils/supabase-server";
 import { getMyUserInfosServer } from "@/lib/get/getMyUserInfos";
 
 export default async function Navbar({ session }) {
-  // const userId = "5db1fa83-81ca-4642-bc3d-0c4c3efe5e6e"
-  // console.log("session", session.user.id);
   let profilePictureUrl = "";
   let userId;
   if (session) {

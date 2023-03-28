@@ -2,25 +2,18 @@
 import { useAuthContext } from "@/app/context/Store";
 import { useRouter } from "next/navigation";
 
-export default function EntityPageHighlightsSection({ entityHighlights }) {
-  // BOOLEAN TO DETERMINE WHETHER IT IS ADD HIGHLIGHT OR SHARE BUTTON NEXT TO HIGHLIGHTS
-  const userIsOwner = true;
-  // const listOfHighlights = [
-  //   "Events",
-  //   "Discounts",
-  //   "Our Cookies",
-  //   "Our Customers",
-  //   "Our Customers",
-  //   "Our Customers",
-  //   "Our Customers",
-  // ];
+export default function EntityPageHighlightsSection(props) {
+  const userId = props.userId;
+  const userOwnsEntity = props.userOwnsEntity;
+  const entityOwnedId = props.entityOwnedId;
+
+  const entityHighlights = props.entityHighlights;
 
   const router = useRouter();
 
-  const { userId, ownedEntityId } = useAuthContext();
   const handleAddHighlightButton = (e) => {
     e.preventDefault();
-    router.push(`${userId}/${ownedEntityId}/manageEntity/highlights`);
+    router.push(`${userId}/${entityOwnedId}/manageEntity/highlights`);
   };
   return (
     <div className="flex sm:space-x-3">
@@ -33,7 +26,7 @@ export default function EntityPageHighlightsSection({ entityHighlights }) {
       </div>
 
       <div className="h-fit sm:py-2">
-        {userIsOwner && (
+        {userOwnsEntity && (
           <>
             {/* ADD HIGHLIGHT BUTTON IF USER IS ENTITY OWNER */}
             <button

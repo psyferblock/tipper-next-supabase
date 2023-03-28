@@ -17,7 +17,7 @@ export default function ManagementNavigationDropdownMobile(props) {
 
   const currentSegment = useSelectedLayoutSegment();
 
-  const entityId = "51b7fa04-ef39-41ca-97a2-6d73a1ed413f";
+  const entityId = props.entityId;
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>

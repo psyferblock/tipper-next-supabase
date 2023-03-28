@@ -3,7 +3,7 @@ import EntityCard from "@/app/root-Components/entityCards-Components/EntityCard"
 import { getAllEntitiesServer } from "@/lib/get/getAllEntities";
 import { createServerClient } from "@/utils/supabase-server";
 
-export default async function EntitiesBySectorPage({ userId }) {
+export default async function EntitiesBySectorPage() {
   //Fetch from DB
   const supabase = createServerClient();
   let listOfEntities = await getAllEntitiesServer(supabase);

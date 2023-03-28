@@ -28,10 +28,7 @@ export default async function HomePageListingOfEntitiesCards(props) {
     // },
   ];
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const userId = session?.user.id;
+  const userId = props.userId;
 
   return (
     <>
@@ -93,7 +90,7 @@ export default async function HomePageListingOfEntitiesCards(props) {
           <EntitiesCardsInScrollRowDirection
             listOfEntities={listOfEntities}
             industryId={industry.id}
-            userId={props.userId}
+            userId={userId}
           />
         </div>
       ))}

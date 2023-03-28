@@ -6,13 +6,11 @@ import { createServerClient } from "@/utils/supabase-server";
 export default async function TipperHomePage({ params }) {
   const supabase = createServerClient();
 
-  // const testId = "a7fb29ed-3b7a-452b-a284-ae2a2dff14bb";
-  // //Testing
-  // await getHighlightAndMediasServer(supabase, testId);
-
   const {
     data: { session },
   } = await supabase.auth.getSession();
+
+  const userId = session?.user.id;
 
   console.log("session in home page:", session);
   return (
@@ -30,7 +28,7 @@ export default async function TipperHomePage({ params }) {
         {/* LISTING OF ENTITIES */}
         <div className=" py-5 sm:py-10 space-y-5 sm:space-y-5">
           {/* @ts-expect-error Server Component */}
-          <HomePageListingOfEntitiesCards userId={params.userId} />
+          <HomePageListingOfEntitiesCards userId={userId} />
         </div>
       </div>
     </>

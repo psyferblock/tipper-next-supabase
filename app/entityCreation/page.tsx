@@ -113,7 +113,7 @@ export default function EntityCreationForm({ params }) {
         {/* LEFT PART OF SCREEN */}
         <div className="w-1/3 mb-10 sm:mb-0 sm:py-5 sm:px-5">
           <Link
-            href={`${params.userId}/manageUserProfile`}
+            href={`${userId}/manageUserProfile`}
             className="flex items-center "
           >
             <svg

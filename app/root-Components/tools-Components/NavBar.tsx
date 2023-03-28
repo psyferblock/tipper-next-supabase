@@ -7,14 +7,10 @@ import { getMyUserInfosServer } from "@/lib/get/getMyUserInfos";
 
 export default async function Navbar({ session }) {
   let profilePictureUrl = "";
-  let userId;
   if (session) {
     const supabase = createServerClient();
     const res = await getMyUserInfosServer(supabase, session.user.id);
     profilePictureUrl = res?.profile_picture_url;
-
-    //getting the userId
-    userId = session.user.id;
   }
   return (
     <>
@@ -48,7 +44,7 @@ export default async function Navbar({ session }) {
 
             {/* DESKTOP VERSION */}
             <Link
-              href={`${userId}/manageUserProfile`}
+              href={`manageUserProfile`}
               className="hidden sm:flex items-center sm:space-x-2 text-xs text-white pr-9"
             >
               <div className="relative w-6 h-6 inline-block rounded-full sm:ring-2  overflow-hidden">
@@ -64,10 +60,7 @@ export default async function Navbar({ session }) {
             </Link>
 
             {/* MOBILE VERSION */}
-            <Link
-              href={`${userId}/manageUserProfile`}
-              className="pt-2 sm:hidden"
-            >
+            <Link href={`manageUserProfile`} className="pt-2 sm:hidden">
               <div className="relative w-6 h-6 inline-block rounded-full ring-2 overflow-hidden">
                 {profilePictureUrl ? (
                   <Image src={profilePictureUrl} alt="profile picture" fill />

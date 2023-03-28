@@ -28,8 +28,6 @@ export default function EditHighlightModal(props) {
 
   const highlight = props.highlight;
 
-  const { session } = useSupabase();
-  const userId = session?.user.id;
   const entityId = props.entityId;
 
   const router = useRouter();
@@ -63,7 +61,7 @@ export default function EditHighlightModal(props) {
       await updateHighlightName(highlightName, highlight?.id);
     }
 
-    router.push(`${userId}/${entityId}/manageEntity/highlights`);
+    router.push(`${entityId}/manageEntity/highlights`);
 
     props.closeModal();
   }

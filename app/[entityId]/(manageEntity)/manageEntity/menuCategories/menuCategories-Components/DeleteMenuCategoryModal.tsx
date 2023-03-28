@@ -12,9 +12,6 @@ export default function DeleteMenuCategoryModal(props) {
 
   const router = useRouter();
 
-  const { session } = useSupabase();
-  const userId = session?.user.id;
-
   const entityId = props.entityId;
 
   async function handleDeleteButton() {
@@ -23,7 +20,7 @@ export default function DeleteMenuCategoryModal(props) {
     props.closeModal();
 
     //refresh page by rerouting since we cant use router.refresh since calls to DB are in page.tsx (server component)
-    router.push(`${userId}/${entityId}/manageEntity/menuCategories`);
+    router.push(`${entityId}/manageEntity/menuCategories`);
   }
 
   return (

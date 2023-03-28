@@ -81,15 +81,13 @@ export default async function ManageUserProfilePage({ params }) {
                 {/* ACCESS OR CREATE ENTITY BUTTON */}
                 {userOwnsEntity ? (
                   <button className="bg-blue-500 text-white w-fit px-5 sm:w-48 h-10 sm:h-10 rounded-3xl sm:rounded-3xl sm:text-sm sm:hover:bg-blue-600">
-                    <Link
-                      href={`${userId}/${entityOwnedId}/menu/${firstMenuCategoryId}`}
-                    >
+                    <Link href={`${entityOwnedId}/menu/${firstMenuCategoryId}`}>
                       Access My Entity
                     </Link>
                   </button>
                 ) : (
                   <button className="bg-blue-500 text-white w-fit px-5  sm:w-40 h-10 sm:h-10 rounded-3xl sm:rounded-3xl sm:text-sm sm:hover:text-base">
-                    <Link href={`${userId}/entityCreation`}>Create Now</Link>
+                    <Link href={`entityCreation`}>Create Now</Link>
                   </button>
                 )}
               </div>

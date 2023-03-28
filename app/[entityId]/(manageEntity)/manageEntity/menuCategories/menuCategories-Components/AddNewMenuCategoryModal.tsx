@@ -17,9 +17,6 @@ export default function AddNewMenuCategoryModal(props) {
 
   const router = useRouter();
 
-  const { session } = useSupabase();
-  const userId = session?.user.id;
-
   async function handlePublishButton() {
     //After published button in modal is clicked:
     await createMenuCategory(categoryName, true, entityId);
@@ -27,7 +24,7 @@ export default function AddNewMenuCategoryModal(props) {
     props.closeModal();
 
     //refresh page by rerouting since we cant use router.refresh since calls to DB are in page.tsx (server component)
-    router.push(`${userId}/${entityId}/manageEntity/menuCategories`);
+    router.push(`${entityId}/manageEntity/menuCategories`);
   }
 
   async function handleSaveAsDraftButton() {
@@ -37,7 +34,7 @@ export default function AddNewMenuCategoryModal(props) {
     props.closeModal();
 
     //refresh page by rerouting since we cant use router.refresh since calls to DB are in page.tsx (server component)
-    router.push(`${userId}/${entityId}/manageEntity/menuCategories`);
+    router.push(`${entityId}/manageEntity/menuCategories`);
   }
 
   return (

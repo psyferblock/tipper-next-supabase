@@ -67,7 +67,7 @@ export default async function EntityPageLayout({
         </div>
         {userOwnsEntity && (
           <Link
-            href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}
+            href={`${entityOwnedId}/manageEntity/entityInfo`}
             className="h-fit rounded-3xl text-blue-500 pb-2 text-sm "
           >
             Manage
@@ -80,7 +80,7 @@ export default async function EntityPageLayout({
           <div>{entityInfos.entity_name}</div>
           {userOwnsEntity && (
             <Link
-              href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}
+              href={`${entityOwnedId}/manageEntity/entityInfo`}
               className="h-fit rounded-3xl text-blue-500 pt-3 text-sm "
             >
               Manage Entity
@@ -102,7 +102,7 @@ export default async function EntityPageLayout({
           </div>
           {
             userOwnsEntity && (
-              <Link href={`${userId}/${entityOwnedId}/manageEntity/entityInfo`}>
+              <Link href={`${entityOwnedId}/manageEntity/entityInfo`}>
                 <div className="sm:w-32 sm:h-9 h-fit rounded-3xl sm:border-2 sm:border-gray-500 text-blue-500 sm:text-blue-500 text-xs">
                   <div className="sm:text-center sm:pt-2">Manage Entity</div>
                 </div>
@@ -122,7 +122,6 @@ export default async function EntityPageLayout({
             {/* HIGHLIGHTS CONTAINER */}
 
             <HighlightsSection
-              userId={userId}
               entityHighlights={entityHighlights}
               userOwnsEntity={userOwnsEntity}
               entityOwnedId={entityOwnedId}

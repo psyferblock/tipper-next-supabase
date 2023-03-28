@@ -12,9 +12,6 @@ function classNames(...classes) {
 }
 
 export default function ManagementNavigationDropdownMobile(props) {
-  const { session } = useSupabase();
-  const userId = session?.user.id;
-
   const currentSegment = useSelectedLayoutSegment();
 
   const entityId = props.entityId;
@@ -58,7 +55,7 @@ export default function ManagementNavigationDropdownMobile(props) {
                   const isActive = categoryObject.route == currentSegment;
                   return (
                     <Link
-                      href={`${userId}/${entityId}/manageEntity/${categoryObject.route}`}
+                      href={`${entityId}/manageEntity/${categoryObject.route}`}
                       className={
                         isActive
                           ? "text-sm text-blue-600 px-6 py-2 flex justify-start bg-gray-100 "

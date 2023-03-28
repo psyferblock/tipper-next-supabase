@@ -4,15 +4,6 @@ import { getHighlightAndMediasServer } from "@/lib/get/getHiglightAndMedias";
 import { createServerClient } from "@/utils/supabase-server";
 
 export default async function TipperHomePage({ params }) {
-  const supabase = createServerClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  const userId = session?.user.id;
-
-  console.log("session in home page:", session);
   return (
     <>
       <div className="sm:h-fit sm:min-h-screen px-3 sm:px-12 py-5 sm:py-8">
@@ -28,7 +19,7 @@ export default async function TipperHomePage({ params }) {
         {/* LISTING OF ENTITIES */}
         <div className=" py-5 sm:py-10 space-y-5 sm:space-y-5">
           {/* @ts-expect-error Server Component */}
-          <HomePageListingOfEntitiesCards userId={userId} />
+          <HomePageListingOfEntitiesCards />
         </div>
       </div>
     </>

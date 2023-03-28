@@ -20,15 +20,12 @@ export default function AddNewHighlightModal(props) {
 
   const router = useRouter();
 
-  const { session } = useSupabase();
-  const userId = session?.user.id;
-
   async function handleAddButton() {
     const newHighlightId = await createHighlight(highlightName, props.entityId);
     await insertUrlsToHighlight(arrayOfPictureUrls, newHighlightId);
 
     props.closeModal();
-    router.push(`${userId}/${props.entityId}/manageEntity/highlights`);
+    router.push(`${props.entityId}/manageEntity/highlights`);
   }
 
   async function handleUploadImageButton(e: ChangeEvent<HTMLInputElement>) {

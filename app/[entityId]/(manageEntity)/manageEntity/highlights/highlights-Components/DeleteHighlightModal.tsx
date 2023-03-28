@@ -13,9 +13,6 @@ export default function DeleteHighlightModal(props) {
 
   const router = useRouter();
 
-  const { session } = useSupabase();
-  const userId = session?.user.id;
-
   const entityId = props.entityId;
   async function handleDeleteButton() {
     const highlightId = props.highlightIdToDelete;
@@ -24,7 +21,7 @@ export default function DeleteHighlightModal(props) {
     props.closeModal();
 
     //refresh page by rerouting since we cant use router.refresh since calls to DB are in page.tsx (server component)
-    router.push(`${userId}/${entityId}/manageEntity/highlights`);
+    router.push(`${entityId}/manageEntity/highlights`);
   }
 
   return (

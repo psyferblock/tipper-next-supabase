@@ -14,7 +14,6 @@ export default async function EntityCard(props) {
   const menuCategories = await getMenuCategoriesServer(supabase, entityId);
 
   const firstMenuCategoryId = menuCategories[0]?.id;
-  const userId = props.userId;
 
   const displayPicture = await getChosenEntityCardPictureServer(
     supabase,
@@ -25,7 +24,7 @@ export default async function EntityCard(props) {
   return (
     <>
       <Link
-        href={`/${userId}/${entityId}/menu/${firstMenuCategoryId}`}
+        href={`${entityId}/menu/${firstMenuCategoryId}`}
         className="relative bg-gray-400 w-60 sm:w-[302px] h-40 sm:h-[162px] drop-shadow-lg rounded-md sm:pb-6 overflow-hidden"
       >
         {displayPictureUrl ? (

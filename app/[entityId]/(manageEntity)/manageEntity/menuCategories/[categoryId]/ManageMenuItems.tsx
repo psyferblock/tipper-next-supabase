@@ -28,9 +28,6 @@ export default function ManageMenuItems({
   const [isDeleteItemModalOpen, setIsDeleteItemModalOpen] = useState(false);
   const [itemIdToDelete, setItemIdToDelete] = useState();
 
-  const { session } = useSupabase();
-  const userId = session?.user.id;
-
   const handleAddItemButton = (e) => {
     e.preventDefault();
     setIsAddItemModalOpen(true);
@@ -89,7 +86,7 @@ export default function ManageMenuItems({
               <div className="flex items-center justify-between">
                 {/* CATEGORY NAME HEADER */}
                 <Link
-                  href={`${userId}/${entityId}/manageEntity/menuCategories`}
+                  href={`${entityId}/manageEntity/menuCategories`}
                   className="flex items-center space-x-2"
                 >
                   <svg
@@ -107,7 +104,7 @@ export default function ManageMenuItems({
                     />
                   </svg>
                   <Link
-                    href={`${userId}/${entityId}/manageEntity/menuCategories`}
+                    href={`${entityId}/manageEntity/menuCategories`}
                     className="font-bold text-3xl"
                   >
                     {categoryName}

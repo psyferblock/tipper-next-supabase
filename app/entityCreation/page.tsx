@@ -103,7 +103,7 @@ export default function EntityCreationForm({ params }) {
       console.log("firstMenuCategoryObject", firstMenuCategoryObject);
       const firstMenuCategoryId = firstMenuCategoryObject.id;
       //Redirect user to either his entity page or message from tipper
-      router.push(`${userId}/${entityId}/menu/${firstMenuCategoryId}`);
+      router.push(`${entityId}/menu/${firstMenuCategoryId}`);
     }
   }
 
@@ -112,10 +112,7 @@ export default function EntityCreationForm({ params }) {
       <div className="sm:flex">
         {/* LEFT PART OF SCREEN */}
         <div className="w-1/3 mb-10 sm:mb-0 sm:py-5 sm:px-5">
-          <Link
-            href={`${userId}/manageUserProfile`}
-            className="flex items-center "
-          >
+          <Link href={`manageUserProfile`} className="flex items-center ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

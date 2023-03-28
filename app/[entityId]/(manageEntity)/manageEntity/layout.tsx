@@ -15,10 +15,6 @@ export default async function ManageEntityLayout({
 }) {
   const supabase = createServerClient();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const userId = session?.user.id;
   const entityId = params.entityId;
   //Fetching from DB
 
@@ -32,7 +28,7 @@ export default async function ManageEntityLayout({
       {/* MOBILEEEEEE */}
       <div className="sm:hidden pr-3 flex items-center justify-between h-20 sm:mt-0 bg-gray-300 w-full z-50 fixed text-xl font-bold">
         <Link
-          href={`${userId}/${entityId}/menu/${firstMenuCategoryId}`}
+          href={`${entityId}/menu/${firstMenuCategoryId}`}
           className="flex -ml-2 mr-1 w-fit items-center font-bold text-2xl"
         >
           <svg
@@ -60,7 +56,7 @@ export default async function ManageEntityLayout({
 
       {/* DESKTOPPPPPPP */}
       <Link
-        href={`${userId}/${params.entityId}/menu/${firstMenuCategoryId}`}
+        href={`${params.entityId}/menu/${firstMenuCategoryId}`}
         className="hidden sm:flex w-fit items-center font-bold text-2xl pt-6 pb-4"
       >
         <svg

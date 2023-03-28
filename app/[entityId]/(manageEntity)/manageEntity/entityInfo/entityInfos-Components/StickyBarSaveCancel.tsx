@@ -10,8 +10,7 @@ import { useManageEntityInfosContext } from "../EntityInfoContext";
 export default function StickyBarSaveCancel(props) {
   const entityId = props.entityId;
   const router = useRouter();
-  const { session } = useSupabase();
-  const userId = session?.user.id;
+
   const {
     logoObject,
     arrayOfPictureObjects,
@@ -54,7 +53,7 @@ export default function StickyBarSaveCancel(props) {
 
     //Refresh page every change is saved
     //Im not doing router.refresh because i want to refresh the data fetched and the data fetched is in layout page
-    router.push(`${userId}/${entityId}/manageEntity/entityInfo`);
+    router.push(`${entityId}/manageEntity/entityInfo`);
   }
 
   //Function that removes the objects that were added but then user pressed on "Cancel" instead of "Save"

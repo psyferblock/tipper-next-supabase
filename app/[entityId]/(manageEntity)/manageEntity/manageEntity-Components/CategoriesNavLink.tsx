@@ -13,14 +13,11 @@ export default function CategoriesNavLink({
   children: React.ReactNode;
   entityId: any;
 }) {
-  const { session } = useSupabase();
-  const userId = session?.user.id;
-
   const currentSegment = useSelectedLayoutSegment();
   const isActive = categoryRoute == currentSegment;
   return (
     <Link
-      href={`/${userId}/${entityId}/manageEntity/${categoryRoute}`}
+      href={`${entityId}/manageEntity/${categoryRoute}`}
       className={
         isActive
           ? "text-blue-600 px-6 py-2 flex justify-start sm:bg-gray-100 "

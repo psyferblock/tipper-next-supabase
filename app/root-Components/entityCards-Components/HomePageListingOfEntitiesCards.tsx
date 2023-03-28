@@ -28,8 +28,6 @@ export default async function HomePageListingOfEntitiesCards(props) {
     // },
   ];
 
-  const userId = props.userId;
-
   return (
     <>
       {industries.map((industry) => (
@@ -41,7 +39,7 @@ export default async function HomePageListingOfEntitiesCards(props) {
             </div>
             <Link
               className="text-sm text-blue-500 justify-end flex items-center sm:space-x-1"
-              href={`${userId}/entitiesBySector`}
+              href={`entitiesBySector`}
             >
               View All
               <svg
@@ -68,7 +66,7 @@ export default async function HomePageListingOfEntitiesCards(props) {
             </div>
             <Link
               className="text-sm text-blue-500 justify-end flex items-center sm:space-x-1"
-              href={`${userId}/entitiesBySector`}
+              href={`entitiesBySector`}
             >
               View All
               <svg
@@ -90,7 +88,6 @@ export default async function HomePageListingOfEntitiesCards(props) {
           <EntitiesCardsInScrollRowDirection
             listOfEntities={listOfEntities}
             industryId={industry.id}
-            userId={userId}
           />
         </div>
       ))}

@@ -3,7 +3,6 @@ import { useAuthContext } from "@/app/context/Store";
 import { useRouter } from "next/navigation";
 
 export default function EntityPageHighlightsSection(props) {
-  const userId = props.userId;
   const userOwnsEntity = props.userOwnsEntity;
   const entityOwnedId = props.entityOwnedId;
 
@@ -13,7 +12,7 @@ export default function EntityPageHighlightsSection(props) {
 
   const handleAddHighlightButton = (e) => {
     e.preventDefault();
-    router.push(`${userId}/${entityOwnedId}/manageEntity/highlights`);
+    router.push(`${entityOwnedId}/manageEntity/highlights`);
   };
   return (
     <div className="flex sm:space-x-3">

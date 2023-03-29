@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useManageEntityInfosContext } from "../EntityInfoContext";
+import { useManageEntityInfosContext } from "../Contexts/EntityInfoContext";
 
 export default function ManageTags() {
   const { tags, setTags } = useManageEntityInfosContext();

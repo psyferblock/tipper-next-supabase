@@ -4,7 +4,7 @@ import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import deleteBasicPictureWithId from "@/lib/delete/deleteBasicPictureWithId";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
-import { useManageEntityInfosContext } from "../EntityInfoContext";
+import { useManageEntityInfosContext } from "../Contexts/EntityInfoContext";
 
 export default function ManageLogo() {
   const { logoObject, setLogoObject } = useManageEntityInfosContext();

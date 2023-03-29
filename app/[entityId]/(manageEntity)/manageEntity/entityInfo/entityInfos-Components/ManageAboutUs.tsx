@@ -6,7 +6,7 @@ import { deleteBasicPictureWithUrl } from "@/lib/delete/deleteBasicPictureWithId
 import { deleteAboutUsPicture } from "@/lib/update/deleteContactOrAboutUsPicture";
 import Image from "next/image";
 import { ChangeEvent } from "react";
-import { useManageEntityInfosContext } from "../EntityInfoContext";
+import { useManageEntityInfosContext } from "../Contexts/EntityInfoContext";
 
 export default function ManageAboutUsPage(props) {
   const {

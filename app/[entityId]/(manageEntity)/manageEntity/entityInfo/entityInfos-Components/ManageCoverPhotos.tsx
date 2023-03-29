@@ -4,7 +4,7 @@ import uploadPictureToBucket from "@/lib/create/uploadPictureToBucket";
 import deleteBasicPictureWithId from "@/lib/delete/deleteBasicPictureWithId";
 import Image from "next/image";
 import { ChangeEvent } from "react";
-import { useManageEntityInfosContext } from "../EntityInfoContext";
+import { useManageEntityInfosContext } from "../Contexts/EntityInfoContext";
 
 export default function ManageCoverPhotos() {
   // Could be used for when Add Highlight button is clicked to go to new pic

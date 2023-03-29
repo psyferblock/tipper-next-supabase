@@ -5,7 +5,7 @@ import uploadPicture from "@/lib/create/uploadPictureToBucket";
 import { deleteContactUsPicture } from "@/lib/update/deleteContactOrAboutUsPicture";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useManageEntityInfosContext } from "../EntityInfoContext";
+import { useManageEntityInfosContext } from "../Contexts/EntityInfoContext";
 
 export default function ManageContactUsPage(props) {
   const {

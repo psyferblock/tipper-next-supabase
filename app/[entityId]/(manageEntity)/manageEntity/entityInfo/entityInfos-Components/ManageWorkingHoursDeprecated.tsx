@@ -1,4 +1,4 @@
-import WorkingHoursRow from "./WorkingHoursRow";
+import WorkingHoursRow from "./WorkingHoursRowDeprecated";
 
 export default function ManageWorkingHours() {
   return (

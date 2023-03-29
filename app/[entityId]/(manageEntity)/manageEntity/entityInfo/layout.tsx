@@ -1,7 +1,8 @@
 import { getBasicPicturesServer } from "@/lib/get/getBasicPictures";
 import { getEntityInfosServer } from "@/lib/get/getEntityInfos";
 import { createServerClient } from "@/utils/supabase-server";
-import { ManageEntityInfosContextProvider } from "./EntityInfoContext";
+import { ManageEntityInfosContextProvider } from "./Contexts/EntityInfoContext";
+import { ManageOpeningHoursContextProvider } from "./Contexts/openingClosingStore";
 
 export default async function ManageEntityInfosLayout({
   children,
@@ -26,14 +27,20 @@ export default async function ManageEntityInfosLayout({
   const logoPictureObject = arrayOfLogoPictureObject[0];
 
   console.log("logoPictureObject::", logoPictureObject);
-
+  const hoursInput = [
+    { days: [1], from: "09:00", to: "21:00" },
+    { days: [2], from: "11:00", to: "21:00" },
+    { days: [3], from: "11:00", to: "21:00" },
+  ];
   return (
     <ManageEntityInfosContextProvider
       entityInfos={entityInfos}
       coverPictures={arrayOfCoverPictureObjects}
       logoPictureObject={logoPictureObject}
     >
-      {children}
+      <ManageOpeningHoursContextProvider hoursInput={hoursInput}>
+        {children}
+      </ManageOpeningHoursContextProvider>
     </ManageEntityInfosContextProvider>
   );
 }

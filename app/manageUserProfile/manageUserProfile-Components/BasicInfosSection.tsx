@@ -49,9 +49,9 @@ export default function BasicInfosSection({ userInfos }) {
   return (
     <div className="bg-white drop-shadow-lg sm:h-fit sm:w-full rounded-lg sm:rounded-lg pt-2 pb-3 sm:py-4 px-4 sm:px-6">
       <div className="flex sm:flex sm:items-center sm:justify-between pb-3 sm:pb-4">
-        <p className="font-bold sm:font-bold text-lg sm:text-lg grow ">
+        <div className="font-bold sm:font-bold text-lg sm:text-lg grow ">
           Basic Information
-        </p>
+        </div>
         {editing ? (
           <button
             onClick={onSaveButtonClick}

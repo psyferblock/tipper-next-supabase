@@ -3,8 +3,7 @@ import ManageContactUs from "./entityInfos-Components/ManageContactUs";
 import ManageCoverPhotos from "./entityInfos-Components/ManageCoverPhotos";
 import ManageSocialMedia from "./entityInfos-Components/ManageSocialMedia";
 import ManageTags from "./entityInfos-Components/ManageTags";
-import ManageWorkingHours from "./entityInfos-Components/ManageWorkingHours";
-import MobileDropdownManagement from "../manageEntity-Components/MobileDropdownManagement";
+import ManageWorkingHours from "./entityInfos-Components/showHours/ManageWorkingHours";
 import StickyBarSaveCancel from "./entityInfos-Components/StickyBarSaveCancel";
 import ManageLogo from "./entityInfos-Components/ManageLogo";
 

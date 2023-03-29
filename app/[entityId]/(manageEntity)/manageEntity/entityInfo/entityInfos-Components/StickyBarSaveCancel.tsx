@@ -2,14 +2,19 @@
 
 import { useSupabase } from "@/app/supabase-provider";
 import addBasicPictures from "@/lib/create/addBasicPictures";
+import addClosingHours from "@/lib/create/addClosingHours";
+import addOpeningHours from "@/lib/create/addOpeningHours";
 import updateEntityInfos from "@/lib/update/updateEntityInfos";
 import { supabase } from "@/utils/supabase-browser";
 import { useRouter } from "next/navigation";
-import { useManageEntityInfosContext } from "../EntityInfoContext";
+import { useManageEntityInfosContext } from "../Contexts/EntityInfoContext";
+import { useManageOpeningHoursContext } from "../Contexts/openingClosingStore";
 
 export default function StickyBarSaveCancel(props) {
   const entityId = props.entityId;
   const router = useRouter();
+
+  const contextState = useManageOpeningHoursContext();
 
   const {
     logoObject,
@@ -82,6 +87,19 @@ export default function StickyBarSaveCancel(props) {
     if (arrayOfNewPictureObjects.length > 0) {
       await addBasicPictures(arrayOfNewPictureObjects, entityId);
     }
+
+    await addClosingHours(
+      contextState.openingHoursMondayFriday,
+      contextState.openingHoursSaturday,
+      contextState.openingHoursSunday,
+      entityId
+    );
+    await addOpeningHours(
+      contextState.closingHoursMondayFriday,
+      contextState.closingHoursSaturday,
+      contextState.closingHoursSunday,
+      entityId
+    );
   }
 
   return (

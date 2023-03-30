@@ -1,14 +1,15 @@
 "use client";
 
 import React, { FormEvent, useRef, useState } from "react";
-
+import { usePathname } from "next/navigation";
 //importing qr code from qrcode.react library //
-
 import { QRCodeCanvas } from "qrcode.react";
 import ReactDOM from "react-dom";
-import Link from "next/link";
 
-export default function QrCodeGenerator({ pageUrl, logo }) {
+export default function QrCodeGenerator({ logo }) {
+  //Setting the page URL to which the QR code redirects you on scan
+  const pageUrl = usePathname();
+
   //   const [url, setUrl] = useState<string>("");
   const qrRef = useRef<HTMLDivElement | null>(null);
   const [color, setColor] = useState<string>("black");
